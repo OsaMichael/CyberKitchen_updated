@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <ol class="breadcrumb page-breadcrumb pull-right">
     @*<li>
         <i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -15,7 +14,7 @@
     </li>*@
 
 </ol>
-<h1 class="alert-info">ADD VOTERS</h1>
+<h1 class="alert-info">ADD STAFF</h1>
 <div class="card-body" id="bar-parent">
     <form action="CreateVoter" method="Post" id="form_sample_1" class="form-horizontal" novalidate="novalidate">
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })

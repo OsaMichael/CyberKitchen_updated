@@ -21,8 +21,8 @@ namespace Cyber_Kitchen.Manager
         {
             return Operation.Create(() =>
             {
-                //model.Validate();
-                var isExists = _context.Ratings.Where(c => c.RatId == model.RatId).FirstOrDefault();
+                //model.Validate();    // this part was added to compare UserId .. tovod multple voting   
+                var isExists = _context.Ratings.Where(c => c.UserId == model.UserId && c.RestId == model.RestId).FirstOrDefault();
                 if (isExists != null) throw new Exception("rating already exist");
 
                 var entity = model.Create(model);
@@ -38,7 +38,7 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() =>
             {
                 var entities = _context.Ratings.ToList();
-
+                
                 var models = entities.Select(s => new RatingModel(s)
                 {
                     Voters = new VoterModel(s.Voter),
@@ -76,20 +76,25 @@ namespace Cyber_Kitchen.Manager
 
             });
         }
-
         public Operation<List<SummaryReportModel>> GetRestaurantSummaryReport()
         {
             return Operation.Create(() =>
             {
-                var query = (from r in _context.Restaurants.Include("Scores")
+                var query = (from r in _context.Restaurants.Include("Ratings")
                              group r by r.RestId into g
                              select new SummaryReportModel
                              {
                                  RestId = g.Key,
                                  RestName = g.Select(c => c.RestName).FirstOrDefault(),
                                  EntryDate = g.Select(c => c.CreatedDate).FirstOrDefault(),
-                                 RestSum = g.Select(c => c.Scores).Sum(v => v.Sum(s =>
-                                 s.Quality + s.Quantity + s.Taste + s.TimeLiness + s.CustomerServices))
+                                 RestSum = g.Select(c => c.Ratings).Sum(v => v.Sum(r =>
+                                 r.Quality + r.Quantity + r.Taste + r.TimeLiness + r.CustomerServices)),
+                                 Taste = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.Taste)),
+                                 Quality = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.Quality)),
+                                 Quantity = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.Quantity)),
+                                 CustomerServices = g.Select(c => c.Ratings).Sum(v=>v.Sum(r => r.CustomerServices)),
+                                 TimeLiness = g.Select(c => c.Ratings).Sum(v =>v.Sum(r =>r.TimeLiness))
+
                              }).OrderByDescending(c => c.RestSum.Value).ToList();
                 //
                 // sum (c=> c.sum(x =>x.total))
@@ -99,6 +104,9 @@ namespace Cyber_Kitchen.Manager
             });
         }
 
+      
+        //    });
+        //}
         //public Operation<SummaryReportModel> GetSummaryReportById(int RestId)
         //{
         //    return Operation.Create(() =>
@@ -106,10 +114,8 @@ namespace Cyber_Kitchen.Manager
         //        var entity = _context.SummaryReports.Find(RestId);
         //        if (entity == null) throw new Exception("Summary does not exist");
         //        return new SummaryReportModel();
-
         //    });
         //}
-
         //public Operation DeleteSummaryReport(int id)
         //{
         //    return Operation.Create(() =>
@@ -118,7 +124,7 @@ namespace Cyber_Kitchen.Manager
         //        if (entity == null) throw new Exception("SummaryReport does not exist");
 
         //        _context.SummaryReports.Remove(entity);
-        //        _context.SaveChanges();
+        //       _context.SaveChanges();
         //    });
         //}
         //public Operation GetDetails(int id)

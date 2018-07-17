@@ -1,7 +1,9 @@
 ﻿using Cyber_Kitchen.Entities;
 using Cyber_Kitchen.Interface;
 using Cyber_Kitchen.Models;
+//using Cyber_Kitchen.ViewModels;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +24,10 @@ namespace Cyber_Kitchen.Controllers
             _votMgr = votMgr;
             _restMgr = restMgr;
         }
-        
 
-        //GET: Rating
-        public ActionResult Index()
+
+        //GET:                       // int? page, was added for pagination
+        public ActionResult Index( int? page)
         {
             if (TempData["message"] != null)
             {
@@ -41,69 +43,57 @@ namespace Cyber_Kitchen.Controllers
                 {
                     item.TotalScore =
                         item.Quality + item.Quantity + item.Taste + item.CustomerServices + item.TimeLiness;
-                }
-                return View(results.Unwrap());
+                }                             // this was added for pagination
+                return View(results.Unwrap().ToPagedList(page ?? 1, 12));
             }
-
             else
             {
                 ModelState.AddModelError(string.Empty, "An error occure");
-                return View();
+                                             // this was added for pagination
+                return View(results.Unwrap().ToPagedList(page ?? 1, 12));
             }
         }
-
-        public ViewResult New()
-        {
-            var restuarants = _restMgr.GetRestaurants();
-
-            var result = new Restaurant 
-            {
-               RestName = restuara
-            };
-
-
-        }
-
-
-
-
-        //public ActionResult Details(int id)
-        //{
-        //    var results = _scoreMgr.GetScoreById(id);
-        //    return View(results);
-        //}
+       
 
         [HttpGet]
         public ActionResult CreateRating()
         {
             ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
-            ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
+            // ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
+            // here i pass the data to the view
+            ViewBag.restaurants = _restMgr.GetRestaurants().Result;
 
-            //          ViewBag.voters = _votMgr.GetVoters()
-            //.Select(c => new SelectListItem { Value = c.VoterId, Text = c.VotName })
-            //.ToList();
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateRating(RatingModel[] model)
+        public ActionResult CreateRating(List<RatingModel> model)
         {
-            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
-            ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
+            //ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+            //var userId = User.Identity.GetUserId();
+            //model.UserId = userId;
+            //model.CreatedBy = User.Identity.GetUserName();
 
-            model.CreatedBy = User.Identity.GetUserId();
-            var result = _ratMgr.CreateRating(model);
-            if (result.Succeeded == true)
+            var ratingModel = new Operation<RatingModel>();
+            foreach (var item in model)
             {
-                TempData["message"] = $"Rating{model.RatId} was successfully added!";
+                
+                item.CreatedBy = User.Identity.GetUserId();
+                //to get the userId that login
+                item.UserId = User.Identity.GetUserId();
+                ratingModel = _ratMgr.CreateRating(item);
+            }
+           
+            if (ratingModel.Succeeded == true)
+            {
+                TempData["message"] = $"{model} was successfully added!";
+
 
                 if (User.IsInRole("Admin"))
                 {
                     return RedirectToAction("Index");
                 }
                 return RedirectToAction("Index", "Home");
-
-
             }
             return View(model);
         }

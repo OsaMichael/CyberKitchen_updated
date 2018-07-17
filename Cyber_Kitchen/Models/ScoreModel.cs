@@ -16,9 +16,11 @@ namespace Cyber_Kitchen.Models
         public int? VoterId { get; set; }
         [DisplayName("Restaurants Name")]
         [Required]
-        public int? RestId { get; set; } 
+        public int? RestId { get; set; }
+        public string UserId { get; set; }
         [Required]
         public int Taste { get; set; }
+   
         [Required]
         public int Quality { get; set; }
         [Required]
@@ -36,11 +38,13 @@ namespace Cyber_Kitchen.Models
 
         public virtual RestaurantModel Restaurant { get; set; }
         public virtual VoterModel Voters { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public ScoreModel()
         {
             new RestaurantModel();
             new VoterModel();
+            new ApplicationUser();
         }
 
         public ScoreModel(Score scores)
@@ -48,6 +52,7 @@ namespace Cyber_Kitchen.Models
             this.Assign(scores);
             Restaurant = new RestaurantModel();
             Voters = new VoterModel();
+            User = new ApplicationUser();
         }
 
         public Score Create(ScoreModel model)
@@ -56,6 +61,7 @@ namespace Cyber_Kitchen.Models
             {
                 RestId = model.RestId,
                 VoterId = model.VoterId,
+                UserId = model.UserId,
                 Taste = model.Taste,
                 Quality = model.Quality,
                 Quantity = model.Quantity,
@@ -72,6 +78,7 @@ namespace Cyber_Kitchen.Models
             entity.ScoreId = model.ScoreId;
             entity.RestId = model.RestId;
             entity.VoterId = model.VoterId;
+            entity.UserId = model.UserId;
             entity.Taste = model.Taste;
             entity.Quality = model.Quality;
             entity.Quantity = model.Quantity;

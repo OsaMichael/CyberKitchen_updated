@@ -52,7 +52,7 @@ namespace Cyber_Kitchen.Interface
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
         void Update<T>(T item) where T : class;
-
+         
 
         IEnumerable<T> Execute<T>(string sprocname, object args) where T : class;
 

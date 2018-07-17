@@ -15,6 +15,9 @@ namespace Cyber_Kitchen.Models
         public DbSet<Score> Scores { get; set; }
         public DbSet<SummaryReport> SummaryReports { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<CatererInfo> CatererInfos { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        //public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public ApplicationDbContext()
            : base("DefaultConnection", throwIfV1Schema: false)
         {

@@ -12,10 +12,12 @@ namespace Cyber_Kitchen.Controllers
     public class SummaryReportController : Controller
     {
         private IScoreManager _scoreMgr;
+        private IRatingManager _ratMgr;
 
-        public SummaryReportController(IScoreManager scoreMgr)
+        public SummaryReportController(IScoreManager scoreMgr, IRatingManager ratMgr)
         {
             _scoreMgr = scoreMgr;
+            _ratMgr = ratMgr;
         }
         // GET: SummaryReport
         public ActionResult Index()
@@ -24,16 +26,16 @@ namespace Cyber_Kitchen.Controllers
             {
                 ViewBag.Success = (string)TempData["message"];
             }
-
-            var results = _scoreMgr.GetRestaurantSummaryReport();
-
+            var results = _ratMgr.GetRestaurantSummaryReport();
+            //var results = _scoreMgr.GetRestaurantSummaryReport();
+          
             if (results.Succeeded == true)
             {
+                //ViewData["MyRestaurant"] = results;
                 TempData["message"] = "was successfully added!";
-
                 return View(results.Unwrap());
             }
-
+          
             else
             {
                 ModelState.AddModelError(string.Empty, "An error occure");
@@ -42,10 +44,10 @@ namespace Cyber_Kitchen.Controllers
         }
         public ActionResult Details(int id)
         {
-            var results = _scoreMgr.GetScoreById(id);
+            var results = _ratMgr.GetRatingById(id);
             return View(results);
         }
-        //public ActionResult Details (int id)
+        //public ActionResult Details(int id)
         //{
         //    var result = _scoreMgr
         //    return View();
@@ -53,7 +55,7 @@ namespace Cyber_Kitchen.Controllers
         //[HttpGet]
         //public ActionResult DeleteSummaryReport(int id)
         //{
-        //    var result = _scoreMgr.GetSummaryReportById(id);
+        //    var result = _ratMgr.GetSummaryReportById(id);
         //    if (result.Succeeded)
         //    {
         //        return View(result.Result);
@@ -68,15 +70,15 @@ namespace Cyber_Kitchen.Controllers
         //[HttpPost]
         //public ActionResult DeleteSummaryReport(int id, SummaryReport model)
         //{
-        //    var result = _scoreMgr.GetSummaryReportById(id);
+        //    var result = _ratMgr.GetSummaryReportById(id);
         //    if (result == null)
         //    {
         //        return View("not found");
         //    }
-        //    _scoreMgr.DeleteSummaryReport(id);
+        //    _ratMgr.DeleteSummaryReport(id);
         //    return RedirectToAction("Index");
 
-        //    return View();
+        //    //return View();
         //}
 
     }

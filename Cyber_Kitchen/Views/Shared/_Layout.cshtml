@@ -22,20 +22,37 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-                    <li>@Html.ActionLink("Voters", "index", "Voter")</li>
-                    <li>@Html.ActionLink("Restaurants", "index", "Restaurant")</li>
-                    <li>@Html.ActionLink("Scores", "index", "Score")</li>
-                    <li>@Html.ActionLink("Rating", "index", "Rating")</li>
+
+                   
+                    @if (User.IsInRole("Admin"))
+                    { 
+                        <li>@Html.ActionLink("Staff Names", "index", "Voter")</li>
+                        <li>@Html.ActionLink("Upload Staffs", "UploadVoters", "Voter")</li>
+                        <li>@Html.ActionLink("Restaurants", "index", "Restaurant")</li>
+                        <li>@Html.ActionLink("Rating", "index", "Rating")</li>
+                        <li>@Html.ActionLink("Daily Meal", "index", "Meal")</li>
+                    }
+
+
+                    @*<li>@Html.ActionLink("Scores", "index", "Score")</li>*@
+                
+                    @*<li>@Html.ActionLink("Caterer Info", "index", "CatererInfo")</li>*@
+                     
+
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("SummaryReport", "index", "SummaryReport")</li>
                     }
-                   
+                    @*<td>
+                        <img style="width: 15%" src="~/images/CyberKitchen.jpg" alt="Simple photo" />
+                    </td>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />

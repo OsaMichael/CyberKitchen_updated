@@ -28,7 +28,7 @@
                     <th> Score Id </th>
                 }
               
-                <th> @Html.LabelFor(m => m.FirstOrDefault().VoterId) </th>
+                @*<th> @Html.LabelFor(m => m.FirstOrDefault().VoterId) </th>*@
                 <th> @Html.LabelFor(m => m.FirstOrDefault().RestId) </th>
                 <th> Taste  </th>
                 <th> Quality </th>
@@ -55,7 +55,7 @@
                         <td class="left">@Html.DisplayFor(modelItem => item.ScoreId)</td>
                     }
                     
-                    <td>@Html.DisplayFor(modelItem => item.Voters.VotName)</td>
+                    @*<td>@Html.DisplayFor(modelItem => item.Voters.VotName)</td>*@
                     <td>@Html.DisplayFor(modelItem => item.Restaurant.RestName)</td>
                     <td>@Html.DisplayFor(modelItem => item.Taste)</td>
                     <td>@Html.DisplayFor(modelItem => item.Quality)</td>
@@ -70,11 +70,11 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <td>
-                                @*<a href="/Score/DeleteScore?id=@item.ScoreId" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.ScoreId" data-name="@item.ScoreId">
+                                <a href="/Score/DeleteScore?id=@item.ScoreId" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.ScoreId" data-name="@item.ScoreId">
                                     <i class="fa fa-trash-o "></i>
-                                </a>*@
+                                </a>
                                 @*<a href="/Score/DeleteScore?id=@item.ScoreId" class="js-delete-score" data-score-id="@item.ScoreId">Delete</a>*@
-                                <a href="/Score/DeleteScore/7" class="js-delete-score">Delete</a>
+                                @*<a href="/Score/DeleteScore/7" class="js-delete-score">Delete</a>*@
 
                             </td>
                         } 
@@ -85,7 +85,7 @@
     </table>
    
 
-    @section scripts
+    @*@section scripts
         {
             <script>
                 $(document).ready(function () {
@@ -110,5 +110,5 @@
                     });
                 });
             </script>
-          }
+          }*@
     @*<a href="/Score/DeleteScore/7" class="delete">Delete</a>*@

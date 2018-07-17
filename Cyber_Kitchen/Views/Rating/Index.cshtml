@@ -1,4 +1,10 @@
-﻿@model IEnumerable<Cyber_Kitchen.Models.RatingModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+
+@model IPagedList<Cyber_Kitchen.Models.RatingModel>
+    
+    
 
 @{
     ViewBag.Title = "Index";
@@ -13,7 +19,7 @@
 <div class="btn-group">
     @if (User.IsInRole("Admin"))
     {
-        <a href="@Url.Action("CreateRating", "Rating")" class="btn btn-info "><i class="fa fa-plus"></i>Add New </a>
+        <a href="@Url.Action("CreateRating", "Rating")" class="btn btn-info "><i class="fa fa-plus"></i>VOTE </a>
     }
 
 </div>
@@ -24,10 +30,10 @@
             <tr>
                 @if (User.IsInRole("Admin"))
                 {
-                    <th> Score Id </th>
+                    <th> s/n </th>//RatId
                 }
 
-                <th> @Html.LabelFor(m => m.FirstOrDefault().VoterId) </th>
+                @*<th> @Html.LabelFor(m => m.FirstOrDefault().VoterId) </th>*@
                 <th> @Html.LabelFor(m => m.FirstOrDefault().RestId) </th>
                 <th> Taste  </th>
                 <th> Quality </th>
@@ -39,22 +45,26 @@
                 @if (User.IsInRole("Admin"))
                 {
                     <th> Date Created </th>
-                    <th> Action </th>
+                    @*<th> Action </th>*@
                 }
 
             </tr>
         </thead>
         <tbody>
+            @*@{ int i = 0;}*@
             @foreach (var item in Model)
             {
                 <tr class="gradeX odd" role="row" id="row-@item.RatId">
 
+                    @*<td class="left">@{i++;} @i</td>*@
+
                     @if (User.IsInRole("Admin"))
                     {
                         <td class="left">@Html.DisplayFor(modelItem => item.RatId)</td>
-                    }
+                       
+                            }
 
-                    <td>@Html.DisplayFor(modelItem => item.Voters.VotName)</td>
+                    @*<td>@Html.DisplayFor(modelItem => item.Voters.VotName)</td>*@
                     <td>@Html.DisplayFor(modelItem => item.Restaurant.RestName)</td>
                     <td>@Html.DisplayFor(modelItem => item.Taste)</td>
                     <td>@Html.DisplayFor(modelItem => item.Quality)</td>
@@ -73,7 +83,7 @@
                                     <i class="fa fa-trash-o "></i>
                                 </a>*@
                             @*<a href="/Score/DeleteScore?id=@item.ScoreId" class="js-delete-score" data-score-id="@item.ScoreId">Delete</a>*@
-                            <a href="/Rating/DeleteRating/7" class="js-delete-rating">Delete</a>
+                            @*<a href="/Rating/DeleteRating/7" class="js-delete-rating">Delete</a>*@
 
                         </td>
                     }
@@ -82,5 +92,5 @@
 
         </tbody>
     </table>
-
+    @Html.PagedListPager(Model, page =>Url.Action("Index", new { page}))
    

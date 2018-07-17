@@ -23,16 +23,6 @@ namespace Cyber_Kitchen.Controllers
             _votMgr = votMgr;
             _restMgr = restMgr;
         }
-        //public ActionResult New()
-        //{
-        //    var caterer = _scoreMgr.GetScores.ToList();
-        //    //var viewModel = new CustomerFormViewModel
-        //    //{
-        //    //    Customer = new Customer(),
-        //    //    MembershipTypes = membershipTypes
-        //    //};
-        //    return View("CustomerForm", viewModel);
-        //}
 
         //GET: Score
         public ActionResult Index()
@@ -42,7 +32,7 @@ namespace Cyber_Kitchen.Controllers
                 ViewBag.Success = (string)TempData["message"];
             }
             var results = _scoreMgr.GetScores();
-        
+
             if (results.Succeeded == true)
             {
                 List<Score> mylist = new List<Score>();
@@ -73,34 +63,34 @@ namespace Cyber_Kitchen.Controllers
             ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
             ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
 
-  //          ViewBag.voters = _votMgr.GetVoters()
-  //.Select(c => new SelectListItem { Value = c.VoterId, Text = c.VotName })
-  //.ToList();
             return View();
         }
 
-        [HttpPost]
-        public ActionResult CreateScore(ScoreModel model)
-        {
-            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
-            ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
+        //[HttpPost]
 
-            model.CreatedBy = User.Identity.GetUserId();
-            var result = _scoreMgr.CreateScore(model);
-            if (result.Succeeded == true)
-            {
-                TempData["message"] = $"Score{model.ScoreId} was successfully added!";
+        //public ActionResult CreateScore(ScoreModel model)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+        //    ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
 
-                if(User.IsInRole("Admin"))
-                {
-                    return RedirectToAction("Index");
-                }
-                return RedirectToAction("Index", "Home");
+        //    model.UserId = userId;  // This  enable you to track or validate the user login Id to ovid multiple voting. first , add UserId to Voter Table
+        //    model.CreatedBy = User.Identity.GetUserName();
+        //    var result = _scoreMgr.CreateScore(model);
+        //    if (result.Succeeded == true)
+        //    {
+        //        TempData["message"] = $"Score{model.ScoreId} was successfully added!";
+
+        //        if (User.IsInRole("Admin"))
+        //        {
+        //            return RedirectToAction("Index");
+        //        }
+        //        return RedirectToAction("Index", "Home");
 
 
-            }
-            return View(model);
-        }
+        //    }
+        //    return View(model);
+        //}
 
         [HttpGet]
         public ActionResult EditScore(int id = 0)
@@ -166,7 +156,7 @@ namespace Cyber_Kitchen.Controllers
             _scoreMgr.DeleteScore(id);
             return RedirectToAction("Index");
 
-           
+
         }
 
     }

@@ -1,14 +1,220 @@
-﻿@model Cyber_Kitchen.Models.RatingModel[]
+﻿@model List<Cyber_Kitchen.Models.RatingModel>
+@using Cyber_Kitchen.Models
 @{
     ViewBag.Title = "CreateRating";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h1 class="alert-info">SELECT YOUR CHOICE TO SUIT THE BEST RESTAURANTS</h1>
+<form action="CreateRating" method="Post" id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th >Taste</th>
+                <th >Quality</th>
+                <th >Quantity</th>
+                <th >Customer Service</th>
+                <th></th>
+                <th >TimeLiness</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var model = (RestaurantModel[])ViewBag.restaurants;}
 
-<h1 class="alert-info">CHOOSE YOUR CHOICE TO SUIT THE BEST CATERER</h1>
-<p>
-    @Html.ActionLink("New Caterer", "CreateNew", "Restaurant", null, new { @class = "btn btn-primary" })
-</p>
-<form action="CreateRating" method="post">
+            @for (int i = 0; i < model.Count(); i++)
+            {
+                <tr>
+                    @Html.Hidden("model[" + @i + "].RestId", model[i].RestId)
+
+
+                    <td>
+                        <div class="col-md-12">
+                            <div @*class="checkbox"*@>
+                                @*<input type="checkbox" id="check_@rating.RestId" name="ratIds" />*@
+                                @{ var restName = model[i].RestName;}
+                               <label>@restName</label> 
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label class="control-label col-md-12">
+                                <select id="taste" name="model[@i].Taste" class="form-control">
+                                    <option value="">select</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <select id="quality" name="model[@i].Quality" class="form-control">
+                            <option value="">select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="quantity" name="model[@i].Quantity" class="form-control">
+                            <option value="">select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </td>
+                  
+                    <td>
+                        <div>
+                            <select id="timeliness" name="model[@i].TimeLiness" class="form-control">
+                                <option value="">select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </td>
+                    <th></th>
+                    <td>
+                        <div>
+                            <select id="customerServices" name="model[@i].CustomerServices" class="form-control">
+                                <option value="">select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <div class="form-actions">
+        <div class="row">
+            <div class="offset-md-3 col-md-6 pull-right">
+                <button type="submit" class="btn btn-info" id="submitData">Save</button>
+            </div>
+            <div class="col-md-1">
+                <a href="@Url.Action("Index","Rating", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+    @*<form action="CreateRating" method="post">
+        <div class="col-md-12">
+            <h1>Make your choice here</h1>
+            <div class="col-md-12">*@
+
+                @*@ViewBag.restaurants*@
+
+                @*@{ var model = ViewBag.restaurants as List<RestaurantModel>;}*@
+                
+                    @*@using (Html.BeginForm("CreateRating", "Rating", FormMethod.Post, new { }))
+                   {
+
+                        <ul class="list-group" id="ItemList">
+                            <li class="list-group-item-heading list-group-item-action">
+                                <h4 class="list-group-item-text"></h4>
+                            </li>
+                            @foreach (var item in ViewBag.restaurants)
+                      {
+                                <li class="list-group-item">
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="check_@item.RestId" name="caterIds" />
+                                        <label for="Check_@item.RestId">@item.RestName </label>*@
+                                        @*<label for="Check_@item.RestId">@item.</label>*@
+                                    @*</div>
+                                </li>
+                            }
+                            <li class="list-group-item">
+                                <button type="submit" class="btn btn-info" id="submitData">Save</button>
+                                @*<a class="btn btn-success btn-block" onclick="SaveList()">Save</a>*@
+                            @*</li>
+                        </ul>
+                    }
+                    
+            </div>
+        </div>
+
+    </form>*@
+
+
+@*////////////////////////////////////////*@
+@*<script>
+        var SaveList = function () {
+            var arrItem = [];
+            var commaSeparatedIds = "";
+
+            $("#ItemList li input[type=checkbox]").each(function (CreateRating, val) {
+
+                var checkId = $(val).attr("Id");
+
+                var arr = checkId.split('_');
+
+                var currentCheckboxId = arr[1];
+
+                var Ischecked = $("#" + checkId).is(":checked", true);
+
+                if (Ischecked) {
+
+                    arrItem.push(currentCheckboxId);
+                }
+
+
+            })
+
+            if (arrItem.length != 0) {
+
+                commaSeparatedIds = arrItem.toString();
+
+                $.ajax({
+
+                    url: "/Test/SaveList",
+                    type: "POST",
+                    data: { ItemList: commaSeparatedIds },
+                    success: function (response) {
+                        // code here
+                    }
+
+                })
+            }
+        }
+    </script>*@
+
+@*///////////////////////////////////////*@
+
+@*"" <strong><text>Taste</text></strong>
+    <select id="taste" name="Taste">
+        <option value="">select</option>
+        <option value="1">Very Bad</option>
+        <option value="2">Bad</option>
+        <option value="3">Neutral</option>
+        <option value="4">Good</option>
+        <option value="5">Excelent</option>
+    </select>*@
+
+
+@*@*<p>
+        @Html.ActionLink("New Caterer", "CreateNew", "Restaurant", null, new { @class = "btn btn-primary" })
+    </p>*@
+@*<form action="CreateRating" method="post">
 
     <table id="ratings" class="table table-bordered table-hover">
         <thead>
@@ -24,106 +230,104 @@
         <tbody>
             @for (int i = 0; i < Model.Voters\
                 Count(); i++)
-            {
-                var restuarant = ViewBag.restaurants;
-               <tr>
-                   
-                  @*<td>*@
-                      @*<div>
-                          @Html.ActionLink(restaurant.RestName, "CreateRating", "Restaurant", new { id = restaurant.RestId }, null)
-                      </div>*@
-                  @*</td>*@
-                    <td>
-                        <div class="form-group row">
-                            <label class="control-label col-md-3">
-                                Restaurant Name
-                                <span class="required" aria-required="true"> * </span>
-                            </label>
-                            
-                                <div class="col-md-12">
-                                    <input type="text" name="RatingModel[]" />
-                                    @Html.TextBoxFor(m => m.Restaurant.RestName, new { @class = "form-control input-height", placeholder = "enter restaurant name" })
-                                    @Html.ValidationMessageFor(m => m.Restaurant.RestName, "", new { @class = "text-danger" })
-                                </div>
+            {*@
+  
+@*<tr>
 
-                          
-                        </div>
-                           
-                    </td>
-                    <td>
-                        <select id="taste" name="Taste">
-                            <option value="">select</option>
-                            <option value="1">Very Bad</option>
-                            <option value="2">Bad</option>
-                            <option value="3">Neutral</option>
-                            <option value="4">Good</option>
-                            <option value="5">Excelent</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select id="quality" name="Quality">
-                            <option value="">select</option>
-                            <option value="1">Very Bad</option>
-                            <option value="2">Bad</option>
-                            <option value="3">Neutral</option>
-                            <option value="4">Good</option>
-                            <option value="5">Excelent</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select id="quantity" name="Quantity">
-                            <option value="">select</option>
-                            <option value="1">Very Bad</option>
-                            <option value="2">Bad</option>
-                            <option value="3">Neutral</option>
-                            <option value="4">Good</option>
-                            <option value="5">Excelent</option>
-                        </select>
-                    </td>
-                    <td>
-                        <div>
+                @*<div>
+        @Html.ActionLink(restaurant.RestName, "CreateRating", "Restaurant", new { id = restaurant.RestId }, null)
+    </div>*@
+@*</td>*@
+@*<td>
+        <div class="form-group row">
+            <label class="control-label col-md-3">
+                Restaurant Name
+                <span class="required" aria-required="true"> * </span>
+            </label>
 
-                            <select id="timeliness" name="TimeLiness">
-                                <option value="">select</option>
-                                <option value="1">Very Bad</option>
-                                <option value="2">Bad</option>
-                                <option value="3">Neutral</option>
-                                <option value="4">Good</option>
-                                <option value="5">Excelent</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <select id="customerServices" name="CustomerServices">
-                                <option value="">select</option>
-                                <option value="1">Very Bad</option>
-                                <option value="2">Bad</option>
-                                <option value="3">Neutral</option>
-                                <option value="4">Good</option>
-                                <option value="5">Excelent</option>
-                            </select>
-                        </div>
-                    </td>
-
-                    @*<td><input placeholder="input value" type="number" name="persons[0].lastName"> </td>*@
-
-                </tr>
-            }
-
-    </tbody>
-</table>
-    <div class="form-actions">
-        <div class="row">
-            <div class="offset-md-3 col-md-6 pull-right">
-                <button type="submit" class="btn btn-info" id="submitData">Save</button>
-                <button type="button" class="btn btn-danger">Cancel</button>
-
+            <div class="col-md-12">
+                <input type="text" name="RatingModel[]" />
+                @Html.TextBoxFor(m => m.Restaurant.RestName, new { @class = "form-control input-height", placeholder = "enter restaurant name" })
+                @Html.ValidationMessageFor(m => m.Restaurant.RestName, "", new { @class = "text-danger" })
             </div>
-            <div class="col-md-1">
-                <a href="@Url.Action("Index","Rating", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>
-            </div>
+
+
         </div>
-    </div>
-</form>
 
+    </td>
+    <td>
+        <select id="taste" name="Taste">
+            <option value="">select</option>
+            <option value="1">Very Bad</option>
+            <option value="2">Bad</option>
+            <option value="3">Neutral</option>
+            <option value="4">Good</option>
+            <option value="5">Excelent</option>
+        </select>
+    </td>
+    <td>
+        <select id="quality" name="Quality">
+            <option value="">select</option>
+            <option value="1">Very Bad</option>
+            <option value="2">Bad</option>
+            <option value="3">Neutral</option>
+            <option value="4">Good</option>
+            <option value="5">Excelent</option>
+        </select>
+    </td>
+    <td>
+        <select id="quantity" name="Quantity">
+            <option value="">select</option>
+            <option value="1">Very Bad</option>
+            <option value="2">Bad</option>
+            <option value="3">Neutral</option>
+            <option value="4">Good</option>
+            <option value="5">Excelent</option>
+        </select>
+    </td>
+    <td>
+        <div>
+
+            <select id="timeliness" name="TimeLiness">
+                <option value="">select</option>
+                <option value="1">Very Bad</option>
+                <option value="2">Bad</option>
+                <option value="3">Neutral</option>
+                <option value="4">Good</option>
+                <option value="5">Excelent</option>
+            </select>
+        </div>
+    </td>
+    <td>
+        <div>
+            <select id="customerServices" name="CustomerServices">
+                <option value="">select</option>
+                <option value="1">Very Bad</option>
+                <option value="2">Bad</option>
+                <option value="3">Neutral</option>
+                <option value="4">Good</option>
+                <option value="5">Excelent</option>
+            </select>
+        </div>
+    </td>*@
+
+@*<td><input placeholder="input value" type="number" name="persons[0].lastName"> </td>*@
+
+@*</tr>
+    }*@
+
+@*</tbody>
+        </table>
+
+        </div> <div class="form-actions">
+            <div class="row">
+                <div class="offset-md-3 col-md-6 pull-right">
+                    <button type="submit" class="btn btn-info" id="submitData">Save</button>
+                    <button type="button" class="btn btn-danger">Cancel</button>
+
+                </div>
+                <div class="col-md-1">
+                    <a href="@Url.Action("Index","Rating", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>
+                </div>
+            </div>
+    </form>*@

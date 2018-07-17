@@ -12,19 +12,27 @@ namespace Cyber_Kitchen.Entities
         [Key]
         public int RestId { get; set; }
         public string RestName { get; set; }
+      
         public bool IsCanceled { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
 
+     
         public virtual ICollection<Voter> Voters { get; set; }
         public virtual ICollection<Score> Scores { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<CatererInfo> CatererInfos { get; set; }
 
         public Restaurant()
         {
             this.Voters = new HashSet<Voter>();
             this.Scores = new HashSet<Score>();
+            this.Ratings = new HashSet<Rating>();
+            this.CatererInfos = new HashSet<CatererInfo>();
+     
+
         }
     }
 }

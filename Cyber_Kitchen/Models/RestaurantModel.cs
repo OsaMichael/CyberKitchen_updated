@@ -15,25 +15,33 @@ namespace Cyber_Kitchen.Models
         public int RestId { get; set; }
         [Required]
         public string RestName { get; set; }
-        public bool IsCanceled { get; set; }
+    
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
 
+
+        public virtual ICollection<CatererInfo> CatererInfos { get; set; }
+        public virtual ICollection<RatingModel> Ratings { get; set; }
         public virtual ICollection<VoterModel> Voters { get; set; }
         public virtual ICollection<ScoreModel> Scores { get; set; }
+       
 
         public RestaurantModel()
         {
             new HashSet<VoterModel>();
             new HashSet<ScoreModel>();
+            new HashSet<RatingModel>();
+            new HashSet<CatererInfoModel>();
         }
         public RestaurantModel(Restaurant restaurant)
         {
             this.Assign(restaurant);
             Voters = new HashSet<VoterModel>();
             Scores = new HashSet<ScoreModel>();
+            Ratings = new HashSet<RatingModel>();
+            //CatererInfos = new HashSet<CatererInfoModel>();
         }
 
         public Restaurant Create(RestaurantModel model)
@@ -41,7 +49,6 @@ namespace Cyber_Kitchen.Models
             return new Restaurant
             {
                 RestName = model.RestName,
-                IsCanceled = model.IsCanceled,
                 CreatedBy = model.CreatedBy,
                 ModifiedBy = model.ModifiedBy,
                 CreatedDate = DateTime.Now,
@@ -53,7 +60,7 @@ namespace Cyber_Kitchen.Models
             {
             entity.RestId = model.RestId;
             entity.RestName = model.RestName;
-           entity.IsCanceled = model.IsCanceled;
+
             entity.ModifiedBy = model.ModifiedBy;
             //entity.CreatedBy = model.CreatedBy;
             entity.ModifiedDate = DateTime.Now;

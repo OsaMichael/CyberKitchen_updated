@@ -111,7 +111,7 @@ namespace Cyber_Kitchen.Controllers
                     
                     // if its user that's login take the user to Score where he can cast his or her vote 
                     
-                        return RedirectToAction("CreateScore", "Score");
+                        return RedirectToAction("CreateRating", "Rating");
                     
                    
 

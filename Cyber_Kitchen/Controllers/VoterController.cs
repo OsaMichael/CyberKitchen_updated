@@ -1,5 +1,6 @@
 ﻿using Cyber_Kitchen.Entities;
 using Cyber_Kitchen.Interface;
+using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Models;
 using Microsoft.AspNet.Identity;
 using System;
@@ -14,9 +15,11 @@ namespace Cyber_Kitchen.Controllers
     public class VoterController : Controller
     {
         private IVoterManager _votMgr;
-        public VoterController(IVoterManager votMgr)
+        private IExcelProcessor _excel;
+        public VoterController(IVoterManager votMgr,IExcelProcessor excel )
         {
             _votMgr = votMgr;
+            _excel = excel;
         }
 
         // GET: Restaurant
@@ -41,9 +44,11 @@ namespace Cyber_Kitchen.Controllers
         [HttpGet]
         public ActionResult CreateVoter()
         {
+
             return View();
         }
         [HttpPost]
+       
         public ActionResult CreateVoter(VoterModel model)
         {
             model.CreatedBy = User.Identity.GetUserName();
@@ -118,9 +123,55 @@ namespace Cyber_Kitchen.Controllers
             
             _votMgr.DeleteVoter(id);
             return RedirectToAction("Index");
-
+             
+            //return View();
+        }
+        [HttpGet]
+        public ActionResult UploadVoters()
+        {
+            DropDown();
+            var model = new VoterModel();
+            return View(model);
+        } 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult UploadVoters(HttpPostedFileBase file, VoterModel model)
+        {
+            DropDown();
+            if (file != null && file.ContentLength != 0 && (System.IO.Path.GetExtension(file.FileName).ToLower() == ".xlsx" || System.IO.Path.GetExtension(file.FileName).ToLower() == ".xls"))
+            {
+                model.CreatedBy = User.Identity.GetUserName();
+                model.ModifiedBy = User.Identity.GetUserName();
+                var uploadedResult = _votMgr.UploadVoterNames(file.InputStream, model);
+                if (uploadedResult.Succeeded == true)
+                {
+                    TempData["message"] = $"  Voter was successfully Uploaded!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, uploadedResult.Message);
+                    ViewBag.Error = $"Error occured : {uploadedResult.Message}";
+                    //log.Error(uploadedResult.Message);
+                    return View(model);
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Only Excel Sheets are allowed";
+            }
             return View();
         }
+        private void DropDown()
+        {
 
+            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+
+        }
+
+        public ActionResult DownloadVoterTemplate()
+        {
+            return Redirect("~/DataUploadTemplates/VoterNamesample.xlsx");
+        }
     }
 }

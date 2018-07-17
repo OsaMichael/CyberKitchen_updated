@@ -1,6 +1,9 @@
-﻿using Cyber_Kitchen.Interface;
+﻿using Cyber_Kitchen.Infrastructure.Utils;
+using Cyber_Kitchen.Interface;
+using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Manager;
 using Ninject.Modules;
+using Ninject.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +19,12 @@ namespace Cyber_Kitchen.Infrastructure
             Bind<IRestaurantManager>().To<RestaurantManager>();
             Bind<IScoreManager>().To<ScoreManager>();
             Bind<IRatingManager>().To<RatingManager>();
-            
-        
+            Bind<IUploadManager>().To<UploadManager>();
+            //Bind<ICatererInfoManager>().To<CatererInfoManager>();
+
+            //Bind<ITemplateService1>().To<RazorTemplateService>();
+
+
 
 
         }

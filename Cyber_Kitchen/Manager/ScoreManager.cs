@@ -17,21 +17,21 @@ namespace Cyber_Kitchen.Manager
         {
             _context = context;
         }
-        public Operation<ScoreModel> CreateScore(ScoreModel model)
-        {
-            return Operation.Create(() =>
-            {
-                //model.Validate();
-                var isExists = _context.Scores.Where(c => c.ScoreId == model.ScoreId).FirstOrDefault();
-                if (isExists != null) throw new Exception("score already exist");
+        //public Operation<ScoreModel> CreateScore(ScoreModel model)
+        //{
+        //    //return Operation.Create(() =>
+        //    //{
+        //    ////    //model.Validate();                  // this part was added to compare UserId .. tovod multple voting     
+        //    ////    var isExists = _context.Scores.Where(c => c.UserId == model.UserId).FirstOrDefault();
+        //    ////    if (isExists != null) throw new Exception("Sorry you can't vote twice");
 
-                var entity = model.Create(model);
-                _context.Scores.Add(entity);
-                _context.SaveChanges();
+        //    ////    var entity = model.Create(model);
+        //    ////    _context.Scores.Add(entity);
+        //    ////    _context.SaveChanges();
 
-                return model;
-            });
-        }
+        //    ////    return model;
+        //    //});
+        //}
 
         public Operation<ScoreModel[]> GetScores()
         {
@@ -42,9 +42,10 @@ namespace Cyber_Kitchen.Manager
                 var models = entities.Select(s => new ScoreModel(s)
                 {
                     Voters = new VoterModel(s.Voter),
-                    Restaurant = new RestaurantModel(s.Restaurant)
+                    Restaurant = new RestaurantModel(s.Restaurant),
+                    //User = new ApplicationUser(s.User)
                 }
-
+                 
                 ).ToArray();
                 return models;
             });
@@ -71,7 +72,7 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() =>
             {
                 var entity = _context.Scores.Find(scoreId);
-                if (entity != null) throw new Exception("Score does not exist");
+                if (entity == null) throw new Exception("Score does not exist");
                 return new ScoreModel(entity);
 
             });
@@ -83,8 +84,8 @@ namespace Cyber_Kitchen.Manager
             {
                 var query = (from r in _context.Restaurants.Include("Scores")
                              group r by r.RestId into g
-                             select new SummaryReportModel
-                             {
+                             select new SummaryReportModel 
+                             { 
                                  RestId = g.Key,
                                  RestName = g.Select(c => c.RestName).FirstOrDefault(),
                                  EntryDate = g.Select(c => c.CreatedDate).FirstOrDefault(),
@@ -99,28 +100,29 @@ namespace Cyber_Kitchen.Manager
             });
         }
 
-        //public Operation<SummaryReportModel> GetSummaryReportById(int RestId)
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        var entity = _context.SummaryReports.Find(RestId);
-        //        if (entity == null) throw new Exception("Summary does not exist");
-        //        return new SummaryReportModel();
+        public Operation<SummaryReportModel> GetSummaryReportById(int RestId)
+        {
+            return Operation.Create(() =>
+            {
+                var entity = _context.SummaryReports.Find(RestId);
+                if (entity == null) throw new Exception("Summary does not exist");
 
-        //    });
-        //}
+                return new SummaryReportModel();
 
-        //public Operation DeleteSummaryReport(int id)
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        var entity = _context.SummaryReports.Find(id);
-        //        if (entity == null) throw new Exception("SummaryReport does not exist");
+            });
+        }
 
-        //        _context.SummaryReports.Remove(entity);
-        //        _context.SaveChanges();
-        //    });
-        //}
+        public Operation DeleteSummaryReport(int id)
+        {
+            return Operation.Create(() =>
+            {
+                var entity = _context.SummaryReports.Find(id);
+                if (entity == null)throw new Exception("SummaryReport does not exist");
+
+                _context.SummaryReports.Remove(entity);
+                _context.SaveChanges();
+            });
+        }
         public Operation GetDetails(int id)
         {
             return Operation.Create(() =>
@@ -134,12 +136,17 @@ namespace Cyber_Kitchen.Manager
         {
             return Operation.Create(() =>
             {
-                var entity = _context.Scores.Find(id);
+                var entity = _context.Scores.Where(s =>s.ScoreId == id).FirstOrDefault();
                 if (entity == null) throw new Exception("Score does not exist");
 
                 _context.Scores.Remove(entity);
                 _context.SaveChanges();
             });
         }
+
+        //public Operation<SummaryReportModel> GetSummaryReportById(int RestId)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

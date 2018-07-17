@@ -14,5 +14,8 @@ namespace Cyber_Kitchen.Interface
         Operation<RatingModel> GetRatingById(int ratId);
         Operation<List<SummaryReportModel>> GetRestaurantSummaryReport();
         Operation DeleteRating(int id);
+        //Operation<List<RankingModel>> GetRanking();
+        //Operation DeleteSummaryReport(int id);
+        //Operation<SummaryReportModel> GetSummaryReportById(int RestId);
     }
 }
