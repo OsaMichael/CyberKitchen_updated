@@ -11,11 +11,14 @@ namespace Cyber_Kitchen.Models
     public class RatingModel
     {
         [Key]
+        [Required]
         public int RatId { get; set; }
+        [Required]
         public int? VoterId { get; set; }
         [DisplayName("Restaurants Name")]
         [Required]
         public int? RestId { get; set; }
+        [Required]
         public string UserId { get; set; }
         [Required]
         public int Taste { get; set; }

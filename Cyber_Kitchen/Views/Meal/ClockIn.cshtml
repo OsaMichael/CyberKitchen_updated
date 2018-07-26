@@ -4,9 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ol class="breadcrumb page-breadcrumb pull-right">
-    
-</ol>
+<ol class="breadcrumb page-breadcrumb pull-right"></ol>
 <h1 class="alert-info">ADD MEAL</h1>
 <div class="card-body" id="bar-parent">
     <form action="ClockIn" method="Post" id="form_sample_1" class="form-horizontal" novalidate="novalidate">
@@ -18,8 +16,11 @@
                     <span class="required" aria-required="true"> * </span>
                 </label>
                 <div class="col-md-5">
+                    @*<input type="button" name="button" class="button1" value="Insert" />*@
                     @Html.TextBoxFor(m => m.StaffId, new { @class = "form-control input-height", placeholder = "enter staffs number" })
                     @Html.ValidationMessageFor(m => m.StaffId, "", new { @class = "text-danger" })
+
+                   
                 </div>
             </div>
             @*<div class="form-group row">
@@ -27,14 +28,14 @@
                     Status
                     <span class="required" aria-required="true"> * </span>
                 </label>*@
-               @*<div>
-                   <div class="col-md-5">
-                       @Html.TextBoxFor(m => m.Status, new { @class = "form-control input-height", placeholder = "enter staffs number" })
-                       @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
+            @*<div>
+                       <div class="col-md-5">
+                           @Html.TextBoxFor(m => m.Status, new { @class = "form-control input-height", placeholder = "enter staffs number" })
+                           @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
+                       </div>
                    </div>
-               </div>
-            </div>*@
-           
+                </div>*@
+
             <div class="form-actions">
                 <div class="row">
                     <div class="offset-md-3 col-md-6 pull-right">
@@ -42,7 +43,7 @@
                         @*<button type="button" class="btn btn-danger">Cancel</button>*@
 
                     </div>
-                    <div class=" col-md-1">
+                    <div class="col-md-1">
                         <a href="@Url.Action("Index","Meal", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>
                     </div>
                 </div>
@@ -50,4 +51,3 @@
         </div>
     </form>
 </div>
-

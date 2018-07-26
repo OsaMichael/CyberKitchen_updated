@@ -15,12 +15,13 @@ namespace Cyber_Kitchen.Entities
         public int Id { get; set; }
         //public int? VoterId { get; set; }
         public int? RestId { get; set; }
-        public string UserId { get; set; }
+        //public string UserId { get; set; }
+        public string StaffId { get; set; }
         public DateTime Day { get; set; }
         public DateTime Date { get; set; }
         public bool Status { get; set; }
 
-         //public virtual ApplicationUser Users { get; set; }
+        public virtual ApplicationUser Staffs { get; set; }
         public virtual Restaurant Restaurant { get; set; }
     }
 }

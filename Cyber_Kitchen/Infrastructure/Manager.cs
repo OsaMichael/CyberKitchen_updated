@@ -20,7 +20,7 @@ namespace Cyber_Kitchen.Infrastructure
             Bind<IScoreManager>().To<ScoreManager>();
             Bind<IRatingManager>().To<RatingManager>();
             Bind<IUploadManager>().To<UploadManager>();
-            //Bind<ICatererInfoManager>().To<CatererInfoManager>();
+            Bind<IMealManager>().To<MealManager>();
 
             //Bind<ITemplateService1>().To<RazorTemplateService>();
 

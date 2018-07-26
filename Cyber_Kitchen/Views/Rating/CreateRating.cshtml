@@ -39,7 +39,7 @@
                     <td>
                         <div>
                             <label class="control-label col-md-12">
-                                <select id="taste" name="model[@i].Taste" class="form-control">
+                                <select id="taste" name="model[@i].Taste" class="form-control" required="required">
                                     <option value="">select</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -51,7 +51,7 @@
                         </div>
                     </td>
                     <td>
-                        <select id="quality" name="model[@i].Quality" class="form-control">
+                        <select id="quality" name="model[@i].Quality" class="form-control" required="required">
                             <option value="">select</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -61,7 +61,7 @@
                         </select>
                     </td>
                     <td>
-                        <select id="quantity" name="model[@i].Quantity" class="form-control">
+                        <select id="quantity" name="model[@i].Quantity" class="form-control" required="required">
                             <option value="">select</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -73,7 +73,7 @@
                   
                     <td>
                         <div>
-                            <select id="timeliness" name="model[@i].TimeLiness" class="form-control">
+                            <select id="timeliness" name="model[@i].TimeLiness" class="form-control" required="required">
                                 <option value="">select</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -86,7 +86,7 @@
                     <th></th>
                     <td>
                         <div>
-                            <select id="customerServices" name="model[@i].CustomerServices" class="form-control">
+                            <select id="customerServices" name="model[@i].CustomerServices" class="form-control" required="required">
                                 <option value="">select</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -105,7 +105,7 @@
     <div class="form-actions">
         <div class="row">
             <div class="offset-md-3 col-md-6 pull-right">
-                <button type="submit" class="btn btn-info" id="submitData">Save</button>
+                <button type="submit" class="btn btn-info" id="submitData" >Save</button>
             </div>
             <div class="col-md-1">
                 <a href="@Url.Action("Index","Rating", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>

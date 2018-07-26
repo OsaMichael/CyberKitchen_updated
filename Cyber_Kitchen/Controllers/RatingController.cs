@@ -136,20 +136,20 @@ namespace Cyber_Kitchen.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult DeleteRating(int id)
-        {
-            var result = _ratMgr.GetRatingById(id);
-            if (result.Succeeded)
-            {
-                return View(result.Result);
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-                return View();
-            }
-        }
+        //[HttpGet]
+        //public ActionResult DeleteRating(int id)
+        //{
+        //    var result = _ratMgr.GetRatingById(id);
+        //    if (result.Succeeded)
+        //    {
+        //        return View(result.Result);
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, result.Message);
+        //        return View();
+        //    }
+        //}
 
         [HttpPost]
         public ActionResult DeleteRating(int id, Score model)

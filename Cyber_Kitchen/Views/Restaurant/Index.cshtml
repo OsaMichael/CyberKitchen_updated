@@ -49,8 +49,8 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
                             @*<a href="#" class="js-cancel-restaurant" data-restaurant-id="@item.RestId" data-name="@item.RestName">Cancel</a>*@
-                            <a href="/Restaurant/DeleteRestaurant?id=@item.RestId" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.RestId" data-name="@item.RestName">
-                                    <i class="fa fa-trash-o "></i>
+                            <a href="#" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.RestId" data-name="@item.RestName">
+                                    <i class="fa fa-trash-o "></i> Delete
                                 </a>
                         </td>
                     }
@@ -60,151 +60,51 @@
     </table>
 
 
-
-
-<script>
-
-        $(function () {
-
-            //Select All Check Box
-            //$("#checkAll").change(function (e) {
-            //    e.preventDefault();
-            //    if ($(this).is(':checked')) {
-            //        $('input:checkbox').not(this).prop('checked', this.checked);
-            //    } else {
-            //        $('input:checkbox').not(this).prop('checked', false);
-            //    }
-
-            //});
-
-
-
-            //Script for performing single delete
-            $(document).on('click', '#deleteaction', function (e) {
-                e.preventDefault();
-
-                // Get the id from the link
-                var recordToDelete = $(this).attr("data-id");
-                var restName = $(this).attr("data-name");
-                if (recordToDelete !== '') {
-                    var confirmValue = confirm("Are you sure you want to delete the restaurant Name(s)? ");
-                    if (confirmValue) {
-                        ////$("html").addClass("loading");
-                        $("html").addClass("loading");
-                        // Perform the ajax post DeleteFaculty(int id, string facultyName)
-                        $.post("Restaurant/DeleteRestaurant", { "id": recordToDelete, "restName": restName },
-                            function (data) {
-                                // Successful requests get here
-                                // Update the page elements
-                                if (data.status == true) {
-                                    $("html").removeClass("loading")
-                                    $('#row-' + recordToDelete).fadeOut("slow", function () { $(this).remove(); });
-                                    toastr.success(data.message);
-                                }
-                                else {
-                                    $("html").removeClass("loading")
-                                    toastr.error(data.error);
-                                }
-
-                            });
-
-                        }
-                        else {
-                            $("html").removeClass("loading")
-                            return;
-
-                        }
-
-                }
-            });
-
-
-
-
-        //    //Script for performing multiple delete
-        //    $(document).on('click', '#deleteAllSelected', function (e) {
-        //        e.preventDefault();
-        //        //  $("html").addClass("loading");
-
-        //        var checkIds = "";
-
-        //        $('table> tbody > tr > td > #checkedMe').each(function (i) {
-        //            if ($(this).is(":checked")) {
-        //                checkIds = checkIds + $(this).attr('data-id') + "*";
-
-        //            }
-
-        //        });
-        //        //if (checkIds == "") {
-        //        //    toastr.warning('Please select the CourseOfStudy you want to delete');
-        //        //    // $("html").removeClass("loading");
-        //        //    return;
-        //        //}
-
-        //        var confirmValue = confirm("Are you sure you want to delete the selected CourseOfStudy(s)? ");
-        //        if (confirmValue) {
-        //            $.post("/Admin/CourseOfStudy/DeleteCourseOfStudy", { "ids": checkIds },
-        //              function (data) {
-        //                  // Successful requests get here
-
-
-        //                  if (data.status == true) {
-        //                      $("html").removeClass("loading");
-        //                      toastr.options.timeOut = "6000";
-        //                      toastr.success(data.message);
-        //                      setTimeout(function () { window.location.reload(); }, 3000);
-        //                  }
-
-        //                  else {
-        //                      $("html").removeClass("loading");
-        //                      toastr.error('Oopss!!! something went wrong. Error: ' + error);
-        //                      setTimeout(function () { window.location.reload(); }, 3000);
-        //                  }
-        //              });
-        //          }
-        //          else {
-        //              $("html").removeClass("loading");
-        //              return;
-        //          }
-
-
-        //    });
-
-
-        });
-
-</script>
-
-    }
-
-@*@section scripts
-{
     <script>
-        $(document).ready(function () {
-            $(".js-cancel-restaurant").click(function (e)
-            {
-                var link = $(e.target);
+    $(function () {
 
-                if (confirm("Are you sure you want to delete this restaurant")) {
-                    $.ajax({
-                        url: "/api/restaurant/" + link.attr("data-restaurant-id"),
-                        method: "DELETE"
-                    })
-                    .done(function () {
-                        link.parents("li").fadeOut(function () {
-                            $(this).remove();
+        $(document).on('click', '#deleteaction', function (e) {
+            e.preventDefault();
+
+            // Get the id from the link
+            var recordToDelete = $(this).attr("data-id");
+            var restName = $(this).attr("data-name");
+            if (recordToDelete !== '') {
+                var confirmValue = confirm("Are you sure you want to delete this Restaurant Name(s)? ");
+                if (confirmValue) {
+                    ////$("html").addClass("loading");
+                   // $("html").addClass("loading");
+                    // Perform the ajax post DeleteFaculty(int id, string facultyName)
+                    $.post("/Restaurant/DeleteRestaurant", { "id": recordToDelete, "restName": restName },
+                        function (data) {
+                            // Successful requests get here
+                            // Update the page elements
+                            if (data.status == true) {
+                                //$("html").removeClass("loading")
+                                $('#row-' + recordToDelete).fadeOut("slow", function () { $(this).remove(); });
+                                alert(data.message);
+                            }
+                            else {
+                                $("html").removeClass("loading")
+                                alert(data.error);
+                            }
+
                         });
-                    })
-                    .fail(function () {
-                        alert("Something failed!");
-                    });
+
                 }
-            });
+                else {
+                   // $("html").removeClass("loading")
+                    return;
+
+                }
+
+            }
         });
+
+
+        });
+
     </script>
-  }*@
-
-
-
+   
 
 

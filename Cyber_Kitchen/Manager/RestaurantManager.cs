@@ -84,13 +84,13 @@ namespace Cyber_Kitchen.Manager
 
             });
         }
-        public Operation DeleteRestaurant(int id)
+        public Operation DeleteRestaurant(int Id)
         {
             return Operation.Create(() =>
             {
                 //var entity = _context.Restaurants.Include(c => c.RestId == id).FirstOrDefault();
-                var entity = _context.Restaurants.Find(id);
-                if (entity == null) throw new Exception("Restaurant does  exist");
+                var entity = _context.Restaurants.Find(Id);
+                if (entity == null) throw new Exception("Restaurant does not exist");
 
                 _context.Restaurants.Remove(entity);
                 _context.SaveChanges();
