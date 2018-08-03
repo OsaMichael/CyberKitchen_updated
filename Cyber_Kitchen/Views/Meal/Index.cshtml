@@ -17,7 +17,7 @@
     <thead>
         <tr>
                 <th> s/n </th>           
-                <th> Staff NO. </th>
+                <th> Staff Id. </th>
                 <th> Status </th>
                 <th> Day </th>
                 <th> Date </th>
@@ -26,23 +26,23 @@
     <tbody>
         @foreach (var item in Model)
             {
-            <tr class="gradeX odd" role="row" id="row-@item.MealId">
+            <tr class="gradeX odd" role="row" id="row-@item.Id">
                 @*@if(User.IsInRole("Admin"))
                     {
                         <td class="left"><input type="checkbox" id="checkedMe" data-id="@item.VoterId"></td>
                     }*@
-                    <td class="left">@Html.DisplayFor(modelItem => item.MealId)</td>
-                <td>@Html.DisplayFor(modelItem => item.StaffNo)</td>
+                    <td class="left">@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.StaffId)</td>
                 <td>@Html.DisplayFor(modelItem => item.Status)</td>
                 <td>@item.Date.ToString("dddd")</td>
                 <td>@String.Format("{0:d}", item.Date)</td>                     
                 <td>
                     @*@if (User.IsInRole("Admin"))
                     {*@
-                        <a href="/Meal/EditMeal?id=@item.MealId" class="btn btn-primary btn-xs">
+                        <a href="/Meal/EditMeal?id=@item.Id" class="btn btn-primary btn-xs">
                             <i class="fa fa-pencil"></i>
                         </a>
-                        <a href="/Meal/DeleteMeal?id=@item.MealId" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.MealId" data-name="@item.StaffNo">
+                        <a href="/Meal/DeleteMeal?id=@item.Id" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.Id" data-name="@item.StaffId">
                             <i class="fa fa-trash-o "></i>
                         </a>
                     @*}*@

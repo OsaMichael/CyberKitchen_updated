@@ -18,11 +18,7 @@ namespace Cyber_Kitchen.Interface
         Operation<List<VoterModel>> UploadVoterNames(Stream stream, VoterModel model);
         ///////////////////////////////////////////
 
-        Operation<MealModel> CreateMeal(MealModel model);
-        Operation<MealModel[]> GetMeals();
-        Operation<MealModel> UpdateMeal(MealModel model);
-        Operation<MealModel> GetMealById(int mealId);
-        Operation DeleteMeal(int id);
+       
 
     }
 }

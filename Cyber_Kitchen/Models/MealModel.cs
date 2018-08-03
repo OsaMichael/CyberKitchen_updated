@@ -14,20 +14,24 @@ namespace Cyber_Kitchen.Models
         public int Id { get; set; }
         //public int? VoterId { get; set; }
         public int? RestId { get; set; }
-        public string UserId { get; set; } 
+        public string StaffId { get; set; } 
         public DateTime Day { get; set; }
         public DateTime Date { get; set; }
         public bool Status { get; set; }
 
         //public virtual VoterModel Voters { get; set; }
+        [ForeignKey(nameof(RestId))]
         public virtual RestaurantModel Restaurant { get; set; }
-        public virtual ApplicationUser Users { get; set; }
+        [ForeignKey(nameof(StaffId))]
+        public virtual  ApplicationUser Staff { get; set; }
+        
 
         public MealModel()
         {
             //new VoterModel();
             new RestaurantModel();
             new ApplicationUser();
+           
         }
 
         public MealModel(Meal meals)
@@ -35,7 +39,8 @@ namespace Cyber_Kitchen.Models
             this.Assign(meals);
             Restaurant = new RestaurantModel();
             //Voters = new VoterModel();
-            Users = new ApplicationUser();
+            Staff = new ApplicationUser();
+         
 
         }
 
@@ -43,17 +48,12 @@ namespace Cyber_Kitchen.Models
         {
             return new Meal
             {
-                UserId = model.UserId
-             
-             
-               
+                StaffId = model.StaffId
             };
         }
         public Meal Edit(Meal entity, MealModel model)
-        {
-           
-            entity.UserId = model.UserId;
-           
+        {           
+            entity.StaffId = model.StaffId;
 
             return entity;
         }

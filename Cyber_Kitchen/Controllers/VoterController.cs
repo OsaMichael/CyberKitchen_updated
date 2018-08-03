@@ -97,35 +97,40 @@ namespace Cyber_Kitchen.Controllers
             }
             return View(model);
         }
-        [HttpGet]
-        public ActionResult DeleteVoter(int id)
-        {
-            var result = _votMgr.GetVoterById(id);
-            if (result.Succeeded)
-            {
-                return View(result.Result);
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-                return View();
-            }
-        }
+        //[HttpGet]
+        //public ActionResult DeleteVoter(int id)
+        //{
+        //    var result = _votMgr.GetVoterById(id);
+        //    if (result.Succeeded)
+        //    {
+        //        return View(result.Result);
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, result.Message);
+        //        return View();
+        //    }
+        //}
 
         [HttpPost]
-        public ActionResult DeleteVoter(int id, Voter model)
+        public JsonResult DeleteVoter(int id, string votName)
         {
-            var result = _votMgr.GetVoterById(id);
-            if (result == null)
+            int votId = Convert.ToInt32(id);
+            if (votId > 0)
             {
-                return View("not found");
+                var result = _votMgr.DeleteVoter(votId);
+                if (result.Succeeded == true)
+                {
+
+
+                    return Json(new { status = true, message = $" {votName} has been successfully deleted!", JsonRequestBehavior.AllowGet });
+                }
+                return Json(new { status = false, error = result.Message }, JsonRequestBehavior.AllowGet);
             }
-            
-            _votMgr.DeleteVoter(id);
-            return RedirectToAction("Index");
-             
-            //return View();
+
+            return Json(new { status = false, error = "Invalid Id" }, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public ActionResult UploadVoters()
         {

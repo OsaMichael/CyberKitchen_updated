@@ -95,33 +95,52 @@ namespace Cyber_Kitchen.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult DeleteRestaurant(int id)
-        {
-            var result = _restMgr.GetRestaurantById(id);
-            if (result.Succeeded)
-            {
-                return View(result.Result);
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-                return View();
-            }
-        }
-
         [HttpPost]
-        public ActionResult DeleteRestaurant(int id, Restaurant model)
+        public JsonResult DeleteRestaurant(int id, string restName)
         {
-            var result = _restMgr.GetRestaurantById(id);
-            if (result == null)
+            int restId = Convert.ToInt32(id);
+            if (restId > 0)
             {
-                return View("not found");
-            }
-            _restMgr.DeleteRestaurant(id);
-            return RedirectToAction("Index");
+                var result = _restMgr.DeleteRestaurant(restId);
+                if (result.Succeeded == true)
+                {
 
+
+                    return Json(new { status = true, message = $" {restName} has been successfully deleted!", JsonRequestBehavior.AllowGet });
+                }
+                return Json(new { status = false, error = result.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { status = false, error = "Invalid Id" }, JsonRequestBehavior.AllowGet);
         }
+
+        //[HttpGet]
+        //public ActionResult DeleteRestaurant(int id)
+        //{
+        //    var result = _restMgr.GetRestaurantById(id);
+        //    if (result.Succeeded)
+        //    {
+        //        return View(result.Result);
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, result.Message);
+        //        return View();
+        //    }
+        //}
+
+        //[HttpPost]
+        //public ActionResult DeleteRestaurant(int id, Restaurant model)
+        //{
+        //    var result = _restMgr.GetRestaurantById(id);
+        //    if (result == null)
+        //    {
+        //        return View("not found");
+        //    }
+        //    _restMgr.DeleteRestaurant(id);
+        //    return RedirectToAction("Index");
+
+        //}
 
     }
 }

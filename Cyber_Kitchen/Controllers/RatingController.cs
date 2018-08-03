@@ -136,31 +136,50 @@ namespace Cyber_Kitchen.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult DeleteRating(int id)
+        [HttpPost]
+        public JsonResult DeleteRating(int id, string ratName)
         {
-            var result = _ratMgr.GetRatingById(id);
-            if (result.Succeeded)
+            int ratId = Convert.ToInt32(id);
+            if (ratId > 0)
             {
-                return View(result.Result);
+                var result = _ratMgr.DeleteRating(ratId);
+                if (result.Succeeded == true)
+                {
+
+                    return Json(new { status = true, message = $" {ratName} has been successfully deleted!", JsonRequestBehavior.AllowGet });
+                }
+                return Json(new { status = false, error = result.Message }, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-                return View();
-            }
+
+            return Json(new { status = false, error = "Invalid Id" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult DeleteRating(int id, Score model)
+        //[ValidateAntiForgeryToken]
+        public JsonResult DeleteRatings(string ids)
         {
-            var result = _ratMgr.GetRatingById(id);
-            if (result == null)
+            if (!string.IsNullOrEmpty(ids))
             {
-                return View("not found");
+                List<string> ratingIds = ids.Split('*').ToList();
+                if (ratingIds.Count() > 0)
+                {
+                    Operation result = null;
+                    foreach (var ratingids in ratingIds)
+                    {
+                        if (!string.IsNullOrEmpty(ratingids))
+                        {
+                            int ratId = Convert.ToInt32(ratingids);
+                            result = _ratMgr.DeleteRating(ratId);
+                        }
+                    }
+                    if (result.Succeeded == true)
+                    {
+                        return Json(new { status = true, message = " All selected rating(s) has been successfully deleted!", JsonRequestBehavior.AllowGet });
+                    }
+                    return Json(new { status = false, error = result.Message }, JsonRequestBehavior.AllowGet);
+                }
             }
-            _ratMgr.DeleteRating(id);
-            return RedirectToAction("Index");
+            return Json(new { status = false, error = "Invalid Id" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

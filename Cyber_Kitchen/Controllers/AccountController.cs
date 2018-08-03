@@ -22,6 +22,7 @@ namespace Cyber_Kitchen.Controllers
         private RoleManager<IdentityRole> _roleMgr;
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleMgr )
@@ -29,6 +30,7 @@ namespace Cyber_Kitchen.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
             _roleMgr = roleMgr;
+
         }
 
         public ApplicationSignInManager SignInManager

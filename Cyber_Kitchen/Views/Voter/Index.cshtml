@@ -19,10 +19,10 @@
     <table class="table table-striped table-bordered table-hover  order-column valign-middle" id="example4">
         <thead>
             <tr>
-                @if (User.IsInRole("Admin"))
+                @*@if (User.IsInRole("Admin"))
                 {
                 <th> s/n </th>
-                }
+                }*@
 
                 <th> Staff Name </th>
                 <th> Staff NO. </th>
@@ -44,10 +44,10 @@
                 }*@
                 
                 
-                @if (User.IsInRole("Admin"))
+                @*@if (User.IsInRole("Admin"))
                 {
                 <td class="left">@Html.DisplayFor(modelItem => item.VoterId)</td>
-                }
+                }*@
 
                 <td>@Html.DisplayFor(modelItem => item.VotName)</td>
                 <td>@Html.DisplayFor(modelItem => item.StaffNo)</td>
@@ -59,13 +59,12 @@
                     @if (User.IsInRole("Admin"))
                     {
                     <a href="/Voter/EditVoter?id=@item.VoterId" class="btn btn-primary btn-xs">
-                        <i class="fa fa-pencil"></i>
+                        <i class="fa fa-pencil"></i>Edit
                     </a>
-                    <a href="/Voter/DeleteVoter?id=@item.VoterId" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.VoterId" data-name="@item.VotName">
-                        <i class="fa fa-trash-o "></i>
+                    <a href="#" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.VoterId" data-name="@item.VotName">
+                        <i class="fa fa-trash-o "></i> Delete
                     </a>
                     }
-
 
                 </td>
             </tr>
@@ -74,3 +73,48 @@
 
         </tbody>
     </table>
+<script>
+    $(function () {
+
+        $(document).on('click', '#deleteaction', function (e) {
+            e.preventDefault();
+
+            // Get the id from the link
+            var recordToDelete = $(this).attr("data-id");
+            var votName = $(this).attr("data-name");
+            if (recordToDelete !== '') {
+                var confirmValue = confirm("Are you sure you want to delete this Staff Name(s)? ");
+                if (confirmValue) {
+                  
+                    // Perform the ajax post DeleteFaculty(int id, string facultyName)
+                    $.post("/Voter/DeleteVoter", { "id": recordToDelete, "votName": votName },
+                        function (data) {
+                            // Successful requests get here
+                            // Update the page elements
+                            if (data.status == true) {
+                                //$("html").removeClass("loading")
+                                $('#row-' + recordToDelete).fadeOut("slow", function () { $(this).remove(); });
+                                alert(data.message);
+                            }
+                            else {
+                                $("html").removeClass("loading")
+                                alert(data.error);
+                            }
+
+                        });
+
+                }
+                else {
+                   // $("html").removeClass("loading")
+                    return;
+
+                }
+
+            }
+        });
+
+        });
+
+</script>
+
+

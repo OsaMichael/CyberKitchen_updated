@@ -264,12 +264,14 @@
     <Compile Include="Infrastructure\Utils\ExcelPro.cs" />
     <Compile Include="Interface\ICatererInfoManager.cs" />
     <Compile Include="Interface\IDataRepository.cs" />
+    <Compile Include="Interface\IMealManager.cs" />
     <Compile Include="Interface\IRatingManager.cs" />
     <Compile Include="Interface\IRestaurantManager.cs" />
     <Compile Include="Interface\IScoreManager.cs" />
     <Compile Include="Interface\IUploadManager.cs" />
     <Compile Include="Interface\IVoterManager.cs" />
     <Compile Include="Interface\Utils\IExcelProcessor.cs" />
+    <Compile Include="Manager\MealManager.cs" />
     <Compile Include="Manager\RatingManager.cs" />
     <Compile Include="Manager\RestaurantManager.cs" />
     <Compile Include="Manager\ScoreManager.cs" />
@@ -279,10 +281,6 @@
     <Compile Include="Migrations\201807161744536_all.Designer.cs">
       <DependentUpon>201807161744536_all.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807161834189_UpdateStaffId.cs" />
-    <Compile Include="Migrations\201807161834189_UpdateStaffId.Designer.cs">
-      <DependentUpon>201807161834189_UpdateStaffId.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201807170943173_AddStaffIdNew.cs" />
     <Compile Include="Migrations\201807170943173_AddStaffIdNew.Designer.cs">
       <DependentUpon>201807170943173_AddStaffIdNew.cs</DependentUpon>
@@ -290,6 +288,14 @@
     <Compile Include="Migrations\201807171038162_UpdateStaff.cs" />
     <Compile Include="Migrations\201807171038162_UpdateStaff.Designer.cs">
       <DependentUpon>201807171038162_UpdateStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807171253290_AddStaffIdToModel.cs" />
+    <Compile Include="Migrations\201807171253290_AddStaffIdToModel.Designer.cs">
+      <DependentUpon>201807171253290_AddStaffIdToModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807191047437_UpdateNewStaffId3.cs" />
+    <Compile Include="Migrations\201807191047437_UpdateNewStaffId3.Designer.cs">
+      <DependentUpon>201807191047437_UpdateNewStaffId3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -712,6 +718,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Meal\Index.cshtml" />
     <Content Include="Views\Meal\CreateMeal.cshtml" />
+    <Content Include="Views\Meal\ClockIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -728,14 +735,17 @@
     <EmbeddedResource Include="Migrations\201807161744536_all.resx">
       <DependentUpon>201807161744536_all.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807161834189_UpdateStaffId.resx">
-      <DependentUpon>201807161834189_UpdateStaffId.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807170943173_AddStaffIdNew.resx">
       <DependentUpon>201807170943173_AddStaffIdNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807171038162_UpdateStaff.resx">
       <DependentUpon>201807171038162_UpdateStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807171253290_AddStaffIdToModel.resx">
+      <DependentUpon>201807171253290_AddStaffIdToModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807191047437_UpdateNewStaffId3.resx">
+      <DependentUpon>201807191047437_UpdateNewStaffId3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
