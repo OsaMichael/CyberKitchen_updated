@@ -23,8 +23,8 @@ namespace Cyber_Kitchen.Manager
             {
                 //model.Validate();    // this part was added to compare UserId .. tovod multple voting   
                 var isExists = _context.Ratings.Where(c => c.UserId == model.UserId && c.RestId == model.RestId).FirstOrDefault();
-                if (isExists != null) throw new Exception("rating already exist");
-
+                if (isExists != null) throw new Exception("Rating already exist, You can't vote twice");
+                 
                 var entity = model.Create(model);
                 _context.Ratings.Add(entity);
                 _context.SaveChanges();

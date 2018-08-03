@@ -179,9 +179,12 @@ namespace Cyber_Kitchen.Controllers
         public ActionResult Register()
         {
             // This [] was added to enable dropdown during Registration when a user is registring for the first time.
-            // but the dropdown is hiden for the user. it can only be seen by the dmin.  
-            var roles = new string[] { "Admin", "User" };
-            ViewBag.proinfo = new SelectList(roles); 
+            // but the dropdown is hiden for the user. it can only be seen by the dmin.
+           
+                var roles = new string[] { "Admin", "User" };
+                ViewBag.proinfo = new SelectList(roles);
+
+            
             //ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
 
             return View();
@@ -197,8 +200,11 @@ namespace Cyber_Kitchen.Controllers
         {
             if (ModelState.IsValid)
             {
-                var roles = new string[] { "Admin", "User" };
-                ViewBag.proinfo = new SelectList(roles);
+               
+                    var roles = new string[] { "Admin", "User" };
+                    ViewBag.proinfo = new SelectList(roles);
+
+                
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -206,7 +212,11 @@ namespace Cyber_Kitchen.Controllers
                 if (result.Succeeded)
                 {
                 //
-                    await UserManager.AddToRoleAsync(user.Id, model.Role);
+                if(User.IsInRole("Admin"))
+                    {
+                        await UserManager.AddToRoleAsync(user.Id, model.Role);
+                    }
+                   
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
