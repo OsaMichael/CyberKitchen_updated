@@ -49,7 +49,7 @@
                 <td class="left">@Html.DisplayFor(modelItem => item.VoterId)</td>
                 }*@
 
-                <td>@Html.DisplayFor(modelItem => item.VotName)</td>
+                <td>@Html.DisplayFor(modelItem => item.StaffName)</td>
                 <td>@Html.DisplayFor(modelItem => item.StaffNo)</td>
                 @if (User.IsInRole("Admin"))
                 {
@@ -61,7 +61,7 @@
                     <a href="/Voter/EditVoter?id=@item.VoterId" class="btn btn-primary btn-xs">
                         <i class="fa fa-pencil"></i>Edit
                     </a>
-                    <a href="#" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.VoterId" data-name="@item.VotName">
+                    <a href="#" class="btn btn-danger btn-xs" id="deleteaction" data-id="@item.VoterId" data-name="@item.StaffName">
                         <i class="fa fa-trash-o "></i> Delete
                     </a>
                     }

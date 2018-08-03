@@ -58,7 +58,7 @@ namespace Cyber_Kitchen.Controllers
         [HttpGet]
         public ActionResult CreateRating()
         {
-            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
             // ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
             // here i pass the data to the view
             ViewBag.restaurants = _restMgr.GetRestaurants().Result;
@@ -69,7 +69,7 @@ namespace Cyber_Kitchen.Controllers
         [HttpPost]
         public ActionResult CreateRating(List<RatingModel> model)
         {
-            //ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+            //ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
             //var userId = User.Identity.GetUserId();
             //model.UserId = userId;
             //model.CreatedBy = User.Identity.GetUserName();

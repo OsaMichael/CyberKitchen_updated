@@ -15,8 +15,8 @@
                     <span class="required" aria-required="true"> * </span>
                 </label>
                 <div class="col-md-5">
-                    @Html.TextBoxFor(m => m.VotName, new { @class = "form-control input-height", placeholder = "enter voter name" })
-                    @Html.ValidationMessageFor(m => m.VotName, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.StaffName, new { @class = "form-control input-height", placeholder = "enter voter name" })
+                    @Html.ValidationMessageFor(m => m.StaffName, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.VoterId, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>

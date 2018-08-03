@@ -60,7 +60,7 @@ namespace Cyber_Kitchen.Controllers
         [HttpGet]
         public ActionResult CreateScore()
         {
-            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
             ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
 
             return View();
@@ -71,7 +71,7 @@ namespace Cyber_Kitchen.Controllers
         //public ActionResult CreateScore(ScoreModel model)
         //{
         //    var userId = User.Identity.GetUserId();
-        //    ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+        //    ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
         //    ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
 
         //    model.UserId = userId;  // This  enable you to track or validate the user login Id to ovid multiple voting. first , add UserId to Voter Table

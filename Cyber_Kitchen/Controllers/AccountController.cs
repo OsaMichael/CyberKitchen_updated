@@ -185,7 +185,7 @@ namespace Cyber_Kitchen.Controllers
                 ViewBag.proinfo = new SelectList(roles);
 
             
-            //ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+            //ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
 
             return View();
         }

@@ -12,7 +12,7 @@ namespace Cyber_Kitchen.Models
         public int VoterId { get; set; }
         public string UserId { get; set; }
         [Required]
-        public string VotName { get; set; }
+        public string StaffName { get; set; }
         [Required]
         public string StaffNo { get; set; }
         public string Message { get; set; }
@@ -36,7 +36,7 @@ namespace Cyber_Kitchen.Models
             return new Voter
             {
                 UserId = model.UserId,
-                VotName = model.VotName,
+                StaffName = model.StaffName,
                 StaffNo = model.StaffNo,
                 CreatedBy = model.CreatedBy,
                 CreatedDate = DateTime.Now,
@@ -49,7 +49,7 @@ namespace Cyber_Kitchen.Models
         {
             // entity.VoterId = model.VoterId;
             entity.UserId = model.UserId;
-            entity.VotName = model.VotName;
+            entity.StaffName = model.StaffName;
             entity.StaffNo = model.StaffNo;
             //entity.CreatedBy = model.CreatedBy;
             entity.ModifiedBy = model.ModifiedBy;

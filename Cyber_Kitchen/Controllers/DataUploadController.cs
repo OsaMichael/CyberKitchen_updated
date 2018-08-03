@@ -55,7 +55,7 @@ namespace Cyber_Kitchen.Controllers
         }
         private void DropDown()
         {
-            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
 
         }
         private void CheckTempData()

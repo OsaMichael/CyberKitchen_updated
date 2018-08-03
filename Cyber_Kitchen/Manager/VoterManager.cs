@@ -27,7 +27,7 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() =>
             {
                 //model.Validate();
-                var isExists = _context.Voters.Where(c => c.VotName== model.VotName).FirstOrDefault();
+                var isExists = _context.Voters.Where(c => c.StaffName== model.StaffName).FirstOrDefault();
                 if (isExists != null) throw new Exception("voter already exist");
 
                 var entity = model.Create(model);
@@ -119,7 +119,7 @@ namespace Cyber_Kitchen.Manager
                             CreatedDate = DateTime.Now,
 
 
-                        VotName = row.VotName,
+                        StaffName = row.StaffName,
                             StaffNo = row.StaffNo,
                             //ModifiedDate  = DateTime.Now
                         };
@@ -131,7 +131,7 @@ namespace Cyber_Kitchen.Manager
                     {
                      
                         voter.StaffNo = row.StaffNo;
-                        voter.VotName = row.VotName;
+                        voter.StaffName = row.StaffName;
                         voter.CreatedDate = DateTime.Now;
                         //var entity1 = row.Edit(voter, row);
                         _context.Entry(voter);

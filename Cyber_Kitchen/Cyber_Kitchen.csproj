@@ -297,13 +297,9 @@
     <Compile Include="Migrations\201807191047437_UpdateNewStaffId3.Designer.cs">
       <DependentUpon>201807191047437_UpdateNewStaffId3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807240925490_ToUpdateMeal.cs" />
-    <Compile Include="Migrations\201807240925490_ToUpdateMeal.Designer.cs">
-      <DependentUpon>201807240925490_ToUpdateMeal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807240935330_ToUpdateMeal1.cs" />
-    <Compile Include="Migrations\201807240935330_ToUpdateMeal1.Designer.cs">
-      <DependentUpon>201807240935330_ToUpdateMeal1.cs</DependentUpon>
+    <Compile Include="Migrations\201808031829117_ChangeVotNameToStaffName.cs" />
+    <Compile Include="Migrations\201808031829117_ChangeVotNameToStaffName.Designer.cs">
+      <DependentUpon>201808031829117_ChangeVotNameToStaffName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -756,6 +752,12 @@
     <EmbeddedResource Include="Migrations\201807191047437_UpdateNewStaffId3.resx">
       <DependentUpon>201807191047437_UpdateNewStaffId3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808031829117_ChangeVotNameToStaffName.resx">
+      <DependentUpon>201808031829117_ChangeVotNameToStaffName.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

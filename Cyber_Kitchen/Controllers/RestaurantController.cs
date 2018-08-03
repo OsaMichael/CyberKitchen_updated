@@ -37,7 +37,7 @@ namespace Cyber_Kitchen.Controllers
                 ModelState.AddModelError(string.Empty, "An error occure");
                 return View();
             }
-        
+
         }
         [HttpGet]
         public ActionResult CreateRestaurant()
@@ -49,7 +49,7 @@ namespace Cyber_Kitchen.Controllers
         {
             model.CreatedBy = User.Identity.GetUserName();
             var result = _restMgr.CreateRestaurant(model);
-            if(result.Succeeded == true)
+            if (result.Succeeded == true)
             {
                 TempData["message"] = $"Restaurant{model.RestName} was successfully added!";
                 return RedirectToAction("Index");
@@ -60,7 +60,7 @@ namespace Cyber_Kitchen.Controllers
         public ActionResult EditRestaurant(int id = 0)
         {
             var result = _restMgr.GetRestaurantById(id);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return View(result.Result);
             }
@@ -68,19 +68,19 @@ namespace Cyber_Kitchen.Controllers
             {
                 ModelState.AddModelError(string.Empty, result.Message);
                 return View();
-                    
+
             }
         }
         [HttpPost]
         public ActionResult EditRestaurant(RestaurantModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 model.ModifiedBy = User.Identity.GetUserName();
 
                 model.CreatedBy = User.Identity.GetUserName();
                 var result = _restMgr.UpdateRestaurant(model);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     TempData["message"] = $"Restaurant{model.RestName} was successfully added!";
                     ModelState.AddModelError(string.Empty, "Update was successfully ");
@@ -144,3 +144,4 @@ namespace Cyber_Kitchen.Controllers
         //}
 
     }
+}

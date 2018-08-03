@@ -36,9 +36,9 @@ namespace Cyber_Kitchen.Manager
                     }
                     row.CreatedBy = model.CreatedBy;
                     row.ModifiedBy = model.ModifiedBy;
-                    row.VotName = model.VotName;
+                    row.StaffName = model.StaffName;
                     row.StaffNo = model.StaffNo;
-                    row.VotName = row.VotName /*== staffNm.VotName ? row.VotName : staffNm.VotName*/;
+                    row.StaffName = row.StaffName /*== staffNm.StaffName ? row.StaffName : staffNm.StaffName*/;
                     row.StaffNo = row.StaffNo /*== staffNm.StaffNo ? row.StaffNo : staffNm.StaffNo*/;
 
                     if (staffNm == null)

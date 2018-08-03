@@ -7,13 +7,13 @@ namespace Cyber_Kitchen.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ToUpdateMeal : IMigrationMetadata
+    public sealed partial class ChangeVotNameToStaffName : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ToUpdateMeal));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeVotNameToStaffName));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807240925490_ToUpdateMeal"; }
+            get { return "201808031829117_ChangeVotNameToStaffName"; }
         }
         
         string IMigrationMetadata.Source

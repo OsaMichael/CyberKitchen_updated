@@ -55,7 +55,7 @@ namespace Cyber_Kitchen.Controllers
             var result = _votMgr.CreateVoter(model);
             if (result.Succeeded == true)
             {
-                TempData["message"] = $"Voter{model.VotName} was successfully added!";
+                TempData["message"] = $"Voter{model.StaffName} was successfully added!";
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -84,7 +84,7 @@ namespace Cyber_Kitchen.Controllers
                 var result = _votMgr.UpdateVoter(model);
                 if (result.Succeeded)
                 {
-                    TempData["message"] = $"Voter{model.VotName} was successfully added!";
+                    TempData["message"] = $"Voter{model.StaffName} was successfully added!";
                     ModelState.AddModelError(string.Empty, "Update was successfully ");
                     return RedirectToAction("Index");
                 }
@@ -170,7 +170,7 @@ namespace Cyber_Kitchen.Controllers
         private void DropDown()
         {
 
-            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "VotName");
+            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
 
         }
 
