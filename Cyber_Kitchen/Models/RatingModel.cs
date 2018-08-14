@@ -21,6 +21,10 @@ namespace Cyber_Kitchen.Models
         [Required]
         public string UserId { get; set; }
         [Required]
+        public string Sid { get; set; }
+        //[Required]
+        //public string UserName { get; set; }
+        [Required]
         public int Taste { get; set; }
         [Required]
         public int Quality { get; set; }
@@ -30,24 +34,33 @@ namespace Cyber_Kitchen.Models
         public int TimeLiness { get; set; }
         [Required]
         public int CustomerServices { get; set; }
-        [Required]
+        //[Required]
+        //public string UserName { get; set; }
+        //[Required]
+        //public string FirstName { get; set; }
+        //[Required]
+        //public string LastName { get; set; }
+        //[Required]
         public decimal TotalScore { get; set; }
         public string Message { get; set; }
         public string ImageUrl { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public virtual RestaurantModel Restaurant { get; set; }
         public virtual VoterModel Voters { get; set; }
         public virtual ApplicationUser User { get; set; }
+        //public virtual UserProfile UserPro { get; set; }
+
 
         public RatingModel()
         {
             new RestaurantModel();
             new VoterModel();
             new ApplicationUser();
+          //  new UserProfile();
     }
 
         public RatingModel(Rating ratings)
@@ -55,7 +68,9 @@ namespace Cyber_Kitchen.Models
             this.Assign(ratings);
             Restaurant = new RestaurantModel();
             Voters = new VoterModel();
-            User = new ApplicationUser();
+           User = new ApplicationUser();
+           // UserPro = new UserProfile();
+
         }
 
         public Rating Create(RatingModel model)
@@ -65,12 +80,16 @@ namespace Cyber_Kitchen.Models
                 RestId = model.RestId,
                 VoterId = model.VoterId,
                 UserId = model.UserId,
+                Sid   = model.Sid,
                 Taste = model.Taste,
                 Quality = model.Quality,
                 Quantity = model.Quantity,
                 TimeLiness = model.TimeLiness,
                 CustomerServices = model.CustomerServices,
-                TotalScore = model.TotalScore,
+                TotalScore = model.TotalScore, 
+                //UserName = model.UserName,              
+                //FirstName = model.FirstName,
+                //LastName = model.LastName,
                 ImageUrl = model.ImageUrl,
                 CreatedBy = model.CreatedBy,
                 CreatedDate = DateTime.Now,

@@ -25,18 +25,13 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() => 
             {
                 model.Status = true;
-                var user = _context.Meals.Where(a =>a.StaffId == model.StaffId);
-                //var user = Microsoft.AspNet.Identity.UserManager.FindById(User.Identity.GetUserId());
-                //if (user != null)
-                   // ApplicationUser user = _userManager.FindAsync("mikel@gmail.com", "Password123@").Result;/// find the user by the staff id//
-                
-                //model.Validate();
-                //var isExists = _userManager.(c => c.StaffId == model.StaffId).FirstOrDefault();
-                //if (isExists != null) throw new Exception("meal already exist");
+                var user = _context.Users.Where(a =>a.StaffId == model.StaffId);
+               //var isExists = _userManager.(c => c.StaffId == model.StaffId).FirstOrDefault();
+                if (user != null) throw new Exception("meal already exist");
 
-                //var entity = model.Create(model);
-                //_context.Meals.Add(entity);
-                //_context.SaveChanges();
+                var entity = model.Create(model);
+                _context.Meals.Add(entity);
+                _context.SaveChanges();
 
                 return model;
             });

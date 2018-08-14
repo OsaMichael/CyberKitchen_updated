@@ -10,36 +10,70 @@
         <thead>
             <tr>
                 <th></th>
-                <th >Taste</th>
-                <th >Quality</th>
-                <th >Quantity</th>
-                <th >Customer Service</th>
+                <th>Taste</th>
+                <th>Quality</th>
+                <th>Quantity</th>
+                <th>Customer Service</th>
                 <th></th>
-                <th >TimeLiness</th>
+                <th>TimeLiness</th>
             </tr>
         </thead>
         <tbody>
             @{ var model = (RestaurantModel[])ViewBag.restaurants;}
 
-            @for (int i = 0; i < model.Count(); i++)
-            {
-                <tr>
-                    @Html.Hidden("model[" + @i + "].RestId", model[i].RestId)
-
-
-                    <td>
-                        <div class="col-md-12">
-                            <div @*class="checkbox"*@>
-                                @*<input type="checkbox" id="check_@rating.RestId" name="ratIds" />*@
-                                @{ var restName = model[i].RestName;}
-                               <label>@restName</label> 
+           @*// if (model != null)*@
+            @*{*@
+                @for (int i = 0; i < model.Count(); i++)
+                {
+                    <tr>
+                        @Html.Hidden("model[" + @i + "].RestId", model[i].RestId)
+                        <td>
+                            <div class="col-md-12">
+                                <div @*class="checkbox"*@>
+                                    @*<input type="checkbox" id="check_@rating.RestId" name="ratIds" />*@
+                                    @{ var restName = model[i].RestName;}
+                                    <label>@restName</label>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <label class="control-label col-md-12">
-                                <select id="taste" name="model[@i].Taste" class="form-control" required="required">
+                        </td>
+                        <td>
+                            <div>
+                                <label class="control-label col-md-12">
+                                    <select id="taste" name="model[@i].Taste" class="form-control" required="required">
+                                        <option value="">select</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <select id="quality" name="model[@i].Quality" class="form-control" required="required">
+                                <option value="">select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="quantity" name="model[@i].Quantity" class="form-control" required="required">
+                                <option value="">select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <div>
+                                <select id="timeliness" name="model[@i].TimeLiness" class="form-control" required="required">
                                     <option value="">select</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -47,65 +81,31 @@
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <select id="quality" name="model[@i].Quality" class="form-control" required="required">
-                            <option value="">select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select id="quantity" name="model[@i].Quantity" class="form-control" required="required">
-                            <option value="">select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </td>
-                  
-                    <td>
-                        <div>
-                            <select id="timeliness" name="model[@i].TimeLiness" class="form-control" required="required">
-                                <option value="">select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                    </td>
-                    <th></th>
-                    <td>
-                        <div>
-                            <select id="customerServices" name="model[@i].CustomerServices" class="form-control" required="required">
-                                <option value="">select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                    </td>
-                </tr>
-            }
-
+                            </div>
+                        </td>
+                        <th></th>
+                        <td>
+                            <div>
+                                <select id="customerServices" name="model[@i].CustomerServices" class="form-control" required="required">
+                                    <option value="">select</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                          @*}*@
+                  }
         </tbody>
     </table>
 
     <div class="form-actions">
         <div class="row">
             <div class="offset-md-3 col-md-6 pull-right">
-                <button type="submit" class="btn btn-info" id="submitData" >Save</button>
+                <button type="submit" class="btn btn-info" id="submitData">Save</button>
             </div>
             <div class="col-md-1">
                 <a href="@Url.Action("Index","Rating", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>
@@ -117,39 +117,39 @@
 
 
 
-    @*<form action="CreateRating" method="post">
-        <div class="col-md-12">
-            <h1>Make your choice here</h1>
-            <div class="col-md-12">*@
+@*<form action="CreateRating" method="post">
+    <div class="col-md-12">
+        <h1>Make your choice here</h1>
+        <div class="col-md-12">*@
 
-                @*@ViewBag.restaurants*@
+@*@ViewBag.restaurants*@
 
-                @*@{ var model = ViewBag.restaurants as List<RestaurantModel>;}*@
-                
-                    @*@using (Html.BeginForm("CreateRating", "Rating", FormMethod.Post, new { }))
-                   {
+@*@{ var model = ViewBag.restaurants as List<RestaurantModel>;}*@
 
-                        <ul class="list-group" id="ItemList">
-                            <li class="list-group-item-heading list-group-item-action">
-                                <h4 class="list-group-item-text"></h4>
-                            </li>
-                            @foreach (var item in ViewBag.restaurants)
-                      {
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="check_@item.RestId" name="caterIds" />
-                                        <label for="Check_@item.RestId">@item.RestName </label>*@
-                                        @*<label for="Check_@item.RestId">@item.</label>*@
-                                    @*</div>
-                                </li>
-                            }
-                            <li class="list-group-item">
-                                <button type="submit" class="btn btn-info" id="submitData">Save</button>
-                                @*<a class="btn btn-success btn-block" onclick="SaveList()">Save</a>*@
-                            @*</li>
+@*@using (Html.BeginForm("CreateRating", "Rating", FormMethod.Post, new { }))
+    {
+
+         <ul class="list-group" id="ItemList">
+             <li class="list-group-item-heading list-group-item-action">
+                 <h4 class="list-group-item-text"></h4>
+             </li>
+             @foreach (var item in ViewBag.restaurants)
+       {
+                 <li class="list-group-item">
+                     <div class="checkbox">
+                         <input type="checkbox" id="check_@item.RestId" name="caterIds" />
+                         <label for="Check_@item.RestId">@item.RestName </label>*@
+@*<label for="Check_@item.RestId">@item.</label>*@
+@*</div>
+        </li>
+    }
+    <li class="list-group-item">
+        <button type="submit" class="btn btn-info" id="submitData">Save</button>
+        @*<a class="btn btn-success btn-block" onclick="SaveList()">Save</a>*@
+@*</li>
                         </ul>
                     }
-                    
+
             </div>
         </div>
 
@@ -231,7 +231,7 @@
             @for (int i = 0; i < Model.Voters\
                 Count(); i++)
             {*@
-  
+
 @*<tr>
 
                 @*<div>

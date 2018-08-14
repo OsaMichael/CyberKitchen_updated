@@ -1,9 +1,13 @@
-﻿using Cyber_Kitchen.Interface;
+﻿using Cyber_Kitchen.Entities;
+using Cyber_Kitchen.Interface;
 using Cyber_Kitchen.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 
 namespace Cyber_Kitchen.Manager
@@ -12,25 +16,38 @@ namespace Cyber_Kitchen.Manager
     {
 
         private ApplicationDbContext _context;
+        private ClaimsPrincipal principal;
+        private string logedInUser;
+        private readonly string sidUser;
 
         public RatingManager(ApplicationDbContext context)
         {
             _context = context;
-        }
-        public Operation<RatingModel> CreateRating(RatingModel model)
-        {
-            return Operation.Create(() =>
-            {
-                //model.Validate();    // this part was added to compare UserId .. tovod multple voting   
-                var isExists = _context.Ratings.Where(c => c.UserId == model.UserId && c.RestId == model.RestId).FirstOrDefault();
-                if (isExists != null) throw new Exception("Rating already exist, You can't vote twice");
-                 
-                var entity = model.Create(model);
-                _context.Ratings.Add(entity);
-                _context.SaveChanges();
 
-                return model;
-            });
+            //Get the current claims principal
+            principal = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            // Get the claims values
+            logedInUser = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            sidUser = principal.Claims.Where(c => c.Type == ClaimTypes.PrimarySid).Select(c => c.Value).SingleOrDefault();
+
+        }
+        // To avoid using operation class used the bool
+        public bool CreateRating(RatingModel model)
+        {
+            //return Operation.Create(() =>
+            //{          
+                var isExist = _context.Ratings.Where(c => c.RestId == model.RestId && c.Sid == sidUser).FirstOrDefault();
+            if (isExist != null) throw new Exception("You voted before, Sorry you can't vote twice");
+           
+            model.Sid = sidUser;
+            var entity = model.Create(model);
+          //  model.CreatedDate = DateTime.Now;
+            _context.Ratings.Add(entity);
+            _context.SaveChanges();
+
+            return true;
+            //    return model;
+            //});
         }
 
         public Operation<RatingModel[]> GetRatings()
@@ -38,7 +55,7 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() =>
             {
                 var entities = _context.Ratings.ToList();
-                
+
                 var models = entities.Select(s => new RatingModel(s)
                 {
                     Voters = new VoterModel(s.Voter),
@@ -71,7 +88,7 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() =>
             {
                 var entity = _context.Ratings.Find(ratId);
-                if (entity != null) throw new Exception("rating does not exist");
+                if (entity != null) throw new Exception("rating does  exist");
                 return new RatingModel(entity);
 
             });
@@ -92,8 +109,8 @@ namespace Cyber_Kitchen.Manager
                                  Taste = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.Taste)),
                                  Quality = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.Quality)),
                                  Quantity = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.Quantity)),
-                                 CustomerServices = g.Select(c => c.Ratings).Sum(v=>v.Sum(r => r.CustomerServices)),
-                                 TimeLiness = g.Select(c => c.Ratings).Sum(v =>v.Sum(r =>r.TimeLiness))
+                                 CustomerServices = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.CustomerServices)),
+                                 TimeLiness = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.TimeLiness))
 
                              }).OrderByDescending(c => c.RestSum.Value).ToList();
                 //
@@ -104,7 +121,7 @@ namespace Cyber_Kitchen.Manager
             });
         }
 
-      
+
         //    });
         //}
         //public Operation<SummaryReportModel> GetSummaryReportById(int RestId)

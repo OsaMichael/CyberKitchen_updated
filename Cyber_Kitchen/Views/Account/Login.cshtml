@@ -1,5 +1,9 @@
 ﻿@using Cyber_Kitchen.Models
-@model LoginViewModel
+
+@*@model BigViewModel*@
+@model LoginModel
+
+@*@model LoginViewModel*@
 
 @{
     ViewBag.Title = "Log in";
@@ -52,14 +56,26 @@
                         <span class="login100-form-title p-b-49">
                             Login
                         </span>
+                      
+                            @*<div class="wrap-input100 validate-input m-b-23" data-validate="Email is reauired">
 
-                        <div class="wrap-input100 validate-input m-b-23" data-validate="Email is reauired">
-                            
-                            <span class="label-input100">Email</span>
-                            @Html.TextBoxFor(m => m.Email, new { @class = "input100", placeholder = "Email" })
+                                <span class="label-input100">Email</span>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "input100", placeholder = "Email" })
+                                <span class="focus-input100" data-symbol="&#xf206;"></span>
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>*@
+
+
+                        //if (User.IsInRole("Admin"))
+                        //{
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="UserName is reauired">
+
+                            <span class="label-input100"> UserName</span>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "input100", placeholder = "UserName" })
                             <span class="focus-input100" data-symbol="&#xf206;"></span>
-                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
+                       @*}*@
                         <div class="wrap-input100 validate-input m-b-23" data-validate="Password is reauired">
                             <span class="label-input100">Password</span>
                             

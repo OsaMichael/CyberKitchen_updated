@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Cyber_Kitchen.Controllers
 {
-    [Authorize]
+  [Authorize]
     public class SummaryReportController : Controller
     {
         private IScoreManager _scoreMgr;

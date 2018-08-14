@@ -46,6 +46,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DnDns, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Galactic.ActiveDirectory.1.3.0.499\lib\DnDns.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -56,6 +60,30 @@
     </Reference>
     <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Galactic.ActiveDirectory, Version=1.3.0.499, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Galactic.ActiveDirectory.1.3.0.499\lib\Galactic.ActiveDirectory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Galactic.Configuration, Version=1.3.0.499, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Galactic.Configuration.1.3.0.499\lib\Galactic.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Galactic.Cryptography, Version=1.3.0.499, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Galactic.Cryptography.1.3.0.499\lib\Galactic.Cryptography.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Galactic.EventLog, Version=1.3.0.499, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Galactic.EventLog.1.3.0.499\lib\Galactic.EventLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Galactic.FileSystem, Version=1.3.0.499, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Galactic.FileSystem.1.3.0.499\lib\Galactic.FileSystem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Galactic.LDAP, Version=1.3.0.499, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Galactic.LDAP.1.3.0.499\lib\Galactic.LDAP.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
@@ -106,6 +134,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -253,6 +284,7 @@
     <Compile Include="Entities\Score.cs" />
     <Compile Include="Entities\SummaryReport.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Entities\Voter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -301,12 +333,82 @@
     <Compile Include="Migrations\201808031829117_ChangeVotNameToStaffName.Designer.cs">
       <DependentUpon>201808031829117_ChangeVotNameToStaffName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808100020546_AddUserName.cs" />
+    <Compile Include="Migrations\201808100020546_AddUserName.Designer.cs">
+      <DependentUpon>201808100020546_AddUserName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808100037467_AddUFirstName.cs" />
+    <Compile Include="Migrations\201808100037467_AddUFirstName.Designer.cs">
+      <DependentUpon>201808100037467_AddUFirstName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808100114086_RemoveUserFrmRatingg.cs" />
+    <Compile Include="Migrations\201808100114086_RemoveUserFrmRatingg.Designer.cs">
+      <DependentUpon>201808100114086_RemoveUserFrmRatingg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808100146476_UpdateUserProfile.cs" />
+    <Compile Include="Migrations\201808100146476_UpdateUserProfile.Designer.cs">
+      <DependentUpon>201808100146476_UpdateUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808101847532_AddUserIdAGAIN.cs" />
+    <Compile Include="Migrations\201808101847532_AddUserIdAGAIN.Designer.cs">
+      <DependentUpon>201808101847532_AddUserIdAGAIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808101903232_AddUserIdAGAINnn.cs" />
+    <Compile Include="Migrations\201808101903232_AddUserIdAGAINnn.Designer.cs">
+      <DependentUpon>201808101903232_AddUserIdAGAINnn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808122334432_UpdateLogin.cs" />
+    <Compile Include="Migrations\201808122334432_UpdateLogin.Designer.cs">
+      <DependentUpon>201808122334432_UpdateLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808131439132_AddSid.cs" />
+    <Compile Include="Migrations\201808131439132_AddSid.Designer.cs">
+      <DependentUpon>201808131439132_AddSid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808131645046_AddUserProfileToDb.cs" />
+    <Compile Include="Migrations\201808131645046_AddUserProfileToDb.Designer.cs">
+      <DependentUpon>201808131645046_AddUserProfileToDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808132314544_AddSIDD.cs" />
+    <Compile Include="Migrations\201808132314544_AddSIDD.Designer.cs">
+      <DependentUpon>201808132314544_AddSIDD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808140009418_AddSIdToRat.cs" />
+    <Compile Include="Migrations\201808140009418_AddSIdToRat.Designer.cs">
+      <DependentUpon>201808140009418_AddSIdToRat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808140547172_AddSIdToR.cs" />
+    <Compile Include="Migrations\201808140547172_AddSIdToR.Designer.cs">
+      <DependentUpon>201808140547172_AddSIdToR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141401470_AddUserName1.cs" />
+    <Compile Include="Migrations\201808141401470_AddUserName1.Designer.cs">
+      <DependentUpon>201808141401470_AddUserName1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141638016_RemoveUserName.cs" />
+    <Compile Include="Migrations\201808141638016_RemoveUserName.Designer.cs">
+      <DependentUpon>201808141638016_RemoveUserName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141646034_RemoveUserName1.cs" />
+    <Compile Include="Migrations\201808141646034_RemoveUserName1.Designer.cs">
+      <DependentUpon>201808141646034_RemoveUserName1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141754355_AddUserId.cs" />
+    <Compile Include="Migrations\201808141754355_AddUserId.Designer.cs">
+      <DependentUpon>201808141754355_AddUserId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141819129_AddCommentUserProfile.cs" />
+    <Compile Include="Migrations\201808141819129_AddCommentUserProfile.Designer.cs">
+      <DependentUpon>201808141819129_AddCommentUserProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\BigViewModel.cs" />
     <Compile Include="Models\CatererInfoModel.cs" />
     <Compile Include="Models\Extension.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MealModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
@@ -316,7 +418,9 @@
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\SummaryReportModel.cs" />
+    <Compile Include="Models\UserClass.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\VoterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -724,6 +828,8 @@
     <Content Include="Views\Meal\Index.cshtml" />
     <Content Include="Views\Meal\CreateMeal.cshtml" />
     <Content Include="Views\Meal\ClockIn.cshtml" />
+    <Content Include="Views\Account\Login1.cshtml" />
+    <Content Include="Views\Account\AdminLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -754,6 +860,57 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808031829117_ChangeVotNameToStaffName.resx">
       <DependentUpon>201808031829117_ChangeVotNameToStaffName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808100020546_AddUserName.resx">
+      <DependentUpon>201808100020546_AddUserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808100037467_AddUFirstName.resx">
+      <DependentUpon>201808100037467_AddUFirstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808100114086_RemoveUserFrmRatingg.resx">
+      <DependentUpon>201808100114086_RemoveUserFrmRatingg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808100146476_UpdateUserProfile.resx">
+      <DependentUpon>201808100146476_UpdateUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808101847532_AddUserIdAGAIN.resx">
+      <DependentUpon>201808101847532_AddUserIdAGAIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808101903232_AddUserIdAGAINnn.resx">
+      <DependentUpon>201808101903232_AddUserIdAGAINnn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808122334432_UpdateLogin.resx">
+      <DependentUpon>201808122334432_UpdateLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808131439132_AddSid.resx">
+      <DependentUpon>201808131439132_AddSid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808131645046_AddUserProfileToDb.resx">
+      <DependentUpon>201808131645046_AddUserProfileToDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808132314544_AddSIDD.resx">
+      <DependentUpon>201808132314544_AddSIDD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808140009418_AddSIdToRat.resx">
+      <DependentUpon>201808140009418_AddSIdToRat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808140547172_AddSIdToR.resx">
+      <DependentUpon>201808140547172_AddSIdToR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141401470_AddUserName1.resx">
+      <DependentUpon>201808141401470_AddUserName1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141638016_RemoveUserName.resx">
+      <DependentUpon>201808141638016_RemoveUserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141646034_RemoveUserName1.resx">
+      <DependentUpon>201808141646034_RemoveUserName1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141754355_AddUserId.resx">
+      <DependentUpon>201808141754355_AddUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141819129_AddCommentUserProfile.resx">
+      <DependentUpon>201808141819129_AddCommentUserProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

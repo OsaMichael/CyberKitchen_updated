@@ -17,6 +17,7 @@ namespace Cyber_Kitchen.Entities
         public EntityRepository(DbContext context)
         {
             _dbContext = context;
+            _dbContext.Database.CommandTimeout = 200;
         }
 
         public IQueryable<T> Query<T>() where T : class

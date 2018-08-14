@@ -38,6 +38,7 @@ namespace Cyber_Kitchen.Controllers
             //    .GetUserManager<ApplicationUserManager>().FindById(System.Web
             //    .HttpContext.Current.User.Identity.GetUserId());
 
+            model.StaffId = User.Identity.GetUserName();
             var result = _meaMgr.ClockIn(model);
             if (result.Succeeded == true)
             {

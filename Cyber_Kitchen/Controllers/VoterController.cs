@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Cyber_Kitchen.Controllers
 {
-    [Authorize]
+   [Authorize]
     public class VoterController : Controller
     {
         private IVoterManager _votMgr;
@@ -27,7 +27,7 @@ namespace Cyber_Kitchen.Controllers
         {
             if (TempData["message"] != null)
             {
-                ViewBag.Success = (string)TempData["message"];
+               ViewBag.Success = (string)TempData["message"];
             }
             var results = _votMgr.GetVoters();
             if (results.Succeeded == true)

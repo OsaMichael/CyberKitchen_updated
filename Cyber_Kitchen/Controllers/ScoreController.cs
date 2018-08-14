@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Cyber_Kitchen.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ScoreController : Controller
     {
         private IScoreManager _scoreMgr;

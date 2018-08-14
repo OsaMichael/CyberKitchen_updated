@@ -26,7 +26,6 @@
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
 
-                   
                     @if (User.IsInRole("Admin"))
                     { 
                         <li>@Html.ActionLink("Staff Names", "index", "Voter")</li>

@@ -6,25 +6,39 @@ using Microsoft.AspNet.Identity;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Cyber_Kitchen.Controllers
 {
+    [Authorize]
     public class RatingController : Controller
     {
         private IRatingManager _ratMgr;
         private IVoterManager _votMgr;
         private IRestaurantManager _restMgr;
+        private string logedInUser;
+        private string sidUser;
+        private ClaimsPrincipal principal;
+
 
         public RatingController(IRatingManager ratMgr, IVoterManager votMgr, IRestaurantManager restMgr)
         {
             _ratMgr = ratMgr;
             _votMgr = votMgr;
             _restMgr = restMgr;
-        }
 
+            //Get the current claims principal
+            principal = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            // Get the claims values
+            logedInUser = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            sidUser = principal.Claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
+
+        }
 
         //GET:                       // int? page, was added for pagination
         public ActionResult Index( int? page)
@@ -53,7 +67,6 @@ namespace Cyber_Kitchen.Controllers
                 return View(results.Unwrap().ToPagedList(page ?? 1, 12));
             }
         }
-       
 
         [HttpGet]
         public ActionResult CreateRating()
@@ -69,30 +82,33 @@ namespace Cyber_Kitchen.Controllers
         [HttpPost]
         public ActionResult CreateRating(List<RatingModel> model)
         {
-            //ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
-            //var userId = User.Identity.GetUserId();
-            //model.UserId = userId;
-            //model.CreatedBy = User.Identity.GetUserName();
 
+
+            // voters was pass but was not used
+            ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
+            ViewBag.restaurants = _restMgr.GetRestaurants().Result;
             var ratingModel = new Operation<RatingModel>();
+            // var ratingModel = new List<RatingModel>();//do this to avoid using Operation class
+         
+            //since model is a list, used foreach
             foreach (var item in model)
             {
-                
-                item.CreatedBy = User.Identity.GetUserId();
-                //to get the userId that login
-                item.UserId = User.Identity.GetUserId();
-                ratingModel = _ratMgr.CreateRating(item);
+                item.CreatedBy = User.Identity.GetUserName();
+                ////to get the userId that login
+               // item.UserId = User.Identity.GetUserId();
+                item.Sid = User.Identity.GetUserId();
+                var result = _ratMgr.CreateRating(item);
             }
-           
             if (ratingModel.Succeeded == true)
             {
-                TempData["message"] = $"{model} was successfully added!";
+                TempData["message"] = $"{model} Your vote was successfully";
+                //if (User.IsInRole("Admin"))
+                //{
+                    //return RedirectToAction("Index");
+                //}
 
 
-                if (User.IsInRole("Admin"))
-                {
-                    return RedirectToAction("Index");
-                }
+
                 return RedirectToAction("Index", "Home");
             }
             return View(model);

@@ -8,7 +8,10 @@ namespace Cyber_Kitchen.Interface
 {
     public interface IRatingManager
     {
-        Operation<RatingModel> CreateRating(RatingModel model);
+
+       // Operation<LoginModel> VerifyUser(string UserName, string Password);
+
+        bool CreateRating(RatingModel model);
         Operation<RatingModel[]> GetRatings();
         Operation<RatingModel> UpdateRating(RatingModel model);
         Operation<RatingModel> GetRatingById(int ratId);

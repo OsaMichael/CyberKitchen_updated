@@ -18,7 +18,7 @@
                 <th> Restaurants Name  </th>
                 <th> Entry Date</th>
                 <th> Total Sum</th>
-                <th></th>
+                <th ></th>
                 <th></th>
                 <th>Taste</th>
                 <th>Quality</th>
@@ -34,7 +34,7 @@
             {
                 <tr class="gradeX odd" role="row" id="row-@item.RestId">
 
-                    <td class="left">@{i++;} @i</td> 
+                    <td class="left">@{i++;} @i</td>
 
                     <td>@Html.DisplayFor(modelItem => item.RestName)</td>
                     <td> @item.EntryDate.ToShortDateString()</td>

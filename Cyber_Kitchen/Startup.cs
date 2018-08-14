@@ -36,8 +36,9 @@ namespace Cyber_Kitchen
 
                 var user = new ApplicationUser();
                 user.StaffId = "23";
-                user.UserName = "mikel@gmail.com";
-                user.Email = "mikel@gmail.com";
+                user.UserName = "admin@gmail.com";
+                user.Email = "admin@gmail.com";
+
 
                 string userPWD = "Password123@";
 
