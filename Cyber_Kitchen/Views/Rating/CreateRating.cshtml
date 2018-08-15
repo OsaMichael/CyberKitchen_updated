@@ -16,9 +16,13 @@
                 <th>Customer Service</th>
                 <th></th>
                 <th>TimeLiness</th>
+                <th></th>
+                @*<th>Total Score</th>*@
             </tr>
         </thead>
         <tbody>
+        
+
             @{ var model = (RestaurantModel[])ViewBag.restaurants;}
 
            @*// if (model != null)*@
@@ -96,9 +100,20 @@
                                 </select>
                             </div>
                         </td>
+
+                        <td>
+                            <div>
+                                @*@{var total = model[i].TotalScore; }
+                                <label>@TotalScore</label>*@
+                                @*@Html.DisplayFor(modelItem => model[@i].TotalScore)*@
+                            </div>
+                            
+                        </td>
                     </tr>
                           @*}*@
+
                   }
+                      @*@Html.DisplayFor(modelItem =>.TotalScore)*@
         </tbody>
     </table>
 

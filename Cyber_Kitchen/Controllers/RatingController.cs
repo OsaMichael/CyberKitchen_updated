@@ -82,32 +82,29 @@ namespace Cyber_Kitchen.Controllers
         [HttpPost]
         public ActionResult CreateRating(List<RatingModel> model)
         {
-
-
             // voters was pass but was not used
             ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
             ViewBag.restaurants = _restMgr.GetRestaurants().Result;
+
             var ratingModel = new Operation<RatingModel>();
-            // var ratingModel = new List<RatingModel>();//do this to avoid using Operation class
-         
+            // var ratingModel = new List<RatingModel>();//do this u re not using Operation class
+          
             //since model is a list, used foreach
             foreach (var item in model)
             {
                 item.CreatedBy = User.Identity.GetUserName();
                 ////to get the userId that login
-               // item.UserId = User.Identity.GetUserId();
+                item.UserId = User.Identity.GetUserId();
                 item.Sid = User.Identity.GetUserId();
                 var result = _ratMgr.CreateRating(item);
             }
             if (ratingModel.Succeeded == true)
             {
-                TempData["message"] = $"{model} Your vote was successfully";
-                //if (User.IsInRole("Admin"))
-                //{
-                    //return RedirectToAction("Index");
-                //}
-
-
+                TempData["message"] = $"{model} Your voting was successful";
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index");
+                }
 
                 return RedirectToAction("Index", "Home");
             }

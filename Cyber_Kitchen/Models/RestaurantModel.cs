@@ -15,7 +15,7 @@ namespace Cyber_Kitchen.Models
         public int RestId { get; set; }
         [Required]
         public string RestName { get; set; }
-    
+        public string TotalScore { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
@@ -49,6 +49,7 @@ namespace Cyber_Kitchen.Models
             return new Restaurant
             {
                 RestName = model.RestName,
+                TotalScore = model.TotalScore,
                 CreatedBy = model.CreatedBy,
                 ModifiedBy = model.ModifiedBy,
                 CreatedDate = DateTime.Now,

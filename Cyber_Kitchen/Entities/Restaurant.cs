@@ -12,7 +12,7 @@ namespace Cyber_Kitchen.Entities
         [Key]
         public int RestId { get; set; }
         public string RestName { get; set; }
-      
+        public string TotalScore { get; set; }
         public bool IsCanceled { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
