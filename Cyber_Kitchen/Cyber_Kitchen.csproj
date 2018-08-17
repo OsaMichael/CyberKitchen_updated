@@ -265,7 +265,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\RestaurantController.cs" />
-    <Compile Include="Controllers\CatererInfoController.cs" />
     <Compile Include="Controllers\DataUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -294,7 +293,6 @@
     <Compile Include="Infrastructure\Manager.cs" />
     <Compile Include="Entities\Utils\ExcelProcessor.cs" />
     <Compile Include="Infrastructure\Utils\ExcelPro.cs" />
-    <Compile Include="Interface\ICatererInfoManager.cs" />
     <Compile Include="Interface\IDataRepository.cs" />
     <Compile Include="Interface\IMealManager.cs" />
     <Compile Include="Interface\IRatingManager.cs" />
@@ -405,12 +403,14 @@
     <Compile Include="Migrations\201808142338533_AddTotalSToRest.Designer.cs">
       <DependentUpon>201808142338533_AddTotalSToRest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808151926428_AddTotalSToRest1.cs" />
+    <Compile Include="Migrations\201808151926428_AddTotalSToRest1.Designer.cs">
+      <DependentUpon>201808151926428_AddTotalSToRest1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\BigViewModel.cs" />
-    <Compile Include="Models\CatererInfoModel.cs" />
     <Compile Include="Models\Extension.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -422,8 +422,6 @@
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\SummaryReportModel.cs" />
-    <Compile Include="Models\UserClass.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\VoterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -537,6 +535,8 @@
     <Content Include="Content\Login_v4\__MACOSX\Login_v4\vendor\select2\._select2.min.css" />
     <Content Include="Content\Login_v4\__MACOSX\Login_v4\vendor\select2\._select2.min.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -733,6 +733,9 @@
     <Content Include="App_Config\Include\Constellation\Constellation.Foundation.PackageVerification.config.example" />
     <Content Include="App_Data\packages\Constellation-Feature-Navigation-9.0.6.0.zip" />
     <Content Include="App_Config\Include\Constellation\Constellation.Foundation.ModelMapper.config" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\kitchen.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -752,6 +755,8 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -834,6 +839,7 @@
     <Content Include="Views\Meal\ClockIn.cshtml" />
     <Content Include="Views\Account\Login1.cshtml" />
     <Content Include="Views\Account\AdminLogin.cshtml" />
+    <Content Include="Views\Shared\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -918,6 +924,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808142338533_AddTotalSToRest.resx">
       <DependentUpon>201808142338533_AddTotalSToRest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808151926428_AddTotalSToRest1.resx">
+      <DependentUpon>201808151926428_AddTotalSToRest1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

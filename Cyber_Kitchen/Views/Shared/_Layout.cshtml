@@ -61,8 +61,30 @@
         <footer>
             <p>&copy; @DateTime.Now.Year </p>
         </footer>
-    </div>
+    </div>\
 
+    @RenderSection("Script", false)
+    <script>
+        $(function () {
+            //Initiate Page Loader
+            $("html").removeClass("loading");
+
+
+            ///Application Successful
+            var succ = $('#success').val();
+            if (succ !== "" && succ !== null && succ !== undefined) {
+                toastr.success(succ);
+            }
+
+            ///Registration Error
+            var err = $('#error').val();
+            if (err !== "" && err !== null && err !== undefined) {
+                toastr.error(err);
+            }
+
+        });
+
+    </script>
   
 </body>
 </html>

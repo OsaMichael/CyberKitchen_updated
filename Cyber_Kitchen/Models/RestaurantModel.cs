@@ -22,7 +22,7 @@ namespace Cyber_Kitchen.Models
         public DateTime ModifiedDate { get; set; }
 
 
-        public virtual ICollection<CatererInfo> CatererInfos { get; set; }
+        //public virtual ICollection<CatererInfo> CatererInfos { get; set; }
         public virtual ICollection<RatingModel> Ratings { get; set; }
         public virtual ICollection<VoterModel> Voters { get; set; }
         public virtual ICollection<ScoreModel> Scores { get; set; }
@@ -33,7 +33,7 @@ namespace Cyber_Kitchen.Models
             new HashSet<VoterModel>();
             new HashSet<ScoreModel>();
             new HashSet<RatingModel>();
-            new HashSet<CatererInfoModel>();
+            //new HashSet<CatererInfoModel>();
         }
         public RestaurantModel(Restaurant restaurant)
         {

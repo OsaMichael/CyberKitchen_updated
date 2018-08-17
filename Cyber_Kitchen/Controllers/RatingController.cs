@@ -88,26 +88,36 @@ namespace Cyber_Kitchen.Controllers
 
             var ratingModel = new Operation<RatingModel>();
             // var ratingModel = new List<RatingModel>();//do this u re not using Operation class
-          
-            //since model is a list, used foreach
-            foreach (var item in model)
-            {
-                item.CreatedBy = User.Identity.GetUserName();
-                ////to get the userId that login
-                item.UserId = User.Identity.GetUserId();
-                item.Sid = User.Identity.GetUserId();
-                var result = _ratMgr.CreateRating(item);
-            }
-            if (ratingModel.Succeeded == true)
-            {
-                TempData["message"] = $"{model} Your voting was successful";
-                if (User.IsInRole("Admin"))
-                {
-                    return RedirectToAction("Index");
-                }
 
-                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                //since model is a list, used foreach
+                foreach (var item in model)
+                {
+                    item.CreatedBy = User.Identity.GetUserName();
+                    ////to get the userId that login
+                    item.UserId = User.Identity.GetUserId();
+                    item.Sid = User.Identity.GetUserId();
+                    var result = _ratMgr.CreateRating(item);
+                    ratingModel.Succeeded = true;
+                }            
+                
+                if (ratingModel.Succeeded == true)
+                {
+                    if (TempData["message"] != null)
+                    {
+                        ViewBag.Success = (string)TempData["message"];
+                    }
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+       
             }
+
             return View(model);
         }
 
@@ -128,7 +138,6 @@ namespace Cyber_Kitchen.Controllers
         [HttpPost]
         public ActionResult EditRating(RatingModel model)
         {
-
             if (ModelState.IsValid)
             {
                 model.ModifiedBy = User.Identity.GetUserId();

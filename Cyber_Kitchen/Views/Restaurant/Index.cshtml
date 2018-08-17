@@ -58,7 +58,11 @@
         }
     </tbody>
 </table>
-
+@section Script{
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
 
 <script>
     $(function () {
@@ -66,48 +70,41 @@
         $(document).on('click', '#deleteaction', function (e) {
             e.preventDefault();
 
+            $("html").removeClass("loading")
             // Get the id from the link
             var recordToDelete = $(this).attr("data-id");
             var restName = $(this).attr("data-name");
             if (recordToDelete !== '') {
                 var confirmValue = confirm("Are you sure you want to delete this Restaurant Name(s)? ");
                 if (confirmValue) {
-                    ////$("html").addClass("loading");
-                   // $("html").addClass("loading");
+                 
                     // Perform the ajax post DeleteFaculty(int id, string facultyName)
                     $.post("/Restaurant/DeleteRestaurant", { "id": recordToDelete, "restName": restName },
                         function (data) {
                             // Successful requests get here
                             // Update the page elements
                             if (data.status == true) {
-                                //$("html").removeClass("loading")
+                                $("html").removeClass("loading")
                                 $('#row-' + recordToDelete).fadeOut("slow", function () { $(this).remove(); });
-                                alert(data.message);
+                                toastr.success(data.message);
                             }
                             else {
                                 $("html").removeClass("loading")
                                 alert(data.error);
                             }
-
                         });
-
                 }
                 else {
-                   // $("html").removeClass("loading")
+                    $("html").removeClass("loading")
                     return;
-
                 }
-
             }
         });
 
-
-     
         });
-
 </script>
 
-
+    }
 
 
 

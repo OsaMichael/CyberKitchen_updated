@@ -5,7 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h1 class="alert-info">SELECT YOUR CHOICE TO SUIT THE BEST RESTAURANTS</h1>
+@Html.Partial("Message")
 <form action="CreateRating" method="Post" id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <table>
         <thead>
             <tr>
@@ -31,6 +34,7 @@
                 {
                     <tr>
                         @Html.Hidden("model[" + @i + "].RestId", model[i].RestId)
+                 
                         <td>
                             <div class="col-md-12">
                                 <div @*class="checkbox"*@>
@@ -40,11 +44,13 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td class="required">
                             <div>
-                                <label class="control-label col-md-12">
-                                    <select id="taste" name="model[@i].Taste" class="form-control" required="required">
-                                        <option value="">select</option>
+                                <label class="control-label col-md-12" >
+                               
+                                    <select id="taste" name="model[@i].Taste" class="form-control" required="required"> 
+
+                                        <option value="" >select</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -55,7 +61,7 @@
                             </div>
                         </td>
                         <td>
-                            <select id="quality" name="model[@i].Quality" class="form-control" required="required">
+                            <select id="quality" name="model[@i].Quality" class="form-control" >
                                 <option value="">select</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -65,7 +71,7 @@
                             </select>
                         </td>
                         <td>
-                            <select id="quantity" name="model[@i].Quantity" class="form-control" required="required">
+                            <select id="quantity" name="model[@i].Quantity" class="form-control">
                                 <option value="">select</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -77,7 +83,7 @@
 
                         <td>
                             <div>
-                                <select id="timeliness" name="model[@i].TimeLiness" class="form-control" required="required">
+                                <select id="timeliness" name="model[@i].TimeLiness" class="form-control">
                                     <option value="">select</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -90,7 +96,7 @@
                         <th></th>
                         <td>
                             <div>
-                                <select id="customerServices" name="model[@i].CustomerServices" class="form-control" required="required">
+                                <select id="customerServices" name="model[@i].CustomerServices" class="form-control">
                                     <option value="">select</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -103,9 +109,7 @@
 
                         <td>
                             <div>
-                                @*@{var total = model[i].TotalScore; }
-                                <label>@TotalScore</label>*@
-                                @*@Html.DisplayFor(modelItem => model[@i].TotalScore)*@
+          
                             </div>
                             
                         </td>
@@ -120,16 +124,72 @@
     <div class="form-actions">
         <div class="row">
             <div class="offset-md-3 col-md-6 pull-right">
-                <button type="submit" class="btn btn-info" id="submitData">Save</button>
+                <button type="submit" class="btn btn-info" id="submitData" >Save</button>
             </div>
+            @if(User.IsInRole("Admin"))
+            { 
             <div class="col-md-1">
                 <a href="@Url.Action("Index","Rating", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>
             </div>
+            }
         </div>
     </div>
 </form>
 
+@section Scripts {
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/toastr.js"></script>
+<script>
 
+    $(function () {
+        $(function () {
+            $(document).on('click', '#submitData', function (e) {
+                alert("Are you sure you want to summit?");
+                $("html").addClass("loading");
+            });
+        });
+        //$(document).ready(function () {
+        //    // This WILL work because we are listening on the 'document', 
+        //    // for a click on an element with an ID of #test-element
+        //    $(document).on("click", "#submitData", function () {
+
+        //        alert("Are you sure you want to summit?");
+
+        //        $("html").addClass("loading");
+
+                @*$.ajax({
+                    url: "@Url.Action("CreateRating", "Rating", new { area = "" });",
+                    type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ model: Value })
+               })
+          .done(function () {
+              toastr.success(data.message);
+          }) //This will execute when you request is completed.
+         .fail(function () { })*@
+    //        });
+
+    //    });
+
+    });
+
+</script>
+}
+
+
+
+
+
+@*$.ajax({
+    url: "@Url.Action("ActionName", "ControllerName", new { area = "AreaName" });",
+    type: 'POST',
+    contentType: 'application/json; charset=utf-8',
+    data: JSON.stringify({param : Value})
+    })
+    .done(function () { alert('Success');}) //This will execute when you request is completed.
+    .fail(function () { })*@
 
 
 @*<form action="CreateRating" method="post">

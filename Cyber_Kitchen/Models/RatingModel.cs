@@ -11,16 +11,16 @@ namespace Cyber_Kitchen.Models
     public class RatingModel
     {
         [Key]
-        [Required]
+        //[Required]
         public int RatId { get; set; }
-        [Required]
+        //[Required]
         public int? VoterId { get; set; }
         [DisplayName("Restaurants Name")]
-        [Required]
+        //[Required]
         public int? RestId { get; set; }
-        [Required]
+        //[Required]
         public string UserId { get; set; }
-        [Required]
+        //[Required]
         public string Sid { get; set; }
         //[Required]
         //public string UserName { get; set; }
@@ -34,13 +34,6 @@ namespace Cyber_Kitchen.Models
         public int TimeLiness { get; set; }
         [Required]
         public int CustomerServices { get; set; }
-        //[Required]
-        //public string UserName { get; set; }
-        //[Required]
-        //public string FirstName { get; set; }
-        //[Required]
-        //public string LastName { get; set; }
-        //[Required]
         public decimal TotalScore { get; set; }
         public string Message { get; set; }
         public string ImageUrl { get; set; }
