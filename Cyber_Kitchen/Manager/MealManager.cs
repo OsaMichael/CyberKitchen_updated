@@ -25,7 +25,7 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() => 
             {
                 model.Status = true;
-                var user = _context.Users.Where(a =>a.StaffId == model.StaffId);
+                var user = _context.Meals.Where(a =>a.StaffId == model.StaffId);
                //var isExists = _userManager.(c => c.StaffId == model.StaffId).FirstOrDefault();
                 if (user != null) throw new Exception("meal already exist");
 
@@ -36,22 +36,22 @@ namespace Cyber_Kitchen.Manager
                 return model;
             });
         }
-        //public Operation<MealModel[]> GetMeals()
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        //var entities = _context.Meals.ToList();
+        public Operation<MealModel[]> GetMeals()
+        {
+            return Operation.Create(() =>
+            {
+                var entities = _context.Meals.ToList();
 
-        //        var models = entities.Select(c => new MealModel(c)
-        //        {
-        //            //Voters = new VoterModel(c.Voter),
-        //            Restaurant = new RestaurantModel(c.Restaurant),
-        //            //User =  new ApplicationUser(c.User)
-        //        }
-        //        ).ToArray();
-        //        return models;
-        //    });
-        //}
+                var models = entities.Select(c => new MealModel(c)
+                {
+                    //Voters = new VoterModel(c.Voter),
+                    Restaurant = new RestaurantModel(c.Restaurant),
+                    //User =  new ApplicationUser(c.User)
+                }
+                ).ToArray();
+                return models;
+            });
+        }
         //public Operation<MealModel> UpdateMeal(MealModel model)
         //{
         //    return Operation.Create(() =>

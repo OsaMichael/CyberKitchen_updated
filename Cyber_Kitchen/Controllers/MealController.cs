@@ -21,8 +21,26 @@ namespace Cyber_Kitchen.Controllers
             _meaMgr = meaMgr;
             
         }
-       
-             [HttpGet]
+        // GET: Meal
+        public ActionResult Index()
+        {
+            if (TempData["message"] != null)
+            {
+                ViewBag.Success = (string)TempData["message"];
+            }
+            var results = _meaMgr.GetMeals();
+            if (results.Succeeded == true)
+            {
+                return View(results.Unwrap());
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "An error occure");
+                return View();
+            }
+        }
+
+        [HttpGet]
         public ActionResult ClockIn()
         {
 
@@ -31,22 +49,42 @@ namespace Cyber_Kitchen.Controllers
         [HttpPost]
 
         public ActionResult ClockIn(MealModel model)
-        {             
-            model.Status = true;
-            /* ApplicationUser user = UserManager*/// find the user by the staff id//
-            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
-            //    .GetUserManager<ApplicationUserManager>().FindById(System.Web
-            //    .HttpContext.Current.User.Identity.GetUserId());
+        {    
+             model.Status = true;
 
-            model.StaffId = User.Identity.GetUserName();
-            var result = _meaMgr.ClockIn(model);
-            if (result.Succeeded == true)
-            {
-                TempData["message"] = $"Meal{model.StaffId} was successfully added!";
-                return RedirectToAction("Index");
-            }
+                model.StaffId = User.Identity.GetUserName();
+                var result = _meaMgr.ClockIn(model);
+                if (result.Succeeded == true)
+                {
+                    TempData["message"] = $"Meal{model.StaffId} was successfully added!";
+                    return RedirectToAction("Index");
+                }
+                
+       
             return View(model);
         }
+
+        //[HttpGet]
+        //public ActionResult CreateMeal()
+        //{
+
+        //    return View();
+        //}
+        //[HttpPost]
+
+        //public ActionResult CreateMeal(MealModel model)
+        //{
+        //    model.Status = true;
+        //    ApplicationUser user = _userManager.FindAsync("mikel@gmail.com", "Password123@").Result;// find the user by the staff id//
+        //    //model.StaffId = _votMgr.;
+        //    //var result = _votMgr.CreateMeal(model);
+        //    //if (result.Succeeded == true)
+        //    //{
+        //    //    TempData["message"] = $"Meal{model.StaffId} was successfully added!";
+        //    //    return RedirectToAction("Index");
+        //    //}
+        //    return View(model);
+        //}
         //[HttpGet]
         //public ActionResult EditMeal(int id = 0)
         //{
@@ -111,7 +149,7 @@ namespace Cyber_Kitchen.Controllers
         //    _votMgr.DeleteMeal(id);
         //    return RedirectToAction("Index");
 
-            //return View();
+        //return View();
         //}
 
     }

@@ -136,7 +136,8 @@
     </div>
 </form>
 
-@section Scripts {
+
+@*@section Scripts {
 <link href="~/Content/toastr.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.0.0.js"></script>
@@ -150,6 +151,8 @@
                 $("html").addClass("loading");
             });
         });
+
+
         //$(document).ready(function () {
         //    // This WILL work because we are listening on the 'document', 
         //    // for a click on an element with an ID of #test-element
@@ -169,109 +172,17 @@
               toastr.success(data.message);
           }) //This will execute when you request is completed.
          .fail(function () { })*@
-    //        });
+    @*//        });
 
-    //    });
+    //    });*@
 
-    });
+    @*});
 
 </script>
-}
+}*@
 
 
 
-
-
-@*$.ajax({
-    url: "@Url.Action("ActionName", "ControllerName", new { area = "AreaName" });",
-    type: 'POST',
-    contentType: 'application/json; charset=utf-8',
-    data: JSON.stringify({param : Value})
-    })
-    .done(function () { alert('Success');}) //This will execute when you request is completed.
-    .fail(function () { })*@
-
-
-@*<form action="CreateRating" method="post">
-    <div class="col-md-12">
-        <h1>Make your choice here</h1>
-        <div class="col-md-12">*@
-
-@*@ViewBag.restaurants*@
-
-@*@{ var model = ViewBag.restaurants as List<RestaurantModel>;}*@
-
-@*@using (Html.BeginForm("CreateRating", "Rating", FormMethod.Post, new { }))
-    {
-
-         <ul class="list-group" id="ItemList">
-             <li class="list-group-item-heading list-group-item-action">
-                 <h4 class="list-group-item-text"></h4>
-             </li>
-             @foreach (var item in ViewBag.restaurants)
-       {
-                 <li class="list-group-item">
-                     <div class="checkbox">
-                         <input type="checkbox" id="check_@item.RestId" name="caterIds" />
-                         <label for="Check_@item.RestId">@item.RestName </label>*@
-@*<label for="Check_@item.RestId">@item.</label>*@
-@*</div>
-        </li>
-    }
-    <li class="list-group-item">
-        <button type="submit" class="btn btn-info" id="submitData">Save</button>
-        @*<a class="btn btn-success btn-block" onclick="SaveList()">Save</a>*@
-@*</li>
-                        </ul>
-                    }
-
-            </div>
-        </div>
-
-    </form>*@
-
-
-@*////////////////////////////////////////*@
-@*<script>
-        var SaveList = function () {
-            var arrItem = [];
-            var commaSeparatedIds = "";
-
-            $("#ItemList li input[type=checkbox]").each(function (CreateRating, val) {
-
-                var checkId = $(val).attr("Id");
-
-                var arr = checkId.split('_');
-
-                var currentCheckboxId = arr[1];
-
-                var Ischecked = $("#" + checkId).is(":checked", true);
-
-                if (Ischecked) {
-
-                    arrItem.push(currentCheckboxId);
-                }
-
-
-            })
-
-            if (arrItem.length != 0) {
-
-                commaSeparatedIds = arrItem.toString();
-
-                $.ajax({
-
-                    url: "/Test/SaveList",
-                    type: "POST",
-                    data: { ItemList: commaSeparatedIds },
-                    success: function (response) {
-                        // code here
-                    }
-
-                })
-            }
-        }
-    </script>*@
 
 @*///////////////////////////////////////*@
 

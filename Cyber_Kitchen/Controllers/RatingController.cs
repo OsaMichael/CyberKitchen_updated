@@ -104,10 +104,11 @@ namespace Cyber_Kitchen.Controllers
                 
                 if (ratingModel.Succeeded == true)
                 {
-                    if (TempData["message"] != null)
-                    {
-                        ViewBag.Success = (string)TempData["message"];
-                    }
+                    TempData["message"] = $"Rating{""} voting was successfully added!";
+                    //if (TempData["message"] != null)
+                    //{
+                    //    ViewBag.Success = (string)TempData["message"];
+                    //}
                     if (User.IsInRole("Admin"))
                     {
                         return RedirectToAction("Index");

@@ -81,7 +81,6 @@ namespace Cyber_Kitchen.Manager
                 _context.Entry(entity).State = EntityState.Modified;
                 _context.SaveChanges();
 
-
                 return model;
             });
         }
@@ -90,7 +89,7 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() =>
             {
                 var entity = _context.Ratings.Find(ratId);
-                if (entity != null) throw new Exception("rating does  exist");
+                if (entity != null) throw new Exception("rating  exist");
                 return new RatingModel(entity);
 
             });
