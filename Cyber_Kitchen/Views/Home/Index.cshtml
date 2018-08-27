@@ -83,3 +83,12 @@
                 <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
             </div>
         </div>*@
+
+@section Script{
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+    <script type="text/javascript">toastr.success("@(TempData["Message"] as string)");</script>
+}

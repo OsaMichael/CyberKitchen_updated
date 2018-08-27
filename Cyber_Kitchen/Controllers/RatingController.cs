@@ -94,9 +94,8 @@ namespace Cyber_Kitchen.Controllers
                 //since model is a list, used foreach
                 foreach (var item in model)
                 {
-                    item.CreatedBy = User.Identity.GetUserName();
                     ////to get the userId that login
-                    item.UserId = User.Identity.GetUserId();
+                    item.CreatedBy = User.Identity.GetUserName();
                     item.Sid = User.Identity.GetUserId();
                     var result = _ratMgr.CreateRating(item);
                     ratingModel.Succeeded = true;
@@ -105,10 +104,6 @@ namespace Cyber_Kitchen.Controllers
                 if (ratingModel.Succeeded == true)
                 {
                     TempData["message"] = $"Rating{""} voting was successfully added!";
-                    //if (TempData["message"] != null)
-                    //{
-                    //    ViewBag.Success = (string)TempData["message"];
-                    //}
                     if (User.IsInRole("Admin"))
                     {
                         return RedirectToAction("Index");

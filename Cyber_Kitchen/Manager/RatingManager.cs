@@ -36,10 +36,10 @@ namespace Cyber_Kitchen.Manager
         {
             //return Operation.Create(() =>
             //{  
-            var adminExist = _context.Ratings.Where(r => r.RestId == model.RestId  && r.UserId == model.UserId).FirstOrDefault();        
+                var adminExist = _context.Ratings.Where(r => r.RestId == model.RestId  && r.UserId== model.UserId).FirstOrDefault();        
                 var isExist = _context.Ratings.Where(c => c.RestId == model.RestId && c.Sid == sidUser).FirstOrDefault();
 
-            if (isExist != null && adminExist != null) throw new Exception("You voted before, Sorry you can't vote twice");
+            if (isExist != null && adminExist != null) throw new Exception(" Sorry you can't vote twice");
            
             model.Sid = sidUser;
             var entity = model.Create(model);
