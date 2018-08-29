@@ -590,7 +590,7 @@ namespace Cyber_Kitchen.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);         
             return RedirectToAction("Index", "Home");
         }
 

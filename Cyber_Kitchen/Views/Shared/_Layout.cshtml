@@ -6,8 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 
 </head>
@@ -32,22 +32,9 @@
                         <li>@Html.ActionLink("Upload Staffs", "UploadVoters", "Voter")</li>
                         <li>@Html.ActionLink("Restaurants", "index", "Restaurant")</li>
                         <li>@Html.ActionLink("Rating", "index", "Rating")</li>
+                        <li>@Html.ActionLink("SummaryReport", "index", "SummaryReport")</li>
                         @*<li>@Html.ActionLink("Daily Meal", "index", "Meal")</li>*@
                     }
-
-
-                    @*<li>@Html.ActionLink("Scores", "index", "Score")</li>*@
-                
-                    @*<li>@Html.ActionLink("Caterer Info", "index", "CatererInfo")</li>*@
-                     
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("SummaryReport", "index", "SummaryReport")</li>
-                    }
-                    @*<td>
-                        <img style="width: 15%" src="~/images/CyberKitchen.jpg" alt="Simple photo" />
-                    </td>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -61,8 +48,9 @@
         <footer>
             <p>&copy; @DateTime.Now.Year </p>
         </footer>
-    </div>\
+    </div>
 
+   
     @RenderSection("Script", false)
     <script>
         $(function () {
