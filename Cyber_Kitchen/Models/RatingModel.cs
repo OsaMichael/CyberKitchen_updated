@@ -21,6 +21,7 @@ namespace Cyber_Kitchen.Models
         //[Required]
         public string UserId { get; set; }
         //[Required]
+        // public string StaffNo { get; set; }
         public string Sid { get; set; }
         //[Required]
         //public string UserName { get; set; }
@@ -73,6 +74,7 @@ namespace Cyber_Kitchen.Models
                 RestId = model.RestId,
                 VoterId = model.VoterId,
                 UserId = model.UserId,
+              
                 Sid   = model.Sid,
                 Taste = model.Taste,
                 Quality = model.Quality,

@@ -32,11 +32,7 @@
         @foreach (var item in Model)
             {
             <tr class="gradeX odd" role="row" id="row-@item.RestId">
-                @*@if (User.IsInRole("Admin"))
-                    {
-                            <td class="left"><input type="checkbox" id="checkedMe" data-id="@item.RestId"></td>
-                    }*@
-                @*<td class="left">@Html.DisplayFor(modelItem => item.RestId)</td>*@
+             
                 <td>@Html.DisplayFor(modelItem => item.RestName)</td>
                 @if (User.IsInRole("Admin"))
                 {

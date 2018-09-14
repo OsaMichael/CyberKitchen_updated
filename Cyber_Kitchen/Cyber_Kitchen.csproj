@@ -103,6 +103,14 @@
       <HintPath>..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Operation, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Operation.1.1.2\lib\net45\Operation.dll</HintPath>
       <Private>True</Private>
@@ -407,6 +415,38 @@
     <Compile Include="Migrations\201808151926428_AddTotalSToRest1.Designer.cs">
       <DependentUpon>201808151926428_AddTotalSToRest1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809050102256_AddEmailToVoter.cs" />
+    <Compile Include="Migrations\201809050102256_AddEmailToVoter.Designer.cs">
+      <DependentUpon>201809050102256_AddEmailToVoter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809051345440_AddStaffNoToRating.cs" />
+    <Compile Include="Migrations\201809051345440_AddStaffNoToRating.Designer.cs">
+      <DependentUpon>201809051345440_AddStaffNoToRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809051529401_AddStaffNoToRatingRemoeve.cs" />
+    <Compile Include="Migrations\201809051529401_AddStaffNoToRatingRemoeve.Designer.cs">
+      <DependentUpon>201809051529401_AddStaffNoToRatingRemoeve.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809051548560_Remove.cs" />
+    <Compile Include="Migrations\201809051548560_Remove.Designer.cs">
+      <DependentUpon>201809051548560_Remove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809051822348_AddUserIdtoVoter.cs" />
+    <Compile Include="Migrations\201809051822348_AddUserIdtoVoter.Designer.cs">
+      <DependentUpon>201809051822348_AddUserIdtoVoter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809062217170_ToupdateVotersTb.cs" />
+    <Compile Include="Migrations\201809062217170_ToupdateVotersTb.Designer.cs">
+      <DependentUpon>201809062217170_ToupdateVotersTb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809071646103_AddrequiredToLogin.cs" />
+    <Compile Include="Migrations\201809071646103_AddrequiredToLogin.Designer.cs">
+      <DependentUpon>201809071646103_AddrequiredToLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809122258577_addddddd.cs" />
+    <Compile Include="Migrations\201809122258577_addddddd.Designer.cs">
+      <DependentUpon>201809122258577_addddddd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -422,6 +462,7 @@
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\SummaryReportModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\VoterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -777,7 +818,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -790,7 +833,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
@@ -837,9 +879,9 @@
     <Content Include="Views\Meal\Index.cshtml" />
     <Content Include="Views\Meal\CreateMeal.cshtml" />
     <Content Include="Views\Meal\ClockIn.cshtml" />
-    <Content Include="Views\Account\Login1.cshtml" />
-    <Content Include="Views\Account\AdminLogin.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
+    <Content Include="Views\Account\UploadSuccessful.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -927,6 +969,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808151926428_AddTotalSToRest1.resx">
       <DependentUpon>201808151926428_AddTotalSToRest1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809050102256_AddEmailToVoter.resx">
+      <DependentUpon>201809050102256_AddEmailToVoter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051345440_AddStaffNoToRating.resx">
+      <DependentUpon>201809051345440_AddStaffNoToRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051529401_AddStaffNoToRatingRemoeve.resx">
+      <DependentUpon>201809051529401_AddStaffNoToRatingRemoeve.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051548560_Remove.resx">
+      <DependentUpon>201809051548560_Remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051822348_AddUserIdtoVoter.resx">
+      <DependentUpon>201809051822348_AddUserIdtoVoter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809062217170_ToupdateVotersTb.resx">
+      <DependentUpon>201809062217170_ToupdateVotersTb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809071646103_AddrequiredToLogin.resx">
+      <DependentUpon>201809071646103_AddrequiredToLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809122258577_addddddd.resx">
+      <DependentUpon>201809122258577_addddddd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

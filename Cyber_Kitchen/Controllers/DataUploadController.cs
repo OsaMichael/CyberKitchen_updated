@@ -1,23 +1,71 @@
 ﻿using Cyber_Kitchen.Interface;
+using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace Cyber_Kitchen.Controllers
 {
     public class DataUploadController : Controller
     {
+       
         private IUploadManager _uploadMgr;
         private IVoterManager _votMgr;
-        public DataUploadController(IUploadManager uploadMgr, IVoterManager votMgr)
+        private IExcelProcessor _excel;
+        private ApplicationUserManager _userManager;
+        public DataUploadController(ApplicationUserManager userManager, IUploadManager uploadMgr, IVoterManager votMgr, IExcelProcessor excel)
         {
             _uploadMgr = uploadMgr;
             _votMgr = votMgr;
+            _excel = excel;
+            _userManager = userManager;
+          
         }
+        //public async Task<ActionResult> Users(Stream stream, UserModel model)
+        //{
+           
+        //        var shts = _excel.Load<UserModel>(stream);
+
+        //        foreach (var row in shts)
+        //        {
+        //            var userModel = new UserModel
+        //            {
+        //                UserName = row.UserName,
+        //                Password = "open"
+        //            };
+                  
+        //              if (!string.IsNullOrEmpty(userModel.UserName))
+        //            {
+                                    
+        //            var user = new ApplicationUser
+        //               { UserName = userModel.UserName,
+        //                 PasswordHash = userModel.Password
+        //               };
+
+        //             var result = await UserManager.CreateAsync(user, user.Password);
+                   
+
+        //            //if  user creation is successful
+        //            if (result.Succeeded)
+        //            {
+        //                // create user role "User"
+        //                var addRole = await UserManager.AddToRoleAsync(user.Id, "User");
+        //            }
+                                       
+        //        }
+
+        //    }
+
+        //    return View(model);
+           
+        //}
         // GET: DataUpload
         public ActionResult Index()
         {

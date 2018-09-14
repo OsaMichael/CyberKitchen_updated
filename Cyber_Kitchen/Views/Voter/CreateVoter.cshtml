@@ -25,8 +25,8 @@
                     <span class="required" aria-required="true"> * </span>
                 </label>
                 <div class="col-md-5">
-                    @Html.TextBoxFor(m => m.VotName, new { @class = "form-control input-height", placeholder = "enter voters name" })
-                    @Html.ValidationMessageFor(m => m.VotName, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.StaffName, new { @class = "form-control input-height", placeholder = "enter voters name" })
+                    @Html.ValidationMessageFor(m => m.StaffName, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group row">
@@ -37,6 +37,16 @@
                 <div class="col-md-5">
                     @Html.TextBoxFor(m => m.StaffNo, new { @class = "form-control input-height", placeholder = "enter voters name" })
                     @Html.ValidationMessageFor(m => m.StaffNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-md-3">
+                    Email
+                    <span class="required" aria-required="true"> * </span>
+                </label>
+                <div class="col-md-5">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-height", placeholder = "enter voters name" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-actions">

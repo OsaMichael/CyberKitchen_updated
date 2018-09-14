@@ -14,6 +14,7 @@ namespace Cyber_Kitchen.Entities
         public int? VoterId { get; set; }
         public int? RestId { get; set; }
         public string Sid { get; set; }
+        //public string StaffNo { get; set; }
         public string UserId { get; set; }
         //public string UserName { get; set; }
         public int Taste { get; set; }

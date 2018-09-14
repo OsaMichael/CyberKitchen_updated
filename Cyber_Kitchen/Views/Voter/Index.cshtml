@@ -26,6 +26,7 @@
 
                 <th> Staff Name </th>
                 <th> Staff NO. </th>
+                <th>Email</th>
                 @if (User.IsInRole("Admin"))
                 {
                 <th> Date Created </th>
@@ -51,6 +52,7 @@
 
                 <td>@Html.DisplayFor(modelItem => item.StaffName)</td>
                 <td>@Html.DisplayFor(modelItem => item.StaffNo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
                 @if (User.IsInRole("Admin"))
                 {
                 <td>@String.Format("{0:d}", item.CreatedDate)</td>

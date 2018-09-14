@@ -27,7 +27,8 @@ namespace Cyber_Kitchen.Manager
             return Operation.Create(() =>
             {
                 //model.Validate();
-                var isExists = _context.Voters.Where(c => c.StaffName== model.StaffName).FirstOrDefault();
+
+                var isExists = _context.Voters.Where(c => c.UserId == model.UserId).FirstOrDefault();
                 if (isExists != null) throw new Exception("voter already exist");
 
                 var entity = model.Create(model);
@@ -51,6 +52,18 @@ namespace Cyber_Kitchen.Manager
                 return models;
             });
         }
+        // this mothod was added to validate users in the db before login
+        //public Operation<List<Voter>> GetVoters(string email)
+        //{
+        //    return Operation.Create(() =>
+        //    {
+        //        List<Voter> model = new List<Voter>();
+        //        var entities = _context.Voters.Where(u => u.Email == email).ToList();
+
+
+        //        return entities;
+        //    });
+        //}
         public Operation<VoterModel> UpdateVoter(VoterModel model)
         {
             return Operation.Create(() =>
@@ -119,8 +132,9 @@ namespace Cyber_Kitchen.Manager
                             CreatedDate = DateTime.Now,
 
 
-                        StaffName = row.StaffName,
+                            StaffName = row.StaffName,
                             StaffNo = row.StaffNo,
+                            Email = row.Email
                             //ModifiedDate  = DateTime.Now
                         };
                         _context.Voters.Add(voterEntity);
@@ -132,6 +146,7 @@ namespace Cyber_Kitchen.Manager
                      
                         voter.StaffNo = row.StaffNo;
                         voter.StaffName = row.StaffName;
+                        voter.Email = row.Email;
                         voter.CreatedDate = DateTime.Now;
                         //var entity1 = row.Edit(voter, row);
                         _context.Entry(voter);

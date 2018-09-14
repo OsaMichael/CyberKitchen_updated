@@ -35,9 +35,10 @@ namespace Cyber_Kitchen
                 //Here we create a Admin super user who will maintain the website                  
 
                 var user = new ApplicationUser();
-                user.StaffId = "23";
+                //user.StaffId = "23";
                 user.UserName = "admin@gmail.com";
                 user.Email = "admin@gmail.com";
+                
 
 
                 string userPWD = "Password123@";

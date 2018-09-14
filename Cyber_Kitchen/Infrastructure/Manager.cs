@@ -15,7 +15,7 @@ namespace Cyber_Kitchen.Infrastructure
     {
         public override void Load()
         {
-            Bind<IVoterManager>().To<VoterManager>();
+           
             Bind<IRestaurantManager>().To<RestaurantManager>();
             Bind<IScoreManager>().To<ScoreManager>();
             Bind<IRatingManager>().To<RatingManager>();

@@ -17,26 +17,33 @@ using System.Web.Security;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices.Protocols;
 using System.Collections.Generic;
+using Cyber_Kitchen.Interface;
+using Cyber_Kitchen.Interface.Utils;
+using System.IO;
 
 namespace Cyber_Kitchen.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext _context;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         // the bolow roleManager was added
-        private RoleManager<IdentityRole> _roleMgr;
+        private IVoterManager _votMgr;
+        private RoleManager<IdentityRole> _roleMgr;   
         public AccountController()
         {
-
+           
         }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleMgr)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleMgr, IVoterManager votMgr, ApplicationDbContext context)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _roleMgr = roleMgr;
+            _votMgr = votMgr;
+            _context = context;
+       
 
         }
 
@@ -79,72 +86,72 @@ namespace Cyber_Kitchen.Controllers
 
         //GET: /Account/Login
 
-       [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
+       //[AllowAnonymous]
+       // public ActionResult Login(string returnUrl)
+       // {
+       //     ViewBag.ReturnUrl = returnUrl;
+       //     return View();
+       // }
 
 
         //POST: /Account/Login
 
-        [HttpPost]
-       [AllowAnonymous]
-       [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
-        {
-            string serverName = ConfigurationManager.AppSettings["ADServer"];
-            string userName = ConfigurationManager.AppSettings["ADUserName"];
-            string password = ConfigurationManager.AppSettings["ADPassword"];
-            try
-            {
+       // [HttpPost]
+       //[AllowAnonymous]
+       //[ValidateAntiForgeryToken]
+       // public ActionResult Login(LoginModel model, string returnUrl)
+       // {
+       //     string serverName = ConfigurationManager.AppSettings["ADServer"];
+       //     string userName = ConfigurationManager.AppSettings["ADUserName"];
+       //     string password = ConfigurationManager.AppSettings["ADPassword"];
+       //     try
+       //     {
 
-                UserProfile usrProfile = new UserProfile();
+       //         UserProfile usrProfile = new UserProfile();
 
-                PrincipalContext adConnect = new PrincipalContext(ContextType.Domain, serverName, userName, password);
-                UserPrincipal insUserPrincipal = new UserPrincipal(adConnect);
+       //         PrincipalContext adConnect = new PrincipalContext(ContextType.Domain, serverName, userName, password);
+       //         UserPrincipal insUserPrincipal = new UserPrincipal(adConnect);
 
-                var result = adConnect.ValidateCredentials(model.UserName, model.Password);
-                UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(adConnect, userName);
+       //         var result = adConnect.ValidateCredentials(model.UserName, model.Password);
+       //         UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(adConnect, userName);
 
-                var stringGuid = oUserPrincipal.Sid.ToString();
-                //var email = oUserPrincipal.EmailAddress;
-                var firstName = oUserPrincipal.GivenName;
-                var lastName = oUserPrincipal.Surname;
-                // var auth = adConnect.ValidateCredentials(model.UserName, model.Password);
-                if (result)// if is true
-                {
-                    // FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    List<Claim> claims = new List<Claim>()
-                {
-                    new Claim(ClaimTypes.NameIdentifier, model.UserName),
-                    new Claim(ClaimTypes.Role, "User"),
-                    new  Claim(ClaimTypes.PrimarySid, oUserPrincipal.Sid.ToString()),
-                   // new Claim(ClaimTypes.PrimarySid,"Sid" ),
-                    new Claim(ClaimTypes.Name, firstName + " " + lastName )
-                };
-                    var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                    //sign in use
-                    _auth.SignIn(identity);
-                    //return RedirectToLocal(returnUrl);
-                    return RedirectToAction("CreateRating", "Rating");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password");
-                    return View(model);
-                }
+       //         var stringGuid = oUserPrincipal.Sid.ToString();
+       //         //var email = oUserPrincipal.EmailAddress;
+       //         var firstName = oUserPrincipal.GivenName;
+       //         var lastName = oUserPrincipal.Surname;
+       //         // var auth = adConnect.ValidateCredentials(model.UserName, model.Password);
+       //         if (result)// if is true
+       //         {
+       //             // FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+       //             List<Claim> claims = new List<Claim>()
+       //         {
+       //             new Claim(ClaimTypes.NameIdentifier, model.UserName),
+       //             new Claim(ClaimTypes.Role, "User"),
+       //             new  Claim(ClaimTypes.PrimarySid, oUserPrincipal.Sid.ToString()),
+       //            // new Claim(ClaimTypes.PrimarySid,"Sid" ),
+       //             new Claim(ClaimTypes.Name, firstName + " " + lastName )
+       //         };
+       //             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+       //             //sign in use
+       //             _auth.SignIn(identity);
+       //             //return RedirectToLocal(returnUrl);
+       //             return RedirectToAction("CreateRating", "Rating");
+       //         }
+       //         else
+       //         {
+       //             ModelState.AddModelError("", "Invalid username or password");
+       //             return View(model);
+       //         }
 
-            }
-            catch (Exception ex)
-            {
-                // If we got this far, something failed, redisplay form
-                ModelState.AddModelError("", "" + ex.Message);
-                return View(model);
-            }
-        }
-        //
+       //     }
+       //     catch (Exception ex)
+       //     {
+       //         // If we got this far, something failed, redisplay form
+       //         ModelState.AddModelError("", "" + ex.Message);
+       //         return View(model);
+       //     }
+       // }
+       // //
         // POST: /Account/LogOff
 
     //    [HttpPost]
@@ -156,40 +163,40 @@ namespace Cyber_Kitchen.Controllers
     //}
     //////
 
-    public ActionResult UserProfile()
-    {
-        string serverName = ConfigurationManager.AppSettings["ADServer"];
-        string userName = ConfigurationManager.AppSettings["ADUserName"];
-        string password = ConfigurationManager.AppSettings["ADPassword"];
+    //public ActionResult UserProfile()
+    //{
+    //    string serverName = ConfigurationManager.AppSettings["ADServer"];
+    //    string userName = ConfigurationManager.AppSettings["ADUserName"];
+    //    string password = ConfigurationManager.AppSettings["ADPassword"];
         
-        UserProfile usrProfile = new UserProfile();
-        try
-        {
-            PrincipalContext adConnect = new PrincipalContext(ContextType.Domain,
-            serverName,
-             userName,
-            password);
+    //    UserProfile usrProfile = new UserProfile();
+    //    try
+    //    {
+    //        PrincipalContext adConnect = new PrincipalContext(ContextType.Domain,
+    //        serverName,
+    //         userName,
+    //        password);
             
-            UserPrincipal insUserPrincipal = new UserPrincipal(adConnect);
-            var auth = adConnect.ValidateCredentials(userName, password);
+    //        UserPrincipal insUserPrincipal = new UserPrincipal(adConnect);
+    //        var auth = adConnect.ValidateCredentials(userName, password);
 
-            UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(adConnect, userName);
+    //        UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(adConnect, userName);
 
-            var stringGuid = oUserPrincipal.Sid.ToString();
-            //var email = oUserPrincipal.EmailAddress;
-            var firstName = oUserPrincipal.GivenName;
-            var lastName = oUserPrincipal.Surname;
+    //        var stringGuid = oUserPrincipal.Sid.ToString();
+    //        //var email = oUserPrincipal.EmailAddress;
+    //        var firstName = oUserPrincipal.GivenName;
+    //        var lastName = oUserPrincipal.Surname;
 
-        }
-        catch (Exception x)
-        {
-            // unable to connect AD
-            ModelState.AddModelError("", x.Message);
-        }
-        return View(usrProfile);
-    }
+    //    }
+    //    catch (Exception x)
+    //    {
+    //        // unable to connect AD
+    //        ModelState.AddModelError("", x.Message);
+    //    }
+    //    return View(usrProfile);
+    //}
 
-        #region Helpers
+    //    #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -202,36 +209,48 @@ namespace Cyber_Kitchen.Controllers
             }
         }
 
-        #endregion
+        //#endregion
         //////////////////////////////////////////////////////////////////////////
        
 
-        //GET: /Account/AdminLogin
+        //GET: /Account/Login
        [AllowAnonymous]
-        public ActionResult AdminLogin(string returnUrl)
+        public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        //
-        // POST: /Account/AdminLogin
+        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AdminLogin(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+
+            //var result1 = _votMgr.GetVoters(model.Email);
+
+            //if (result1.Result.Count() == 0)
+            //{
+            //    TempData["message"] = $"Your{""} details does not exist in the database";
+            //    return RedirectToAction("Login");
+            //}
+
             if (!ModelState.IsValid)
             {
+              
                 return View(model);
-            }
-            //else
-            //{
-            //    return RedirectToAction("CreateScore", "Score");
-            //}
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            }  
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+
+
+            // this CODES was added to validate users voters Table befoere user login.
+            // if a user does not exist in our db, cant login
+           
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -245,12 +264,10 @@ namespace Cyber_Kitchen.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-
-                    // if its user that's login take the user to Score where he can cast his or her vote 
-
-                    return RedirectToAction("CreateRating", "Rating");
-
-
+                    else
+                       
+                        return RedirectToAction("CreateRating", "Rating");
+                      
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -307,7 +324,8 @@ namespace Cyber_Kitchen.Controllers
                     return View(model);
             }
         }
-        //
+
+        
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -362,7 +380,7 @@ namespace Cyber_Kitchen.Controllers
                     //{
                     //    return RedirectToAction("Index", "Home");
                     //}
-                    return RedirectToAction("AdminLogin", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -590,7 +608,11 @@ namespace Cyber_Kitchen.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);         
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Clear();
+            Session.Abandon();
+            Session.RemoveAll();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

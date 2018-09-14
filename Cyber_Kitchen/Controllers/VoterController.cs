@@ -52,6 +52,8 @@ namespace Cyber_Kitchen.Controllers
         public ActionResult CreateVoter(VoterModel model)
         {
             model.CreatedBy = User.Identity.GetUserName();
+            //model.Email = User.Identity.GetUserName();
+            //model.StaffNo = User.Identity.GetUserId();
             var result = _votMgr.CreateVoter(model);
             if (result.Succeeded == true)
             {

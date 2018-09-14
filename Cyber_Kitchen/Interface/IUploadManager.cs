@@ -10,5 +10,6 @@ namespace Cyber_Kitchen.Interface
     public interface IUploadManager
     {
         Operation<List<VoterModel>> UploadStaffNames(Stream stream, VoterModel model);
+       //  Operation<List<UserModel>> Users(Stream stream, UserModel model);
     }
 }

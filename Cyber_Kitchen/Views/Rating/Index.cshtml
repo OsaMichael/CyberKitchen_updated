@@ -35,11 +35,7 @@
             <tr>
                 <th><input type="checkbox" id="checkAll"></th>
 
-                @*@if (User.IsInRole("Admin"))
-                {
-                    @*<th> s/n </th>//RatId
-                @*}*@
-
+             
                 @*<th> @Html.LabelFor(m => m.FirstOrDefault().VoterId) </th>*@
                 <th> @Html.LabelFor(m => m.FirstOrDefault().RestId) </th>
                 <th> Taste  </th>
@@ -65,12 +61,6 @@
                     <td class="left"><input type="checkbox" id="checkedMe" data-id="@item.RatId"></td>
 
                     @*<td class="left">@{i++;} @i</td>*@
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @*<td class="left">@Html.DisplayFor(modelItem => item.RatId)</td>*@
-                       
-                            }
 
                     @*<td>@Html.DisplayFor(modelItem => item.Voters.VotName)</td>*@
                     <td>@Html.DisplayFor(modelItem => item.Restaurant.RestName)</td>
@@ -219,7 +209,6 @@
 
 
         });
-
 
         });
 

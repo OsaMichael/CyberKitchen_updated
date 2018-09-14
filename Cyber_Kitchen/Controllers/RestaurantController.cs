@@ -48,7 +48,7 @@ namespace Cyber_Kitchen.Controllers
         public ActionResult CreateRestaurant(RestaurantModel model)
         {
             model.CreatedBy = User.Identity.GetUserName();
-            var result = _restMgr.CreateRestaurant(model);
+            var result = _restMgr.CreateRestaurant(model); 
             if (result.Succeeded == true)
             {
                 TempData["message"] = $"Restaurant{model.RestName} was successfully added!";

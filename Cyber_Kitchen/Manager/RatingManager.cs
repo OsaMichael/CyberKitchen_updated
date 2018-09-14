@@ -16,19 +16,19 @@ namespace Cyber_Kitchen.Manager
     {
 
         private ApplicationDbContext _context;
-        private ClaimsPrincipal principal;
-        private string logedInUser;
-        private readonly string sidUser;
+        //private ClaimsPrincipal principal;
+        //private string logedInUser;
+        //private readonly string sidUser;
 
         public RatingManager(ApplicationDbContext context)
         {
             _context = context;
 
             //Get the current claims principal
-            principal = (ClaimsPrincipal)Thread.CurrentPrincipal;
-            // Get the claims values
-            logedInUser = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
-            sidUser = principal.Claims.Where(c => c.Type == ClaimTypes.PrimarySid).Select(c => c.Value).SingleOrDefault();
+            //principal = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            //// Get the claims values
+            //logedInUser = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            //sidUser = principal.Claims.Where(c => c.Type == ClaimTypes.PrimarySid).Select(c => c.Value).SingleOrDefault();
 
         }
         // To avoid using operation class used the bool
@@ -36,12 +36,14 @@ namespace Cyber_Kitchen.Manager
         {
             //return Operation.Create(() =>
             //{  
-                var adminExist = _context.Ratings.Where(r => r.RestId == model.RestId  && r.UserId== model.UserId).FirstOrDefault();        
-                var isExist = _context.Ratings.Where(c => c.RestId == model.RestId && c.Sid == sidUser).FirstOrDefault();
+            // var adminExist = _context.Ratings.Where(r => r.RestId== model.RestId  && r.UserId== model.UserId).FirstOrDefault();
+            //VAR exist = _context.Ratings.Where(r=> r.RestId== model.RestId  && r.Sid == sidUser).FirstOrDefault();
 
-            if (isExist != null && adminExist != null) throw new Exception(" Sorry you can't vote twice");
+            var isExist = _context.Ratings.Where(c => c.RestId == model.RestId && c.CreatedBy == model.CreatedBy ).FirstOrDefault();
+
+            if ( isExist !=null) throw new Exception(" Sorry you can't vote twice");
            
-            model.Sid = sidUser;
+            //model.Sid = sidUser;
             var entity = model.Create(model);
           //  model.CreatedDate = DateTime.Now;
             _context.Ratings.Add(entity);
@@ -61,7 +63,8 @@ namespace Cyber_Kitchen.Manager
                 var models = entities.Select(s => new RatingModel(s)
                 {
                     Voters = new VoterModel(s.Voter),
-                    Restaurant = new RestaurantModel(s.Restaurant)
+                    Restaurant = new RestaurantModel(s.Restaurant),
+                    //User = new ApplicationUser(s.User)
                 }
 
                 ).ToArray();
@@ -121,39 +124,6 @@ namespace Cyber_Kitchen.Manager
                 return query;
             });
         }
-
-
-        //    });
-        //}
-        //public Operation<SummaryReportModel> GetSummaryReportById(int RestId)
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        var entity = _context.SummaryReports.Find(RestId);
-        //        if (entity == null) throw new Exception("Summary does not exist");
-        //        return new SummaryReportModel();
-        //    });
-        //}
-        //public Operation DeleteSummaryReport(int id)
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        var entity = _context.SummaryReports.Find(id);
-        //        if (entity == null) throw new Exception("SummaryReport does not exist");
-
-        //        _context.SummaryReports.Remove(entity);
-        //       _context.SaveChanges();
-        //    });
-        //}
-        //public Operation GetDetails(int id)
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        var entity = _context.Scores.Include(s => s.RestId == id).FirstOrDefault();
-        //        if (entity == null) throw new Exception("Scores does not  exist");
-        //        return new ScoreModel(entity);
-        //    });
-        //}
         public Operation DeleteRating(int id)
         {
             return Operation.Create(() =>

@@ -19,6 +19,8 @@ namespace Cyber_Kitchen.Manager
             _db = db;
             _excel = excel;
         }
+       
+
         public Operation <List<VoterModel>> UploadStaffNames(Stream stream, VoterModel model)
         {
             return Operation.Create((Func<List<VoterModel>>)(() =>
@@ -38,8 +40,10 @@ namespace Cyber_Kitchen.Manager
                     row.ModifiedBy = model.ModifiedBy;
                     row.StaffName = model.StaffName;
                     row.StaffNo = model.StaffNo;
+                    row.Email = model.Email;
                     row.StaffName = row.StaffName /*== staffNm.StaffName ? row.StaffName : staffNm.StaffName*/;
-                    row.StaffNo = row.StaffNo /*== staffNm.StaffNo ? row.StaffNo : staffNm.StaffNo*/;
+                    row.StaffNo = row.StaffNo;
+                    row.Email = row.Email  /*== staffNm.StaffNo ? row.StaffNo : staffNm.StaffNo*/;
 
                     if (staffNm == null)
                     {

@@ -21,9 +21,9 @@ namespace Cyber_Kitchen.Controllers
         private IRatingManager _ratMgr;
         private IVoterManager _votMgr;
         private IRestaurantManager _restMgr;
-        private string logedInUser;
-        private string sidUser;
-        private ClaimsPrincipal principal;
+        //private string logedInUser;
+        //private string sidUser;
+        //private ClaimsPrincipal principal;
 
 
         public RatingController(IRatingManager ratMgr, IVoterManager votMgr, IRestaurantManager restMgr)
@@ -33,10 +33,10 @@ namespace Cyber_Kitchen.Controllers
             _restMgr = restMgr;
 
             //Get the current claims principal
-            principal = (ClaimsPrincipal)Thread.CurrentPrincipal;
-            // Get the claims values
-            logedInUser = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
-            sidUser = principal.Claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
+            //principal = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            //// Get the claims values
+            //logedInUser = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            //sidUser = principal.Claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
 
         }
 
@@ -96,14 +96,13 @@ namespace Cyber_Kitchen.Controllers
                 {
                     ////to get the userId that login
                     item.CreatedBy = User.Identity.GetUserName();
-                    item.Sid = User.Identity.GetUserId();
                     var result = _ratMgr.CreateRating(item);
                     ratingModel.Succeeded = true;
                 }            
                 
                 if (ratingModel.Succeeded == true)
                 {
-                    TempData["message"] = $"Rating{""} voting was successfully added!";
+                    TempData["message"] = $"    Your{""} voting was successfully added!";
                     if (User.IsInRole("Admin"))
                     {
                         return RedirectToAction("Index");

@@ -11,6 +11,7 @@ namespace Cyber_Kitchen.Models
     public class ApplicationUser : IdentityUser
     {
         public string StaffId { get; set; }
+        //public string Password { get; set; }
          
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

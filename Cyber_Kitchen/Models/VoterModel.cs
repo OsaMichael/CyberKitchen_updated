@@ -15,6 +15,8 @@ namespace Cyber_Kitchen.Models
         public string StaffName { get; set; }
         [Required]
         public string StaffNo { get; set; }
+        [Required]
+        public string Email { get; set; }
         public string Message { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
@@ -22,14 +24,18 @@ namespace Cyber_Kitchen.Models
         public DateTime? ModifiedDate { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+        public virtual ICollection<RatingModel> Ratings { get; set; }
 
         public VoterModel()
         {
-
+            new HashSet<RatingModel>();
+            new ApplicationUser();
         }
         public VoterModel(Voter voter)
         {
             this.Assign(voter);
+            new HashSet<RatingModel>();
+            new ApplicationUser();
         }
         public Voter Create(VoterModel model)
         {
@@ -38,6 +44,7 @@ namespace Cyber_Kitchen.Models
                 UserId = model.UserId,
                 StaffName = model.StaffName,
                 StaffNo = model.StaffNo,
+                Email =    model.Email,
                 CreatedBy = model.CreatedBy,
                 CreatedDate = DateTime.Now,
                 //ModifiedDate = DateTime.Now
@@ -51,6 +58,7 @@ namespace Cyber_Kitchen.Models
             entity.UserId = model.UserId;
             entity.StaffName = model.StaffName;
             entity.StaffNo = model.StaffNo;
+            entity.Email   = model.Email;
             //entity.CreatedBy = model.CreatedBy;
             entity.ModifiedBy = model.ModifiedBy;
             entity.ModifiedDate = DateTime.Now;

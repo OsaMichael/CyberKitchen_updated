@@ -1,4 +1,5 @@
-﻿using Cyber_Kitchen.Models;
+﻿using Cyber_Kitchen.Entities;
+using Cyber_Kitchen.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,10 +12,12 @@ namespace Cyber_Kitchen.Interface
     {
         Operation<VoterModel> CreateVoter(VoterModel model);
         Operation<VoterModel[]> GetVoters();
+        //Operation<List<Voter>> GetVoters(string email);
         Operation<VoterModel> UpdateVoter(VoterModel model);
         Operation<VoterModel> GetVoterById(int voterId);
         Operation Details(int id);
         Operation DeleteVoter(int id);
+       
         Operation<List<VoterModel>> UploadVoterNames(Stream stream, VoterModel model);
         ///////////////////////////////////////////
 

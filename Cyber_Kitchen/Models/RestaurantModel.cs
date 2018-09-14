@@ -26,7 +26,7 @@ namespace Cyber_Kitchen.Models
         public virtual ICollection<RatingModel> Ratings { get; set; }
         public virtual ICollection<VoterModel> Voters { get; set; }
         public virtual ICollection<ScoreModel> Scores { get; set; }
-       
+        
 
         public RestaurantModel()
         {

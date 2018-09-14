@@ -1,6 +1,9 @@
 ﻿using Cyber_Kitchen.Entities;
 using Cyber_Kitchen.Interface;
+using Cyber_Kitchen.Manager;
 using Cyber_Kitchen.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
@@ -20,7 +23,19 @@ namespace Cyber_Kitchen.Infrastructure
             Kernel.Bind<DbContext>().ToSelf().InRequestScope();
             Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
             Bind<IDataRepository>().To<EntityRepository>().InRequestScope();
-           
+            Bind<IVoterManager>().To<VoterManager>();
+
+            //Kernel.Bind<UserManager<ApplicationUser>>().ToSelf();
+            //Kernel.Bind<UserManager<ApplicationUser>>().ToSelf();
+            //Kernel.Bind<ApplicationUserManager>().ToSelf();
+
+            //Bind<ApplicationSignInManager>().ToMethod((context) =>
+            //{
+            //    var cbase = new HttpContextWrapper(HttpContext.Current);
+            //    return cbase.GetOwinContext().Get<ApplicationSignInManager>();
+            //});
+
+
         }
     }
 }
