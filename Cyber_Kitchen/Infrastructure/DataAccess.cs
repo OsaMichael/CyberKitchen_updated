@@ -23,7 +23,7 @@ namespace Cyber_Kitchen.Infrastructure
             Kernel.Bind<DbContext>().ToSelf().InRequestScope();
             Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
             Bind<IDataRepository>().To<EntityRepository>().InRequestScope();
-            Bind<IVoterManager>().To<VoterManager>();
+           // Bind<IVoterManager>().To<VoterManager>();
 
             //Kernel.Bind<UserManager<ApplicationUser>>().ToSelf();
             //Kernel.Bind<UserManager<ApplicationUser>>().ToSelf();

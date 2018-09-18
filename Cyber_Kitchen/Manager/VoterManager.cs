@@ -8,6 +8,7 @@ using System.Web;
 using System.IO;
 using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Entities;
+using Microsoft.AspNet.Identity;
 
 namespace Cyber_Kitchen.Manager
 {
@@ -15,11 +16,12 @@ namespace Cyber_Kitchen.Manager
     {
         private ApplicationDbContext _context;
         private IExcelProcessor _excel;
-
+        //private UserManager<ApplicationUser> _usermanager;
         public VoterManager(ApplicationDbContext context, IExcelProcessor excel)
         {
             _context = context;
             _excel = excel;
+           // _usermanager = usermanager;
         }
 
         public Operation<VoterModel> CreateVoter(VoterModel model)
@@ -53,17 +55,17 @@ namespace Cyber_Kitchen.Manager
             });
         }
         // this mothod was added to validate users in the db before login
-        //public Operation<List<Voter>> GetVoters(string email)
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        List<Voter> model = new List<Voter>();
-        //        var entities = _context.Voters.Where(u => u.Email == email).ToList();
+        public Operation<Voter> GetVoters(string email)
+        {
+            return Operation.Create(() =>
+            {
+                List<Voter> model = new List<Voter>();
+                var entities = _context.Voters.FirstOrDefault(x => x.Email == email);
 
 
-        //        return entities;
-        //    });
-        //}
+                return entities;
+            });
+        }
         public Operation<VoterModel> UpdateVoter(VoterModel model)
         {
             return Operation.Create(() =>
@@ -138,6 +140,13 @@ namespace Cyber_Kitchen.Manager
                             //ModifiedDate  = DateTime.Now
                         };
                         _context.Voters.Add(voterEntity);
+
+                        //var appuser = new ApplicationUser() {
+                        //    UserName = row.StaffName,
+                        //    PasswordHash = row.StaffNo,
+                        //    Email = row.Email
+                        //};
+                        //_usermanager.CreateAsync(appuser, appuser.PasswordHash);
                         continue;
                     }
             

@@ -12,7 +12,7 @@ namespace Cyber_Kitchen.Interface
     {
         Operation<VoterModel> CreateVoter(VoterModel model);
         Operation<VoterModel[]> GetVoters();
-        //Operation<List<Voter>> GetVoters(string email);
+        Operation<Voter> GetVoters(string email);
         Operation<VoterModel> UpdateVoter(VoterModel model);
         Operation<VoterModel> GetVoterById(int voterId);
         Operation Details(int id);

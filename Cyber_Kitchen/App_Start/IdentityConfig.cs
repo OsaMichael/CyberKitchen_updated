@@ -50,15 +50,15 @@ namespace Cyber_Kitchen
                 RequireUniqueEmail = true
             };
 
-            // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = false,
-                RequireDigit = true,
-                RequireLowercase = false,
-                RequireUppercase = true,
-            };
+            //// Configure validation logic for passwords
+            //manager.PasswordValidator = new PasswordValidator
+            //{
+            //    RequiredLength = 6,
+            //    RequireNonLetterOrDigit = false,
+            //    RequireDigit = true,
+            //    RequireLowercase = false,
+            //    RequireUppercase = true,
+            //};
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;

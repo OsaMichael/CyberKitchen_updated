@@ -11,15 +11,17 @@ using System.Web.Mvc;
 
 namespace Cyber_Kitchen.Controllers
 {
-   [Authorize]
+  // [Authorize]
     public class VoterController : Controller
     {
         private IVoterManager _votMgr;
         private IExcelProcessor _excel;
-        public VoterController(IVoterManager votMgr,IExcelProcessor excel )
+       // private readonly UserManager<ApplicationUser> _applicationUser;
+        public VoterController(IVoterManager votMgr,IExcelProcessor excel)
         {
             _votMgr = votMgr;
             _excel = excel;
+            //_applicationUser = user;
         }
 
         // GET: Restaurant
@@ -124,7 +126,6 @@ namespace Cyber_Kitchen.Controllers
                 if (result.Succeeded == true)
                 {
 
-
                     return Json(new { status = true, message = $" {votName} has been successfully deleted!", JsonRequestBehavior.AllowGet });
                 }
                 return Json(new { status = false, error = result.Message }, JsonRequestBehavior.AllowGet);
@@ -171,9 +172,7 @@ namespace Cyber_Kitchen.Controllers
         }
         private void DropDown()
         {
-
             ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
-
         }
 
         public ActionResult DownloadVoterTemplate()
