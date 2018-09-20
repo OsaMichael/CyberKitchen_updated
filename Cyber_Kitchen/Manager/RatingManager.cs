@@ -62,6 +62,7 @@ namespace Cyber_Kitchen.Manager
 
                 var models = entities.Select(s => new RatingModel(s)
                 {
+                    // this are fk to aviod the id displaying in the UI
                     Voters = new VoterModel(s.Voter),
                     Restaurant = new RestaurantModel(s.Restaurant),
                     //User = new ApplicationUser(s.User)

@@ -26,24 +26,25 @@ namespace Cyber_Kitchen.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationDbContext _context;
+   
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         // the bolow roleManager was added
         private IVoterManager _votMgr;
-        private IExcelProcessor _excel;
-        private RoleManager<IdentityRole> _roleMgr;   
-        public AccountController()
+
+        //private IExcelProcessor _excel;
+        private RoleManager<IdentityRole> _roleMgr;
+
+        //public AccountController()
+        //{
+
+        //}
+        public AccountController(IVoterManager votMgr)
         {
-           
-        }
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleMgr, IVoterManager votMgr, IExcelProcessor excel)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-            _roleMgr = roleMgr;
             _votMgr = votMgr;
-            _excel = excel;
+            
+            //_roleMgr = roleMgr;
+           // _excel = excel;
 
 
 
@@ -211,42 +212,6 @@ namespace Cyber_Kitchen.Controllers
             }
         }
 
-        //#endregion
-
-         public async Task<ActionResult> Users(Stream stream , UserModel model)
-        {
-            var shts = _excel.Load<UserModel>(stream);
-
-            foreach (var row in shts)
-            {
-                var userModel = new UserModel
-                {
-                    UserName = row.UserName,
-                    Password = "open"
-                };
-                if(!string.IsNullOrEmpty(userModel.UserName))
-                {
-                    var user = new ApplicationUser
-                    {
-                        UserName = userModel.UserName,
-                        PasswordHash = userModel.Password
-                    };
-                    var result = await UserManager.CreateAsync(user, user.PasswordHash);
-
-                    //if user creation is successful 
-                    if(result.Succeeded)
-                    {
-                        // create user role "User"
-                        var addRole = await UserManager.AddToRoleAsync(user.Id, "User");
-                    }                  
-                }         
-            }
-            return RedirectToAction("UploadSuccessful", "Account");
-        }
-        
-        //////////////////////////////////////////////////////////////////////////
-       
-
         //GET: /Account/Login
        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -258,21 +223,26 @@ namespace Cyber_Kitchen.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            if (model.Password.Trim() == "open")
+            {
 
+                return RedirectToAction("ResetPassword", "Account");
+            }
 
+            var results = _votMgr.GetVoters(model.Email);
 
-            //if (result1.Result.Count() == 0)
-            //{
-            //    TempData["message"] = $"Your{""} details does not exist in the database";
-            //    return RedirectToAction("Login");
-            //}
+            if (results == null)
+            {
+               
+                TempData["message"] = $"Your{""} details does not exist in the database";
+                return View();
+            }
 
             if (!ModelState.IsValid)
             {
-
                 return View(model);
             }
 
@@ -280,36 +250,36 @@ namespace Cyber_Kitchen.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            
-            switch (result)
-            { 
 
-                case SignInStatus.Success:
-
-                //the bellow codes was added to authenticate the roles
-                var user = UserManager.FindByEmailAsync(model.Email);
-
-                var role = UserManager.GetRoles(user.Result.Id).FirstOrDefault();
-
-                if (role == "Admin")
+                switch (result)
                 {
-                    return RedirectToAction("Index", "Home");
+
+                    case SignInStatus.Success:
+
+                        //the bellow codes was added to authenticate the roles
+                        var user = UserManager.FindByEmailAsync(model.Email);
+
+                        var role = UserManager.GetRoles(user.Result.Id).FirstOrDefault();
+
+                        if (role == "Admin")
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+
+                            return RedirectToAction("CreateRating", "Rating");
+
+
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
                 }
-                else
-
-                    return RedirectToAction("CreateRating", "Rating");
-
-
-            case SignInStatus.LockedOut:
-                return View("Lockout");
-            case SignInStatus.RequiresVerification:
-                return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-            case SignInStatus.Failure:
-            default:
-                ModelState.AddModelError("", "Invalid login attempt.");
-                return View(model);
-
-            }
+            
             return View();
         }
 
@@ -380,6 +350,16 @@ namespace Cyber_Kitchen.Controllers
        // [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
+            //var result1 = _votMgr.GetVoters(model.Email);
+
+            //if (result1.Result.Email.Count() == 0)
+            //{
+            //    TempData["message"] = $"Your{""} details does not exist in the database";
+            //    return RedirectToAction("Register");
+            //}
+
+
             //if (ModelState.IsValid)
             //{
 

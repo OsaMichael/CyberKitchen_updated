@@ -48,6 +48,7 @@ namespace Cyber_Kitchen.Manager
 
                 var models = entities.Select(c => new VoterModel(c)
                 {
+                    // this are fk to aviod the id displaying in the UI
                     //User = new ApplicationUser(c.User)
                 }
                 ).ToArray();
@@ -59,9 +60,9 @@ namespace Cyber_Kitchen.Manager
         {
             return Operation.Create(() =>
             {
-                List<Voter> model = new List<Voter>();
-                var entities = _context.Voters.FirstOrDefault(x => x.Email == email);
-
+               // List<Voter> model = new List<Voter>();
+                var entities = _context.Voters.Where(x => x.Email == email).FirstOrDefault();
+                if (entities == null) throw new Exception("user does not exist");
 
                 return entities;
             });

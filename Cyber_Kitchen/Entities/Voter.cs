@@ -18,6 +18,7 @@ namespace Cyber_Kitchen.Entities
             public DateTime CreatedDate { get; set; }
             public string ModifiedBy { get; set; }
             public DateTime ModifiedDate { get; set; }
+            //public bool isPasswordChanged { get; set; }
 
             public virtual ApplicationUser User { get; set; }
     }

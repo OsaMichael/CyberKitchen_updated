@@ -447,6 +447,14 @@
     <Compile Include="Migrations\201809122258577_addddddd.Designer.cs">
       <DependentUpon>201809122258577_addddddd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809201414214_AddisSetPasswod.cs" />
+    <Compile Include="Migrations\201809201414214_AddisSetPasswod.Designer.cs">
+      <DependentUpon>201809201414214_AddisSetPasswod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809201616155_AddisSetPasswodRomoveit.cs" />
+    <Compile Include="Migrations\201809201616155_AddisSetPasswodRomoveit.Designer.cs">
+      <DependentUpon>201809201616155_AddisSetPasswodRomoveit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -882,6 +890,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
     <Content Include="Views\Account\UploadSuccessful.cshtml" />
+    <Content Include="Views\Account\Login1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -993,6 +1002,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809122258577_addddddd.resx">
       <DependentUpon>201809122258577_addddddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809201414214_AddisSetPasswod.resx">
+      <DependentUpon>201809201414214_AddisSetPasswod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809201616155_AddisSetPasswodRomoveit.resx">
+      <DependentUpon>201809201616155_AddisSetPasswodRomoveit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

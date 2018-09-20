@@ -2,6 +2,8 @@
 using Cyber_Kitchen.Interface;
 using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Manager;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using System;
@@ -22,7 +24,9 @@ namespace Cyber_Kitchen.Infrastructure
             Bind<IUploadManager>().To<UploadManager>();
             Bind<IMealManager>().To<MealManager>();
             Bind<IVoterManager>().To<VoterManager>();
+            //Bind<RoleManager<IdentityRole>>().<ToRoleManager<IdentityRole>>();
             //Bind<ITemplateService1>().To<RazorTemplateService>();
+            //Bind<RoleManager<IdentityRole>>().ToRoleManager<IdentityRole>().InRequestScope();
 
 
 
