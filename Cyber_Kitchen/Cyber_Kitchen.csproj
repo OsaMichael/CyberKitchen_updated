@@ -890,7 +890,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
     <Content Include="Views\Account\UploadSuccessful.cshtml" />
-    <Content Include="Views\Account\Login1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

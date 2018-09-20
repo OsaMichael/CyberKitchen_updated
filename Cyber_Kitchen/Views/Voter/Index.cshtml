@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Cyber_Kitchen.Models.VoterModel>
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Cyber_Kitchen.Models.VoterModel>
 
 @{
     ViewBag.Title = "Index";
@@ -36,9 +40,14 @@
             </tr>
         </thead>
         <tbody>
+
+
+            @*@{ int i = 0;}*@
             @foreach (var item in Model)
             {
             <tr class="gradeX odd" role="row" id="row-@item.VoterId">
+
+                @*<td class="left">@{i++;} @i</td>*@
                 @*@if(User.IsInRole("Admin"))
                 {
                     <td class="left"><input type="checkbox" id="checkedMe" data-id="@item.VoterId"></td>
@@ -75,6 +84,8 @@
 
         </tbody>
     </table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 <script>
     $(function () {
 

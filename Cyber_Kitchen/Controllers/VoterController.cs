@@ -3,6 +3,7 @@ using Cyber_Kitchen.Interface;
 using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Cyber_Kitchen.Controllers
         }
 
         // GET: Restaurant
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             if (TempData["message"] != null)
             {
@@ -34,12 +35,12 @@ namespace Cyber_Kitchen.Controllers
             var results = _votMgr.GetVoters();
             if (results.Succeeded == true)
             {
-                return View(results.Unwrap());
+                return View(results.Unwrap().ToPagedList(page ?? 1, 12));
             }
             else
             {
                 ModelState.AddModelError(string.Empty, "An error occure");
-                return View();
+                return View(results.Unwrap().ToPagedList(page ?? 1, 12));
             }
 
         }

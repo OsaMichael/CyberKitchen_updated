@@ -118,7 +118,7 @@ namespace Cyber_Kitchen.Manager
                                  TimeLiness = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.TimeLiness))
 
                              }).OrderByDescending(c => c.RestSum.Value).ToList();
-                //
+                
                 // sum (c=> c.sum(x =>x.total))
                 // b = 5
                 // a = a + b 

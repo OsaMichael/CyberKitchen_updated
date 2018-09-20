@@ -28,17 +28,13 @@ namespace Cyber_Kitchen.Controllers
     {
    
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        // the bolow roleManager was added
+        private ApplicationUserManager _userManager;      
         private IVoterManager _votMgr;
 
         //private IExcelProcessor _excel;
+        // the bolow roleManager was added
         private RoleManager<IdentityRole> _roleMgr;
 
-        //public AccountController()
-        //{
-
-        //}
         public AccountController(IVoterManager votMgr)
         {
             _votMgr = votMgr;
@@ -86,6 +82,7 @@ namespace Cyber_Kitchen.Controllers
             private set { this.roleManager = value; }
         }
 
+        // THIS COMMENTED PART IS THE CODES TO AUTHENTICATE TO AD
 
         //GET: /Account/Login
 
@@ -510,7 +507,7 @@ namespace Cyber_Kitchen.Controllers
             return View();
         }
 
-        //
+       
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
