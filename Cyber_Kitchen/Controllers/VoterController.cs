@@ -35,7 +35,8 @@ namespace Cyber_Kitchen.Controllers
             var results = _votMgr.GetVoters();
             if (results.Succeeded == true)
             {
-                return View(results.Unwrap().ToPagedList(page ?? 1, 12));
+                                                 ////ADDED ARRANGE NAMES ALPHABETICAL ORDER
+                return View(results.Unwrap().OrderBy(c => c.StaffName).ToPagedList(page ?? 1, 12));
             }
             else
             {
