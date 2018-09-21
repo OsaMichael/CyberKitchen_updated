@@ -6,13 +6,13 @@
 }
 <h1 class="alert-info">EDIT VOTER</h1>
 <div class="card-body" id="bar-parent">
-    <form action="EditVoter" method="Post" id="form_sample_1" class="form-horizontal" novalidate="novalidate">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form action="EditVoter" method="Post" id="form_sample_1" class="form-horizontal" >
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
         <div class="form-body">
             <div class="form-group row">
                 <label class="control-label col-md-3">
                     Voter Name
-                    <span class="required" aria-required="true"> * </span>
+                    <span ></span>
                 </label>
                 <div class="col-md-5">
                     @Html.TextBoxFor(m => m.StaffName, new { @class = "form-control input-height", placeholder = "enter voter name" })
@@ -23,7 +23,7 @@
             <div class="form-group row">
                 <label class="control-label col-md-3">
                     Staff No.
-                    <span class="required" aria-required="true"> * </span>
+                    <span> </span>
                 </label>
                 <div class="col-md-5">
                     @Html.TextBoxFor(m => m.StaffNo, new { @class = "form-control input-height", placeholder = "enter staffno name" })
@@ -34,7 +34,7 @@
             <div class="form-group row">
                 <label class="control-label col-md-3">
                     Email
-                    <span class="required" aria-required="true"> * </span>
+                    <span></span>
                 </label>
                 <div class="col-md-5">
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-height", placeholder = "enter staffno name" })

@@ -4,6 +4,7 @@ using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Models;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using Remotion.FunctionalProgramming;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Cyber_Kitchen.Controllers
 {
-  // [Authorize]
+    [Authorize]
     public class VoterController : Controller
     {
         private IVoterManager _votMgr;
@@ -26,24 +27,37 @@ namespace Cyber_Kitchen.Controllers
         }
 
         // GET: Restaurant
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string searchBy, string search)
         {
             if (TempData["message"] != null)
             {
-               ViewBag.Success = (string)TempData["message"];
+                ViewBag.Success = (string)TempData["message"];
             }
-            var results = _votMgr.GetVoters();
+          
+         
+          var results = _votMgr.GetVoters();
+
+            if (searchBy == "StaffName")
+            {
+                return View(results.Unwrap().Where(x => x.StaffName.StartsWith(search) || search == null).ToPagedList(page ?? 1, 12));
+            }
+
             if (results.Succeeded == true)
             {
-                                                 ////ADDED ARRANGE NAMES ALPHABETICAL ORDER
-                return View(results.Unwrap().OrderBy(c => c.StaffName).ToPagedList(page ?? 1, 12));
+                ////ADDED ARRANGE NAMES ALPHABETICAL ORDER
+                  return View(results.Unwrap().OrderBy(c => c.StaffName).ToPagedList(page ?? 1, 12));
+              //  return View(results.Unwrap().OrderBy(c => c.StaffName).ToPagedList(page ?? 1, 12));
             }
+           
             else
             {
                 ModelState.AddModelError(string.Empty, "An error occure");
                 return View(results.Unwrap().ToPagedList(page ?? 1, 12));
             }
-
+           // if (searchBy == "StaffName")
+            //{
+            //    return View(results.Unwrap().Where(x => x.StaffName.StartsWith(search) || search == null).ToList());
+            //}
         }
         [HttpGet]
         public ActionResult CreateVoter()

@@ -11,11 +11,11 @@ namespace Cyber_Kitchen.Models
     public class ScoreModel
     {
         public int ScoreId { get; set; }
-        [DisplayName("Voters Name")]
-        [Required]
+        //[DisplayName("Voters Name")]
+        //[Required]
         public int? VoterId { get; set; }
-        [DisplayName("Restaurants Name")]
-        [Required]
+        //[DisplayName("Restaurants Name")]
+        //[Required]
         public int? RestId { get; set; }
         public string UserId { get; set; }
         [Required]

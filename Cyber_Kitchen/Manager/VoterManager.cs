@@ -30,7 +30,7 @@ namespace Cyber_Kitchen.Manager
             {
                 //model.Validate();
 
-                var isExists = _context.Voters.Where(c => c.UserId == model.UserId).FirstOrDefault();
+                var isExists = _context.Voters.Where(c => c.StaffName == model.StaffName && c.VoterId == model.VoterId).FirstOrDefault();
                 if (isExists != null) throw new Exception("voter already exist");
 
                 var entity = model.Create(model);

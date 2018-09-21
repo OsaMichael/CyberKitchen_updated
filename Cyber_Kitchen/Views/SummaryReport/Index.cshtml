@@ -57,3 +57,11 @@
     @*<div class="panel-footer">
             @Html.ActionLink("TOTAL RESULT FOR EACH CATERER", "Details", null, new { @class = "btn btn-info" })
         </div>*@
+    @section Script{
+        <link href="~/Content/toastr.css" rel="stylesheet" />
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/jquery-3.0.0.js"></script>
+        <script src="~/Scripts/toastr.js"></script>
+
+        <script type="text/javascript">toastr.success("@(TempData["Message"] as string)");</script>
+    }
