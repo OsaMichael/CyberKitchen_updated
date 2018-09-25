@@ -52,18 +52,18 @@ namespace Cyber_Kitchen.Manager
                 return models;
             });
         }
-        // this mothod was added to validate users in the db before login
-        //public Operation<List<Voter>> GetVoters(string email)
-        //{
-        //    return Operation.Create(() =>
-        //    {
-        //        List<Voter> model = new List<Voter>();
-        //        var entities = _context.Voters.Where(u => u.Email == email).ToList();
+         //this mothod was added to validate users in the db before login
+        public Operation<List<Voter>> GetVoters(string email)
+        {
+            return Operation.Create(() =>
+            {
+                List<Voter> model = new List<Voter>();
+                var entities = _context.Voters.Where(u => u.Email == email).ToList();
 
 
-        //        return entities;
-        //    });
-        //}
+                return entities;
+            });
+        }
         public Operation<VoterModel> UpdateVoter(VoterModel model)
         {
             return Operation.Create(() =>

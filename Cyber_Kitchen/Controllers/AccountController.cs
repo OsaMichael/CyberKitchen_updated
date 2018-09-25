@@ -31,19 +31,21 @@ namespace Cyber_Kitchen.Controllers
         private ApplicationUserManager _userManager;
         // the bolow roleManager was added
         private IVoterManager _votMgr;
+        private IExcelProcessor _excel;
         private RoleManager<IdentityRole> _roleMgr;   
         public AccountController()
         {
            
         }
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleMgr, IVoterManager votMgr, ApplicationDbContext context)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleMgr, IVoterManager votMgr, IExcelProcessor excel)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _roleMgr = roleMgr;
             _votMgr = votMgr;
-            _context = context;
-       
+            _excel = excel;
+
+
 
         }
 
@@ -210,6 +212,44 @@ namespace Cyber_Kitchen.Controllers
         }
 
         //#endregion
+
+        // public async Task<ActionResult> Users(Stream stream , UserModel model)
+        //{
+        //    var shts = _excel.Load<UserModel>(stream);
+
+        //    foreach (var row in shts)
+        //    {
+        //        var userModel = new UserModel
+        //        {
+        //            UserName = row.UserName,
+        //            Password = "open"
+        //        };
+        //        if(!string.IsNullOrEmpty(userModel.UserName))
+        //        {
+        //            var user = new ApplicationUser
+        //            {
+        //                UserName = userModel.UserName,
+        //                PasswordHash = userModel.Password
+        //            };
+        //            var result = await UserManager.CreateAsync(user, user.PasswordHash);
+
+        //            //if user creation is successful 
+        //            if(result.Succeeded)
+        //            {
+        //                // create user role "User"
+        //                var addRole = await UserManager.AddToRoleAsync(user.Id, "User");
+
+        //                return RedirectToAction("UploadSuccessful", "Account");
+        //            }
+
+                    
+        //        }
+
+              
+        //    }
+        //    return View(model);
+        //}
+        
         //////////////////////////////////////////////////////////////////////////
        
 
@@ -227,7 +267,6 @@ namespace Cyber_Kitchen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-
             //var result1 = _votMgr.GetVoters(model.Email);
 
             //if (result1.Result.Count() == 0)
@@ -235,6 +274,7 @@ namespace Cyber_Kitchen.Controllers
             //    TempData["message"] = $"Your{""} details does not exist in the database";
             //    return RedirectToAction("Login");
             //}
+            
 
             if (!ModelState.IsValid)
             {
@@ -347,7 +387,16 @@ namespace Cyber_Kitchen.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
+
         {
+            var result1 = _votMgr.GetVoters(model.Email);
+
+            if (result1.Result.Count() == 0)
+            {
+                TempData["message"] = $"Your{""} details does not exist in the database";
+                return RedirectToAction("Register");
+            }
+
             if (ModelState.IsValid)
             {
 
