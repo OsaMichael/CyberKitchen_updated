@@ -9,13 +9,14 @@ namespace Cyber_Kitchen.Models
 {
     public class VoterModel 
     {
+   
         public int VoterId { get; set; }
         public string UserId { get; set; }
-        [Required]
+        //[Required]
         public string StaffName { get; set; }
-        [Required]
+        //[Required]
         public string StaffNo { get; set; }
-        [Required]
+        //[Required]
         public string Email { get; set; }
         public string Message { get; set; }
         public string CreatedBy { get; set; }

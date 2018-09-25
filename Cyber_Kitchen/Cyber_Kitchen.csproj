@@ -447,6 +447,18 @@
     <Compile Include="Migrations\201809122258577_addddddd.Designer.cs">
       <DependentUpon>201809122258577_addddddd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809201414214_AddisSetPasswod.cs" />
+    <Compile Include="Migrations\201809201414214_AddisSetPasswod.Designer.cs">
+      <DependentUpon>201809201414214_AddisSetPasswod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809201616155_AddisSetPasswodRomoveit.cs" />
+    <Compile Include="Migrations\201809201616155_AddisSetPasswodRomoveit.Designer.cs">
+      <DependentUpon>201809201616155_AddisSetPasswodRomoveit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809210226330_removeReq.cs" />
+    <Compile Include="Migrations\201809210226330_removeReq.Designer.cs">
+      <DependentUpon>201809210226330_removeReq.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -455,9 +467,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MealModel.cs" />
-    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\RatingModel.cs" />
-    <Compile Include="Models\RatingsListViewModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
@@ -993,6 +1003,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809122258577_addddddd.resx">
       <DependentUpon>201809122258577_addddddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809201414214_AddisSetPasswod.resx">
+      <DependentUpon>201809201414214_AddisSetPasswod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809201616155_AddisSetPasswodRomoveit.resx">
+      <DependentUpon>201809201616155_AddisSetPasswodRomoveit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809210226330_removeReq.resx">
+      <DependentUpon>201809210226330_removeReq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,8 @@ using Cyber_Kitchen.Interface;
 using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
+using Remotion.FunctionalProgramming;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,35 +13,51 @@ using System.Web.Mvc;
 
 namespace Cyber_Kitchen.Controllers
 {
-   [Authorize]
+    [Authorize]
     public class VoterController : Controller
     {
         private IVoterManager _votMgr;
         private IExcelProcessor _excel;
-        public VoterController(IVoterManager votMgr,IExcelProcessor excel )
+       // private readonly UserManager<ApplicationUser> _applicationUser;
+        public VoterController(IVoterManager votMgr,IExcelProcessor excel)
         {
             _votMgr = votMgr;
             _excel = excel;
+            //_applicationUser = user;
         }
 
         // GET: Restaurant
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchBy, string search)
         {
             if (TempData["message"] != null)
             {
-               ViewBag.Success = (string)TempData["message"];
+                ViewBag.Success = (string)TempData["message"];
             }
-            var results = _votMgr.GetVoters();
+          
+         
+          var results = _votMgr.GetVoters();
+
+            if (searchBy == "StaffName")
+            {
+                return View(results.Unwrap().Where(x => x.StaffName.StartsWith(search) || search == null).ToPagedList(page ?? 1, 12));
+            }
+
             if (results.Succeeded == true)
             {
-                return View(results.Unwrap());
+                ////ADDED ARRANGE NAMES ALPHABETICAL ORDER
+                  return View(results.Unwrap().OrderBy(c => c.StaffName).ToPagedList(page ?? 1, 12));
+              //  return View(results.Unwrap().OrderBy(c => c.StaffName).ToPagedList(page ?? 1, 12));
             }
+           
             else
             {
                 ModelState.AddModelError(string.Empty, "An error occure");
-                return View();
+                return View(results.Unwrap().ToPagedList(page ?? 1, 12));
             }
-
+           // if (searchBy == "StaffName")
+            //{
+            //    return View(results.Unwrap().Where(x => x.StaffName.StartsWith(search) || search == null).ToList());
+            //}
         }
         [HttpGet]
         public ActionResult CreateVoter()
@@ -124,7 +142,6 @@ namespace Cyber_Kitchen.Controllers
                 if (result.Succeeded == true)
                 {
 
-
                     return Json(new { status = true, message = $" {votName} has been successfully deleted!", JsonRequestBehavior.AllowGet });
                 }
                 return Json(new { status = false, error = result.Message }, JsonRequestBehavior.AllowGet);
@@ -171,9 +188,7 @@ namespace Cyber_Kitchen.Controllers
         }
         private void DropDown()
         {
-
             ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
-
         }
 
         public ActionResult DownloadVoterTemplate()

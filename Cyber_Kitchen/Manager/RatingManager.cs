@@ -62,6 +62,7 @@ namespace Cyber_Kitchen.Manager
 
                 var models = entities.Select(s => new RatingModel(s)
                 {
+                    // this are fk to aviod the id displaying in the UI
                     Voters = new VoterModel(s.Voter),
                     Restaurant = new RestaurantModel(s.Restaurant),
                     //User = new ApplicationUser(s.User)
@@ -117,7 +118,7 @@ namespace Cyber_Kitchen.Manager
                                  TimeLiness = g.Select(c => c.Ratings).Sum(v => v.Sum(r => r.TimeLiness))
 
                              }).OrderByDescending(c => c.RestSum.Value).ToList();
-                //
+                
                 // sum (c=> c.sum(x =>x.total))
                 // b = 5
                 // a = a + b 

@@ -3,6 +3,7 @@ using Cyber_Kitchen.Interface;
 using Cyber_Kitchen.Manager;
 using Cyber_Kitchen.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Ninject;
 using Ninject.Modules;
@@ -20,13 +21,16 @@ namespace Cyber_Kitchen.Infrastructure
         public override void Load()
         {
             
-            Kernel.Bind<DbContext>().ToSelf().InRequestScope();
+            Bind<DbContext>().ToMethod(ctx => ApplicationDbContext.Create()).InRequestScope();
             Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
             Bind<IDataRepository>().To<EntityRepository>().InRequestScope();
-            Bind<IVoterManager>().To<VoterManager>();
+            Bind<ApplicationSignInManager>().To<ApplicationSignInManager>().InRequestScope();
+            //Bind<ApplicationUserManager>().To<ApplicationUserManager().InRequestScope();
 
-            //Kernel.Bind<UserManager<ApplicationUser>>().ToSelf();
-            //Kernel.Bind<UserManager<ApplicationUser>>().ToSelf();
+            // Bind<IVoterManager>().To<VoterManager>();
+
+            Bind<UserManager<ApplicationUser>>().ToSelf();
+            Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>();
             //Kernel.Bind<ApplicationUserManager>().ToSelf();
 
             //Bind<ApplicationSignInManager>().ToMethod((context) =>

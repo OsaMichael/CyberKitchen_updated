@@ -13,7 +13,7 @@ namespace Cyber_Kitchen.Models
         [Key]
 
         public int RestId { get; set; }
-        [Required]
+        //[Required]
         public string RestName { get; set; }
         public string TotalScore { get; set; }
         public string CreatedBy { get; set; }

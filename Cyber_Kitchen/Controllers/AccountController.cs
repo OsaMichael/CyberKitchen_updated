@@ -26,24 +26,21 @@ namespace Cyber_Kitchen.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationDbContext _context;
+   
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        // the bolow roleManager was added
+        private ApplicationUserManager _userManager;      
         private IVoterManager _votMgr;
-        private IExcelProcessor _excel;
-        private RoleManager<IdentityRole> _roleMgr;   
-        public AccountController()
+
+        //private IExcelProcessor _excel;
+        // the bolow roleManager was added
+        private RoleManager<IdentityRole> _roleMgr;
+
+        public AccountController(IVoterManager votMgr)
         {
-           
-        }
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleMgr, IVoterManager votMgr, IExcelProcessor excel)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-            _roleMgr = roleMgr;
             _votMgr = votMgr;
-            _excel = excel;
+            
+            //_roleMgr = roleMgr;
+           // _excel = excel;
 
 
 
@@ -85,6 +82,7 @@ namespace Cyber_Kitchen.Controllers
             private set { this.roleManager = value; }
         }
 
+        // THIS COMMENTED PART IS THE CODES TO AUTHENTICATE TO AD
 
         //GET: /Account/Login
 
@@ -211,48 +209,6 @@ namespace Cyber_Kitchen.Controllers
             }
         }
 
-        //#endregion
-
-        // public async Task<ActionResult> Users(Stream stream , UserModel model)
-        //{
-        //    var shts = _excel.Load<UserModel>(stream);
-
-        //    foreach (var row in shts)
-        //    {
-        //        var userModel = new UserModel
-        //        {
-        //            UserName = row.UserName,
-        //            Password = "open"
-        //        };
-        //        if(!string.IsNullOrEmpty(userModel.UserName))
-        //        {
-        //            var user = new ApplicationUser
-        //            {
-        //                UserName = userModel.UserName,
-        //                PasswordHash = userModel.Password
-        //            };
-        //            var result = await UserManager.CreateAsync(user, user.PasswordHash);
-
-        //            //if user creation is successful 
-        //            if(result.Succeeded)
-        //            {
-        //                // create user role "User"
-        //                var addRole = await UserManager.AddToRoleAsync(user.Id, "User");
-
-        //                return RedirectToAction("UploadSuccessful", "Account");
-        //            }
-
-                    
-        //        }
-
-              
-        //    }
-        //    return View(model);
-        //}
-        
-        //////////////////////////////////////////////////////////////////////////
-       
-
         //GET: /Account/Login
        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -264,62 +220,64 @@ namespace Cyber_Kitchen.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            //var result1 = _votMgr.GetVoters(model.Email);
+            if (model.Password.Trim() == "open")
+            {
 
-            //if (result1.Result.Count() == 0)
-            //{
-            //    TempData["message"] = $"Your{""} details does not exist in the database";
-            //    return RedirectToAction("Login");
-            //}
-            
+                return RedirectToAction("ResetPassword", "Account");
+            }
+
+            var results = _votMgr.GetVoters(model.Email);
+
+            if (results == null)
+            {
+               
+                TempData["message"] = $"Your{""} details does not exist in the database";
+                return View();
+            }
 
             if (!ModelState.IsValid)
             {
-              
                 return View(model);
-            }  
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, change to shouldLockout: true
-                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-
-
-
-            // this CODES was added to validate users voters Table befoere user login.
-            // if a user does not exist in our db, cant login
-           
-
-            switch (result)
-            {
-                case SignInStatus.Success:
-
-                    //the bellow codes was added to authenticate the roles
-                    var user = UserManager.FindByEmailAsync(model.Email);
-
-                    var role = UserManager.GetRoles(user.Result.Id).FirstOrDefault();
-
-                    if (role == "Admin")
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                       
-                        return RedirectToAction("CreateRating", "Rating");
-                      
-
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-
             }
 
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+                switch (result)
+                {
+
+                    case SignInStatus.Success:
+
+                        //the bellow codes was added to authenticate the roles
+                        var user = UserManager.FindByEmailAsync(model.Email);
+
+                        var role = UserManager.GetRoles(user.Result.Id).FirstOrDefault();
+
+                        if (role == "Admin")
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+
+                            return RedirectToAction("CreateRating", "Rating");
+
+
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+            
+            return View();
         }
 
         //
@@ -372,6 +330,7 @@ namespace Cyber_Kitchen.Controllers
         {
             // This [] was added to enable dropdown during Registration when a user is registring for the first time.
             // but the dropdown is hiden for the user. it can only be seen by the dmin.
+            
 
             var roles = new string[] { "Admin", "User" };
             ViewBag.proinfo = new SelectList(roles);
@@ -385,7 +344,7 @@ namespace Cyber_Kitchen.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
 
         {
@@ -399,6 +358,19 @@ namespace Cyber_Kitchen.Controllers
 
             if (ModelState.IsValid)
             {
+        {
+
+            //var result1 = _votMgr.GetVoters(model.Email);
+
+            //if (result1.Result.Email.Count() == 0)
+            //{
+            //    TempData["message"] = $"Your{""} details does not exist in the database";
+            //    return RedirectToAction("Register");
+            //}
+
+
+            //if (ModelState.IsValid)
+            //{
 
                 var roles = new string[] { "Admin", "User" };
                 ViewBag.proinfo = new SelectList(roles);
@@ -406,7 +378,7 @@ namespace Cyber_Kitchen.Controllers
 
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(user,"openmyvote");
 
                 if (result.Succeeded)
                 {
@@ -417,7 +389,9 @@ namespace Cyber_Kitchen.Controllers
                     }
 
 
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -429,10 +403,10 @@ namespace Cyber_Kitchen.Controllers
                     //{
                     //    return RedirectToAction("Index", "Home");
                     //}
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("ResetPassword", "Account");
                 }
                 AddErrors(result);
-            }
+          //  }
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -466,21 +440,33 @@ namespace Cyber_Kitchen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+             var open = "open";
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if(model.Password.ToLower().Trim() == open)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    //dosomething
+
+                    //var user = await UserManager.FindByNameAsync(model.Email);
+                    var voter = _votMgr.GetVoters(model.Email);
+                    //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    //Send an email with this link
+                    string code = await UserManager.GeneratePasswordResetTokenAsync(model.Email);
+                    var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = model.Email, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(model.Email, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+
+
+
+                //if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                //{
+                //    // Don't reveal that the user does not exist or is not confirmed
+                //    return View("ForgotPasswordConfirmation");
+                //}
+
+
             }
 
             // If we got this far, something failed, redisplay form
@@ -500,7 +486,9 @@ namespace Cyber_Kitchen.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+
+            // return code == null ? View("Error") : View();
+            return View();
         }
 
         //
@@ -520,16 +508,18 @@ namespace Cyber_Kitchen.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+            var token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            var result = await UserManager.ResetPasswordAsync(user.Id, token, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Login", "Account");
             }
             AddErrors(result);
             return View();
         }
 
-        //
+       
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()

@@ -8,6 +8,7 @@ using System.Web;
 using System.IO;
 using Cyber_Kitchen.Interface.Utils;
 using Cyber_Kitchen.Entities;
+using Microsoft.AspNet.Identity;
 
 namespace Cyber_Kitchen.Manager
 {
@@ -15,11 +16,12 @@ namespace Cyber_Kitchen.Manager
     {
         private ApplicationDbContext _context;
         private IExcelProcessor _excel;
-
+        //private UserManager<ApplicationUser> _usermanager;
         public VoterManager(ApplicationDbContext context, IExcelProcessor excel)
         {
             _context = context;
             _excel = excel;
+           // _usermanager = usermanager;
         }
 
         public Operation<VoterModel> CreateVoter(VoterModel model)
@@ -28,7 +30,7 @@ namespace Cyber_Kitchen.Manager
             {
                 //model.Validate();
 
-                var isExists = _context.Voters.Where(c => c.UserId == model.UserId).FirstOrDefault();
+                var isExists = _context.Voters.Where(c => c.StaffName == model.StaffName && c.VoterId == model.VoterId).FirstOrDefault();
                 if (isExists != null) throw new Exception("voter already exist");
 
                 var entity = model.Create(model);
@@ -46,20 +48,21 @@ namespace Cyber_Kitchen.Manager
 
                 var models = entities.Select(c => new VoterModel(c)
                 {
+                    // this are fk to aviod the id displaying in the UI
                     //User = new ApplicationUser(c.User)
                 }
                 ).ToArray();
                 return models;
             });
         }
-         //this mothod was added to validate users in the db before login
-        public Operation<List<Voter>> GetVoters(string email)
+        // this mothod was added to validate users in the db before login
+        public Operation<Voter> GetVoters(string email)
         {
             return Operation.Create(() =>
             {
-                List<Voter> model = new List<Voter>();
-                var entities = _context.Voters.Where(u => u.Email == email).ToList();
-
+               // List<Voter> model = new List<Voter>();
+                var entities = _context.Voters.Where(x => x.Email == email).FirstOrDefault();
+                if (entities == null) throw new Exception("user does not exist");
 
                 return entities;
             });
@@ -138,6 +141,13 @@ namespace Cyber_Kitchen.Manager
                             //ModifiedDate  = DateTime.Now
                         };
                         _context.Voters.Add(voterEntity);
+
+                        //var appuser = new ApplicationUser() {
+                        //    UserName = row.StaffName,
+                        //    PasswordHash = row.StaffNo,
+                        //    Email = row.Email
+                        //};
+                        //_usermanager.CreateAsync(appuser, appuser.PasswordHash);
                         continue;
                     }
             
