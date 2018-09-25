@@ -41,9 +41,6 @@ namespace Cyber_Kitchen.Controllers
 
             //_roleMgr = roleMgr;
             // _excel = excel;
-
-
-
         }
 
         IAuthenticationManager _auth => HttpContext.GetOwinContext().Authentication;
@@ -277,7 +274,7 @@ namespace Cyber_Kitchen.Controllers
                     return View(model);
             }
 
-            return View();
+            //return View();
         }
 
         //
