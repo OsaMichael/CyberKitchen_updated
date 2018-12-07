@@ -1,0 +1,71 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.navbar-inverse {
+    background-color: #128bf2;
+    border-color: #080808;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #f8f3f3;
+}
+
+/*.navbar-inverse .navbar-nav > li > a {
+    color: #222222;
+}*/
+.navbar-inverse .navbar-brand {
+    color: #222222;
+}
+.navbar-inverse .navbar-brand {
+    color: rgb(249, 247, 247);
+}
+h1, .h1 {
+    font-size: 15px;
+}
+.jumbotron {
+    font-size: 30px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: inherit;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 6px 12px;
+    font-size: 18px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.input, select, textarea {
+    max-width: 480px;
+}

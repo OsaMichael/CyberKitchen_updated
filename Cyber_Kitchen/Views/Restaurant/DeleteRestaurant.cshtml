@@ -1,0 +1,172 @@
+﻿@*@model Cyber_Kitchen.Models.RestaurantModel
+
+@{
+    ViewBag.Title = "DeleteRestaurant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+@*div class="page-content-wrapper">
+<div class="page-content" style="min-height:1603px">
+    <div class="page-bar">
+        <div class="page-title-breadcrumb">
+            <div class=" pull-left">
+                <div class="page-title">Delete Restaurant</div>
+            </div>*@*
+            @*<ol class="breadcrumb page-breadcrumb pull-right">
+                <li>
+                    <i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a class="parent-item" href="#">CourseOfStudy</a>&nbsp;<i class="fa fa-angle-right"></i>
+                </li>
+                <li class="active">Delete CourseOfStudy</li>
+            </ol>*@
+        @*</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-head">*@
+                    @*<header>Basic Information</header>*@
+                    @*<button id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right" data-upgraded=",MaterialButton">
+                        <i class="material-icons">more_vert</i>
+                    </button>*@
+                    @*<div class="mdl-menu__container is-upgraded">
+                        <div class="mdl-menu__outline mdl-menu--bottom-right"></div><ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events" data-mdl-for="panel-button" data-upgraded=",MaterialMenu,MaterialRipple">
+                            <li class="mdl-menu__item mdl-js-ripple-effect" tabindex="-1" data-upgraded=",MaterialRipple"><i class="material-icons">assistant_photo</i>Action<span class="mdl-menu__item-ripple-container"><span class="mdl-ripple"></span></span></li>
+                            <li class="mdl-menu__item mdl-js-ripple-effect" tabindex="-1" data-upgraded=",MaterialRipple"><i class="material-icons">print</i>Another action<span class="mdl-menu__item-ripple-container"><span class="mdl-ripple"></span></span></li>
+                            <li class="mdl-menu__item mdl-js-ripple-effect" tabindex="-1" data-upgraded=",MaterialRipple"><i class="material-icons">favorite</i>Something else here<span class="mdl-menu__item-ripple-container"><span class="mdl-ripple"></span></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body" id="bar-parent">
+                    <form action="DeleteRestaurant" method="Post" id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <div class="form-body">
+                            <div class="form-group row">
+                                <label class="control-label col-md-3">
+                                    Restaurant Name
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.RestName, new { @class = "form-control input-height", placeholder = "enter restaurant name" })
+                                    @Html.ValidationMessageFor(m => m.RestName, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.RestId, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>*@
+                            @*<div class="form-group row">
+                                <label class="control-label col-md-3">
+                                    CourseOfStudy Code
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>*@
+                                @*<div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.CourseOfStudyCode, new { @class = "form-control input-height", placeholder = "enter courseOfStudy code" })
+                                    @Html.ValidationMessageFor(m => m.CourseOfStudyCode, "", new { @class = "text-danger" })
+                                </div>*@
+                            @*</div>*@
+
+                            @*<div class="form-group row">
+                                    <label class="control-label col-md-3">
+                                        Status
+                                    </label>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-envelope"></i>
+                                            </span>
+                                            @Html.CheckBoxFor(m => m.Status)
+                                            @Html.LabelFor(m => m.Status)
+                                        </div>
+                                    </div>
+                                </div>*@
+                            @*<div class="form-actions">
+                                <div class="row">
+                                    <div class="offset-md-3 col-md-9">
+                                        <button type="submit" class="btn btn-info">Submit</button>
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>*@
+
+
+
+
+
+
+
+
+@*<h2>DeleteRestaurant</h2>*@
+
+@*<h3>Are you sure you want to delete this?</h3>*@
+@*<div>*@
+    @*<h4>RestaurantModel</h4>*@
+    @*<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RestName)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.IsCanceled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCanceled)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>*@

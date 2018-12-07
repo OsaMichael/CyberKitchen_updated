@@ -1,0 +1,141 @@
+﻿@model Cyber_Kitchen.Models.VoterModel
+
+@{
+    ViewBag.Title = "CreateVoter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb page-breadcrumb pull-right">
+    @*<li>
+        <i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+        <a class="parent-item" href="index">Voter</a>&nbsp;<i class="fa fa-angle-right"></i>
+    </li>*@
+
+</ol>
+<h1 class="alert-info">ADD STAFF</h1>
+<div class="card-body" id="bar-parent">
+    <form action="CreateVoter" method="Post" id="form_sample_1" class="form-horizontal">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-body">
+            <div class="form-group row">
+                <label class="control-label col-md-3">
+                    Staff Name
+                    <span @*class="required" aria-required="true"*@> *</span>
+                </label>
+                <div class="col-md-5">
+                    @Html.TextBoxFor(m => m.StaffName, new { @class = "form-control input-height", placeholder = "enter staff name" })
+                    @Html.ValidationMessageFor(m => m.StaffName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-md-3">
+                    Staff No.
+                    <span class="required" aria-required="true"> * </span>
+                </label>
+                <div class="col-md-5">
+                    @Html.TextBoxFor(m => m.StaffNo, new { @class = "form-control input-height", placeholder = "enter staff no" })
+                    @Html.ValidationMessageFor(m => m.StaffNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-md-3">
+                    Email
+                    <span class="required" aria-required="true"> * </span>
+                </label>
+                <div class="col-md-5">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-height", placeholder = "enter staff email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="offset-md-3 col-md-6 pull-right" >
+                        <button type="submit" class="btn btn-info" id="submitData">Save</button>
+                        @*<button type="button" class="btn btn-danger">Cancel</button>*@
+
+                    </div>
+                  
+                </div>
+            </div>
+            @*<div class="form-actions">
+                <div class="row">
+                    <div class="offset-md-2 col-md-2">
+                        <input type="file" accept="application/vnd.ms-excel" name="file" id="file" />
+                        <button type="submit" class="btn btn-info" id="submitData">Upload</button>
+                    </div>
+                    <div class="col-md-1">
+                        @*<a href="~/DataUploadTemplates/StaffNamesample.xlsx" download="">Download Template</a>*@
+
+                        @*@Html.ActionLink("Download Template", "DownloadStaffTemplate", "Voter")
+
+                    </div>
+                </div>
+            </div>*@
+            <div class=" col-md-1">
+                <a href="@Url.Action("Index","Voter", new { area = ""})" class="btn btn-chatpane">Back To List(s)</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+@*@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.VoterId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VoterId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VoterId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.VotName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VotName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VotName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StaffNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StaffNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}*@
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/toastr.js"></script>
+
+<script type="text/javascript">toastr.success("@(TempData["Message"] as string)");</script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
