@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - CyberKitchen</title>
+    @*<title>@ViewBag.Title - CyberKitchen</title>*@
+    <title>CYBERSPACE</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
@@ -20,19 +21,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("CyberKitchen", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Cyber Kitchen", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="~/Images/Cyberspace.png" alt="logo" width="100" height="55" style="margin-bottom:10px" />         
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-             
+
 
                     @if (User.IsInRole("Admin"))
-                    { 
+                    {
                         <li>@Html.ActionLink("Staff Names", "index", "Voter")</li>
                         <li>@Html.ActionLink("Upload Staffs", "UploadVoters", "Voter")</li>
                         <li>@Html.ActionLink("Restaurants", "index", "Restaurant")</li>
                         <li>@Html.ActionLink("Rating", "index", "Rating")</li>
                         <li>@Html.ActionLink("SummaryReport", "index", "SummaryReport")</li>
+                        <li>@Html.ActionLink("SetUp Period", "index", "Period")</li>
                         @*<li>@Html.ActionLink("Daily Meal", "index", "Meal")</li>*@
                     }
 

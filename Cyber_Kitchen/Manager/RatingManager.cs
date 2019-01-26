@@ -104,8 +104,76 @@ namespace Cyber_Kitchen.Manager
                 if (entity != null) throw new Exception("rating  exist");
                 return new RatingModel(entity);
 
+
             });
         }
+
+        #region PRIOD
+        public Operation<PeriodModel[]> GetPeriods()
+        {
+            return Operation.Create(() =>
+            {
+                var entities = _context.Periods.ToList();
+                var model = entities.Select(e => new PeriodModel(e)
+                {
+                    PeriodName = e.PeriodName,
+                    //IsApplicationActive = e.IsApplicationActive,
+                    CreatedBy = e.CreatedBy,
+
+                }
+                ).ToArray();
+                return model;
+            });
+        }
+
+        public bool CreatePeriod(PeriodModel model)
+        {
+            var entity = _context.Periods.Where(p => p.PeriodName == model.PeriodName).FirstOrDefault();
+            if (entity != null) throw new Exception("Period already exist");
+
+            var period = model.Create(model);
+            _context.Periods.Add(period);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public Operation<PeriodModel> GetPeriodById(int id)
+        {
+            return Operation.Create(() =>
+            {
+                var entity = _context.Periods.Find(id);
+                if (entity != null) throw new Exception("Period already exist");
+                return new PeriodModel();
+            });
+        }
+
+
+        public void ActivateInstructor(int instructorId)
+        {
+            var instructor = _context.Periods.Find(instructorId);
+            instructor.IsActive = true;
+            _context.Entry(instructor).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            //var entity = model.Edit(isExist, model);
+            //_unitOfWork.Commit();
+            //_context.Entry(mike).State = EntityState.Modified;
+            //_context.SaveChanges();
+        }
+
+        public void DeactivateInstructor(int instructorId)
+        {
+            var instructor = _context.Periods.Find(instructorId);
+            instructor.IsActive = false;
+            _context.Entry(instructor).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            //_instructorRepository.Update(instructor);
+            //_unitOfWork.Commit();
+        }
+
+        #endregion
+
         public Operation<List<SummaryReportModel>> GetRestaurantSummaryReport()
         {
             return Operation.Create(() =>

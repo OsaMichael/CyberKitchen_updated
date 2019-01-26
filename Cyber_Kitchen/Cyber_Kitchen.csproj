@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -280,6 +281,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MealController.cs" />
+    <Compile Include="Controllers\PeriodController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Controllers\ScoreController.cs" />
@@ -288,6 +290,7 @@
     <Compile Include="Entities\CatererInfo.cs" />
     <Compile Include="Entities\EntityRepository.cs" />
     <Compile Include="Entities\Meal.cs" />
+    <Compile Include="Entities\Period.cs" />
     <Compile Include="Entities\Ranking.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Restaurant.cs" />
@@ -468,6 +471,14 @@
     <Compile Include="Migrations\201810050209347_addispasswordchange.Designer.cs">
       <DependentUpon>201810050209347_addispasswordchange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901231539291_addtoremoveerror.cs" />
+    <Compile Include="Migrations\201901231539291_addtoremoveerror.Designer.cs">
+      <DependentUpon>201901231539291_addtoremoveerror.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231821488_addTOupdategoinghome.cs" />
+    <Compile Include="Migrations\201901231821488_addTOupdategoinghome.Designer.cs">
+      <DependentUpon>201901231821488_addTOupdategoinghome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -476,6 +487,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MealModel.cs" />
+    <Compile Include="Models\PeriodModel.cs" />
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\RestaurantModel.cs" />
@@ -765,6 +777,7 @@
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
     <Content Include="Images\10.jpg" />
+    <Content Include="Images\Cyberspace.png" />
     <Content Include="License.txt" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -786,6 +799,7 @@
     <Content Include="App_Data\packages\Constellation-Feature-Navigation-9.0.6.0.zip" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\cyberkichen2019.pubxml" />
     <None Include="Properties\PublishProfiles\cyberotober.pubxml" />
     <None Include="Properties\PublishProfiles\cybervot.pubxml" />
     <None Include="Properties\PublishProfiles\CyberVoter.pubxml" />
@@ -899,6 +913,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
     <Content Include="Views\Account\UploadSuccessful.cshtml" />
+    <Content Include="Views\Period\Index.cshtml" />
+    <Content Include="Views\Period\CreatePeriod.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1023,6 +1039,12 @@
     <EmbeddedResource Include="Migrations\201810050209347_addispasswordchange.resx">
       <DependentUpon>201810050209347_addispasswordchange.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231539291_addtoremoveerror.resx">
+      <DependentUpon>201901231539291_addtoremoveerror.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231821488_addTOupdategoinghome.resx">
+      <DependentUpon>201901231821488_addTOupdategoinghome.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -1030,6 +1052,7 @@
   <ItemGroup>
     <Folder Include="App_Config\" />
     <Folder Include="Content\Login_v4\__MACOSX\Login_v4\fonts\font-awesome-4.7.0\fonts\" />
+    <Folder Include="Scontent\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

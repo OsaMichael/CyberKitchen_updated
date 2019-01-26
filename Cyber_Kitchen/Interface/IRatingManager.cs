@@ -20,5 +20,12 @@ namespace Cyber_Kitchen.Interface
         //Operation<List<RankingModel>> GetRanking();
         //Operation DeleteSummaryReport(int id);
         //Operation<SummaryReportModel> GetSummaryReportById(int RestId);
+
+        Operation<PeriodModel[]> GetPeriods();
+        bool CreatePeriod(PeriodModel model);
+        Operation<PeriodModel> GetPeriodById(int id);
+        void DeactivateInstructor(int instructorId);
+        void ActivateInstructor(int instructorId);
+       // bool CreateRating(RatingModel model, int PeriodId);
     }
 }
