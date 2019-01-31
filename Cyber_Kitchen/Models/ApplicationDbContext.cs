@@ -18,10 +18,8 @@ namespace Cyber_Kitchen.Models
         public DbSet<AmountPrice> AmountPrices { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Period> Periods { get; set; }
-<<<<<<< HEAD
+
         public DbSet<History> Histories { get; set; }
-=======
->>>>>>> 45d48fb9b9502dc94d7482958e81beb27f2b68e7
         //public System.Data.Entity.DbSet<ApplicationUser> IdentityUsers { get; set; }
         //public DbSet<ApplicationUser> ApplicationUser { get; set; }
 

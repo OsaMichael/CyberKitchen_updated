@@ -27,10 +27,8 @@ namespace Cyber_Kitchen.Interface
         Operation<PeriodModel> GetPeriodById(int id);
         void DeactivateInstructor(int instructorId);
         void ActivateInstructor(int instructorId);
-<<<<<<< HEAD
+
         Operation<History> GetHistories(int histryId);
-=======
->>>>>>> 45d48fb9b9502dc94d7482958e81beb27f2b68e7
        // bool CreateRating(RatingModel model, int PeriodId);
     }
 }
