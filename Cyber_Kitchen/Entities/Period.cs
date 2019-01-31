@@ -6,7 +6,11 @@ using System.Web;
 
 namespace Cyber_Kitchen.Entities
 {
+<<<<<<< HEAD
     public partial class Period
+=======
+    public class Period
+>>>>>>> 45d48fb9b9502dc94d7482958e81beb27f2b68e7
     {
         [Key]
         public int PeriodId { get; set; }

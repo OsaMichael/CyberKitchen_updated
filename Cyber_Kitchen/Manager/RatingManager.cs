@@ -146,6 +146,7 @@ namespace Cyber_Kitchen.Manager
                 return new RatingModel(entity);
 
 
+<<<<<<< HEAD
             });
         }
 
@@ -188,6 +189,50 @@ namespace Cyber_Kitchen.Manager
             });
         }
 
+=======
+            });
+        }
+
+        #region PRIOD
+        public Operation<PeriodModel[]> GetPeriods()
+        {
+            return Operation.Create(() =>
+            {
+                var entities = _context.Periods.ToList();
+                var model = entities.Select(e => new PeriodModel(e)
+                {
+                    PeriodName = e.PeriodName,
+                    //IsApplicationActive = e.IsApplicationActive,
+                    CreatedBy = e.CreatedBy,
+
+                }
+                ).ToArray();
+                return model;
+            });
+        }
+
+        public bool CreatePeriod(PeriodModel model)
+        {
+            var entity = _context.Periods.Where(p => p.PeriodName == model.PeriodName).FirstOrDefault();
+            if (entity != null) throw new Exception("Period already exist");
+
+            var period = model.Create(model);
+            _context.Periods.Add(period);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public Operation<PeriodModel> GetPeriodById(int id)
+        {
+            return Operation.Create(() =>
+            {
+                var entity = _context.Periods.Find(id);
+                if (entity != null) throw new Exception("Period already exist");
+                return new PeriodModel();
+            });
+        }
+
+>>>>>>> 45d48fb9b9502dc94d7482958e81beb27f2b68e7
 
         public void ActivateInstructor(int instructorId)
         {
