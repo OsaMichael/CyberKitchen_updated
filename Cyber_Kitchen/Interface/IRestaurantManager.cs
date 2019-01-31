@@ -14,5 +14,8 @@ namespace Cyber_Kitchen.Interface
         Operation<RestaurantModel> GetRestaurantById(int restaurantId);
         //Operation Details(int id);
         Operation DeleteRestaurant(int id);
+        Operation<AmountPriceModel[]> GetAmountPrices();
+        Operation<AmountPriceModel> CreateAmountPrice(AmountPriceModel model);
+        Operation<AmountPriceModel> GetAmountPriceByCreatedBy(string amountId);
     }
 }

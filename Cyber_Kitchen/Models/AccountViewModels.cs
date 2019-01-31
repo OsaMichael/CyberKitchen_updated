@@ -44,6 +44,7 @@ namespace Cyber_Kitchen.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+       
     }
 
     public class LoginViewModel
@@ -61,7 +62,7 @@ namespace Cyber_Kitchen.Models
         //[Display(Name = "Email")]
         //[EmailAddress]
         public string Email { get; set; }
-        //public string StaffNo { get; set; }
+        public string StaffId { get; set; }
 
     }
 
@@ -84,6 +85,7 @@ namespace Cyber_Kitchen.Models
         public string ConfirmPassword { get; set; }
 
         public string Role { get; set; }
+        public string StaffId { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -92,6 +94,7 @@ namespace Cyber_Kitchen.Models
         //[EmailAddress]
         //[Display(Name = "Email")]
         public string Email { get; set; }
+        public string StaffId { get; set; }
 
         //[Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -115,5 +118,6 @@ namespace Cyber_Kitchen.Models
         public string Email { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public string StaffId { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace Cyber_Kitchen.Entities
         public string RestName { get; set; }
         public string TotalScore { get; set; }
         public bool IsCanceled { get; set; }
+        public bool IsChecked { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }

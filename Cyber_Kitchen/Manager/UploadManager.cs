@@ -46,10 +46,12 @@ namespace Cyber_Kitchen.Manager
                     row.CreatedBy = model.CreatedBy;
                     row.ModifiedBy = model.ModifiedBy;
                     row.StaffName = model.StaffName;
-                    row.StaffNo = model.StaffNo;
+                    row.Department = row.Department;
+                    row.StaffNo = model.StaffNo;           
                     row.Email = model.Email;
                     row.StaffName = row.StaffName /*== staffNm.StaffName ? row.StaffName : staffNm.StaffName*/;
-                    row.StaffNo = row.StaffNo;
+                    row.Department = row.Department;
+                    row.StaffNo = row.StaffNo;        
                     row.Email = row.Email  /*== staffNm.StaffNo ? row.StaffNo : staffNm.StaffNo*/;
 
                     if (staffNm == null)

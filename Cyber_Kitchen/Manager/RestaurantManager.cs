@@ -35,6 +35,22 @@ namespace Cyber_Kitchen.Manager
             });
         }
 
+        public Operation<AmountPriceModel> CreateAmountPrice(AmountPriceModel model)
+        {
+            return Operation.Create(() =>
+            {
+                //model.Validate();
+                var isExists = _context.AmountPrices.Where(c =>c.AmountPriceId == model.AmountPriceId && c.IsMfongComingBack == model.IsMfongComingBack).FirstOrDefault();
+                if (isExists != null) throw new Exception("Amount price already exist");
+
+                var entity = model.Create(model);
+                _context.AmountPrices.Add(entity);
+                _context.SaveChanges();
+
+                return model;
+            });
+        }
+
         public Operation<RestaurantModel[]> GetRestaurants()
         {
             return Operation.Create(() =>
@@ -45,6 +61,17 @@ namespace Cyber_Kitchen.Manager
                 return models;
             });
         }
+        public Operation<AmountPriceModel[]> GetAmountPrices()
+        {
+            return Operation.Create(() =>
+            {
+                var entities = _context.AmountPrices.ToList();
+
+                var models = entities.Select(c => new AmountPriceModel(c)).ToArray();
+                return models;
+            });
+        }
+
         public Operation<RestaurantModel> UpdateRestaurant(RestaurantModel model)
         {
 
@@ -72,7 +99,16 @@ namespace Cyber_Kitchen.Manager
 
             });
         }
+        public Operation<AmountPriceModel> GetAmountPriceByCreatedBy(string amountId)
+        {
+            return Operation.Create(() =>
+            {
+                var entity = _context.AmountPrices.Where(c => c.CreatedBy == amountId).FirstOrDefault();
+                if (entity == null) throw new Exception("Rating does not exist");
+                return new AmountPriceModel(entity);
 
+            });
+        }
         public Operation Details(int id)
         {
             return Operation.Create(() =>

@@ -10,6 +10,7 @@ namespace Cyber_Kitchen.Models
 {
     public class ScoreModel
     {
+        [Key]
         public int ScoreId { get; set; }
         //[DisplayName("Voters Name")]
         //[Required]

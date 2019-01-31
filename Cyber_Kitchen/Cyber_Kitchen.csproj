@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -275,19 +276,24 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmountPriceController.cs" />
     <Compile Include="Controllers\Api\RestaurantController.cs" />
     <Compile Include="Controllers\DataUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MealController.cs" />
+    <Compile Include="Controllers\PeriodController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Controllers\ScoreController.cs" />
     <Compile Include="Controllers\SummarReportController.cs" />
     <Compile Include="Controllers\VoterController.cs" />
+    <Compile Include="Entities\AmountPrice.cs" />
     <Compile Include="Entities\CatererInfo.cs" />
     <Compile Include="Entities\EntityRepository.cs" />
+    <Compile Include="Entities\History.cs" />
     <Compile Include="Entities\Meal.cs" />
+    <Compile Include="Entities\Period.cs" />
     <Compile Include="Entities\Ranking.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Restaurant.cs" />
@@ -307,6 +313,7 @@
     <Compile Include="Infrastructure\Utils\ExcelPro.cs" />
     <Compile Include="Interface\IDataRepository.cs" />
     <Compile Include="Interface\IEmailService.cs" />
+    <Compile Include="Interface\IFetchAmount.cs" />
     <Compile Include="Interface\IMealManager.cs" />
     <Compile Include="Interface\IRatingManager.cs" />
     <Compile Include="Interface\IRestaurantManager.cs" />
@@ -314,6 +321,7 @@
     <Compile Include="Interface\IUploadManager.cs" />
     <Compile Include="Interface\IVoterManager.cs" />
     <Compile Include="Interface\Utils\IExcelProcessor.cs" />
+    <Compile Include="Manager\FetchManager.cs" />
     <Compile Include="Manager\MealManager.cs" />
     <Compile Include="Manager\RatingManager.cs" />
     <Compile Include="Manager\RestaurantManager.cs" />
@@ -468,14 +476,99 @@
     <Compile Include="Migrations\201810050209347_addispasswordchange.Designer.cs">
       <DependentUpon>201810050209347_addispasswordchange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901231539291_addtoremoveerror.cs" />
+    <Compile Include="Migrations\201901231539291_addtoremoveerror.Designer.cs">
+      <DependentUpon>201901231539291_addtoremoveerror.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231821488_addTOupdategoinghome.cs" />
+    <Compile Include="Migrations\201901231821488_addTOupdategoinghome.Designer.cs">
+      <DependentUpon>201901231821488_addTOupdategoinghome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241056248_addPeriod.cs" />
+    <Compile Include="Migrations\201901241056248_addPeriod.Designer.cs">
+      <DependentUpon>201901241056248_addPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241355523_addIsCheck.cs" />
+    <Compile Include="Migrations\201901241355523_addIsCheck.Designer.cs">
+      <DependentUpon>201901241355523_addIsCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901250624131_addPriceToRestaurant.cs" />
+    <Compile Include="Migrations\201901250624131_addPriceToRestaurant.Designer.cs">
+      <DependentUpon>201901250624131_addPriceToRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901250708120_addIconcelToRestaurant.cs" />
+    <Compile Include="Migrations\201901250708120_addIconcelToRestaurant.Designer.cs">
+      <DependentUpon>201901250708120_addIconcelToRestaurant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901251208334_addAmountToRating.cs" />
+    <Compile Include="Migrations\201901251208334_addAmountToRating.Designer.cs">
+      <DependentUpon>201901251208334_addAmountToRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901251743070_addIcatererSelectedToRating.cs" />
+    <Compile Include="Migrations\201901251743070_addIcatererSelectedToRating.Designer.cs">
+      <DependentUpon>201901251743070_addIcatererSelectedToRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901251937023_addAmountPrice.cs" />
+    <Compile Include="Migrations\201901251937023_addAmountPrice.Designer.cs">
+      <DependentUpon>201901251937023_addAmountPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901252023016_addAmount.cs" />
+    <Compile Include="Migrations\201901252023016_addAmount.Designer.cs">
+      <DependentUpon>201901252023016_addAmount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901271245321_addupdate26.cs" />
+    <Compile Include="Migrations\201901271245321_addupdate26.Designer.cs">
+      <DependentUpon>201901271245321_addupdate26.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901271656261_addHistory.cs" />
+    <Compile Include="Migrations\201901271656261_addHistory.Designer.cs">
+      <DependentUpon>201901271656261_addHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901271806260_AddupdateHistory.cs" />
+    <Compile Include="Migrations\201901271806260_AddupdateHistory.Designer.cs">
+      <DependentUpon>201901271806260_AddupdateHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901271810311_AddupdateHistorydatetime.cs" />
+    <Compile Include="Migrations\201901271810311_AddupdateHistorydatetime.Designer.cs">
+      <DependentUpon>201901271810311_AddupdateHistorydatetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901271825512_AddupdateHistorydatetimemore.cs" />
+    <Compile Include="Migrations\201901271825512_AddupdateHistorydatetimemore.Designer.cs">
+      <DependentUpon>201901271825512_AddupdateHistorydatetimemore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901280630355_changeStartDataToDateTime.cs" />
+    <Compile Include="Migrations\201901280630355_changeStartDataToDateTime.Designer.cs">
+      <DependentUpon>201901280630355_changeStartDataToDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901280741364_addcreatedbytohistory.cs" />
+    <Compile Include="Migrations\201901280741364_addcreatedbytohistory.Designer.cs">
+      <DependentUpon>201901280741364_addcreatedbytohistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901280759502_addDepartmentToVoter.cs" />
+    <Compile Include="Migrations\201901280759502_addDepartmentToVoter.Designer.cs">
+      <DependentUpon>201901280759502_addDepartmentToVoter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901300708213_removeDepartmtRequire.cs" />
+    <Compile Include="Migrations\201901300708213_removeDepartmtRequire.Designer.cs">
+      <DependentUpon>201901300708213_removeDepartmtRequire.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901301106188_removeDepartmtAD.cs" />
+    <Compile Include="Migrations\201901301106188_removeDepartmtAD.Designer.cs">
+      <DependentUpon>201901301106188_removeDepartmtAD.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AmountPriceModel.cs" />
+    <Compile Include="Models\AmountPriceViemodel.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Extension.cs" />
+    <Compile Include="Models\HistoryModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MealModel.cs" />
+    <Compile Include="Models\PeriodModel.cs" />
+    <Compile Include="Models\RatingExtensionModel.cs" />
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\RestaurantModel.cs" />
@@ -602,6 +695,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\11.jpg" />
+    <Content Include="Images\12.jpg" />
     <Content Include="Images\2.jpg" />
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
@@ -765,6 +859,7 @@
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
     <Content Include="Images\10.jpg" />
+    <Content Include="Images\Cyberspace.png" />
     <Content Include="License.txt" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -786,6 +881,12 @@
     <Content Include="App_Data\packages\Constellation-Feature-Navigation-9.0.6.0.zip" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\cyberacount.pubxml" />
+    <None Include="Properties\PublishProfiles\cyberereee.pubxml" />
+    <None Include="Properties\PublishProfiles\CyberHomeview.pubxml" />
+    <None Include="Properties\PublishProfiles\Cyberkichen1.pubxml" />
+    <None Include="Properties\PublishProfiles\cyberkichen2019.pubxml" />
+    <None Include="Properties\PublishProfiles\cyberkichenacount.pubxml" />
     <None Include="Properties\PublishProfiles\cyberotober.pubxml" />
     <None Include="Properties\PublishProfiles\cybervot.pubxml" />
     <None Include="Properties\PublishProfiles\CyberVoter.pubxml" />
@@ -899,6 +1000,9 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
     <Content Include="Views\Account\UploadSuccessful.cshtml" />
+    <Content Include="Views\Period\Index.cshtml" />
+    <Content Include="Views\Period\CreatePeriod.cshtml" />
+    <Content Include="Views\AmountPrice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1023,6 +1127,66 @@
     <EmbeddedResource Include="Migrations\201810050209347_addispasswordchange.resx">
       <DependentUpon>201810050209347_addispasswordchange.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231539291_addtoremoveerror.resx">
+      <DependentUpon>201901231539291_addtoremoveerror.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231821488_addTOupdategoinghome.resx">
+      <DependentUpon>201901231821488_addTOupdategoinghome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241056248_addPeriod.resx">
+      <DependentUpon>201901241056248_addPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241355523_addIsCheck.resx">
+      <DependentUpon>201901241355523_addIsCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901250624131_addPriceToRestaurant.resx">
+      <DependentUpon>201901250624131_addPriceToRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901250708120_addIconcelToRestaurant.resx">
+      <DependentUpon>201901250708120_addIconcelToRestaurant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901251208334_addAmountToRating.resx">
+      <DependentUpon>201901251208334_addAmountToRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901251743070_addIcatererSelectedToRating.resx">
+      <DependentUpon>201901251743070_addIcatererSelectedToRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901251937023_addAmountPrice.resx">
+      <DependentUpon>201901251937023_addAmountPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901252023016_addAmount.resx">
+      <DependentUpon>201901252023016_addAmount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901271245321_addupdate26.resx">
+      <DependentUpon>201901271245321_addupdate26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901271656261_addHistory.resx">
+      <DependentUpon>201901271656261_addHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901271806260_AddupdateHistory.resx">
+      <DependentUpon>201901271806260_AddupdateHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901271810311_AddupdateHistorydatetime.resx">
+      <DependentUpon>201901271810311_AddupdateHistorydatetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901271825512_AddupdateHistorydatetimemore.resx">
+      <DependentUpon>201901271825512_AddupdateHistorydatetimemore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280630355_changeStartDataToDateTime.resx">
+      <DependentUpon>201901280630355_changeStartDataToDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280741364_addcreatedbytohistory.resx">
+      <DependentUpon>201901280741364_addcreatedbytohistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901280759502_addDepartmentToVoter.resx">
+      <DependentUpon>201901280759502_addDepartmentToVoter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901300708213_removeDepartmtRequire.resx">
+      <DependentUpon>201901300708213_removeDepartmtRequire.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901301106188_removeDepartmtAD.resx">
+      <DependentUpon>201901301106188_removeDepartmtAD.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -1030,6 +1194,7 @@
   <ItemGroup>
     <Folder Include="App_Config\" />
     <Folder Include="Content\Login_v4\__MACOSX\Login_v4\fonts\font-awesome-4.7.0\fonts\" />
+    <Folder Include="Scontent\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -41,6 +41,16 @@
             </div>
             <div class="form-group row">
                 <label class="control-label col-md-3">
+                    Department
+                    <span class="required" aria-required="true"> * </span>
+                </label>
+                <div class="col-md-5">
+                    @Html.TextBoxFor(m => m.Department, new { @class = "form-control input-height", placeholder = "enter staff email" })
+                    @Html.ValidationMessageFor(m => m.Department, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-md-3">
                     Email
                     <span class="required" aria-required="true"> * </span>
                 </label>

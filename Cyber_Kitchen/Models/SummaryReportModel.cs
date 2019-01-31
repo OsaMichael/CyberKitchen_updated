@@ -24,6 +24,9 @@ namespace Cyber_Kitchen.Models
         public virtual int? Quantity { get; set; }
         public virtual int? CustomerServices { get; set; }
         public virtual int? TimeLiness { get; set; }
+        public virtual string AmountPriceId { get; set; }
+        public string CreatedBy { get; set; }
+        public virtual string IsMfongComingBack { get; set; }
 
 
 

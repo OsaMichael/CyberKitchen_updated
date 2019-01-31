@@ -1,5 +1,7 @@
 ﻿using Cyber_Kitchen.Entities;
 using Cyber_Kitchen.Interface;
+using Cyber_Kitchen.Models;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +56,63 @@ namespace Cyber_Kitchen.Controllers
             var results = _ratMgr.GetRatingById(id);
             return View(results);
         }
+
+        public ActionResult Export()
+        {
+            //ViewBag.Profile = context.Cybers.ToList();
+            var list = _ratMgr.GetRestaurantSummaryReport();
+   
+            
+
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+
+            ws.Cells["A1"].Value = "Restaurant Name";
+            ws.Cells["B1"].Value = " EntryDate";
+            ws.Cells["C1"].Value = "TotalSum";
+
+            ws.Cells["D1"].Value = "Taste";
+            ws.Cells["E1"].Value = "Quality";
+            ws.Cells["F1"].Value = "CustomerServices";
+            ws.Cells["G1"].Value = "TimeLiness";
+    
+
+
+
+
+
+            int rowStart = 2;
+            foreach (var item in list.Result)
+            {
+                //converting expireddate format to string 
+                //  var stringDate = item.ExpiringDate;
+
+                ws.Cells[string.Format("A{0}", rowStart)].Value = item.RestName;
+                ws.Cells[string.Format("B{0}", rowStart)].Value = item.EntryDate.ToString();
+                ws.Cells[string.Format("C{0}", rowStart)].Value = item.RestSum;
+                ws.Cells[string.Format("D{0}", rowStart)].Value = item.Quality;
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.Quantity;
+                ws.Cells[string.Format("F{0}", rowStart)].Value = item.CustomerServices;
+                ws.Cells[string.Format("G{0}", rowStart)].Value = item.TimeLiness;
+            
+
+
+                rowStart++;
+            }
+
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
+
+            return RedirectToAction("Index");
+
+
+        }
+
+
         //public ActionResult Details(int id)
         //{
         //    var result = _scoreMgr

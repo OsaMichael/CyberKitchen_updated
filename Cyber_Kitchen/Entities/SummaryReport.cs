@@ -14,5 +14,8 @@ namespace Cyber_Kitchen.Entities
         public string RestName { get; set; }
         public DateTime EntryDate { get; set; }
         public int RestSum { get; set; }
+        public  string AmountPriceId { get; set; }
+        public  string IsMfongComingBack { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

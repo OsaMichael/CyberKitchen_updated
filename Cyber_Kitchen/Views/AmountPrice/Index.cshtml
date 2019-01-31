@@ -1,0 +1,55 @@
+﻿@model Cyber_Kitchen.Models.AmountPriceViemodel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1></h1>
+<h3 class="alert-info">HOW MUCH PEOPLE ARE WILLING TO PAY</h3>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            
+        </th>
+        <th>
+            @Html.DisplayName("N500")
+        </th>
+        <th>
+            @Html.DisplayName("N600")
+        </th>
+        <th>
+            @Html.DisplayName("N800")
+        </th>
+        <br />
+        <th>@Html.DisplayName("Bring Back Mfong (Yes)")</th>
+        <th>@Html.DisplayName("Bring Back Mfong (No)")</th>
+
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Total Count</th>
+        <td>
+            @Model.FiveHundred
+        </td>
+        <td>
+            @Model.SixHundred
+        </td>
+        <td>
+            @Model.EightHundred
+        </td>
+
+        <td>
+            @Model.Yes
+        </td>
+
+        <td>@Model.No</td>
+       
+    </tr>
+
+
+</table>

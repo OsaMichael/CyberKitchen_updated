@@ -9,7 +9,7 @@ namespace Cyber_Kitchen.Models
 {
     public class VoterModel 
     {
-   
+        [Key]
         public int VoterId { get; set; }
         public string UserId { get; set; }
         [Required]
@@ -18,6 +18,8 @@ namespace Cyber_Kitchen.Models
         public string StaffNo { get; set; }
         [Required]
         public string Email { get; set; }
+     
+        public string Department { get; set; }
         public string Message { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
@@ -46,6 +48,7 @@ namespace Cyber_Kitchen.Models
                 StaffName = model.StaffName,
                 StaffNo = model.StaffNo,
                 Email =    model.Email,
+                Department = model.Department,
                 CreatedBy = model.CreatedBy,
                 CreatedDate = DateTime.Now,
                 //ModifiedDate = DateTime.Now
@@ -59,6 +62,7 @@ namespace Cyber_Kitchen.Models
             entity.UserId = model.UserId;
             entity.StaffName = model.StaffName;
             entity.StaffNo = model.StaffNo;
+            entity.Department = model.Department;
             entity.Email   = model.Email;
             //entity.CreatedBy = model.CreatedBy;
             entity.ModifiedBy = model.ModifiedBy;

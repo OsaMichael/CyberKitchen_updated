@@ -17,6 +17,7 @@
         <tr>
             @*<th> Rest Id </th>*@
             <th> Restaurants Name </th>
+            @*<th> Price </th>*@
             @if (User.IsInRole("Admin"))
             {
                 <th> Date Created </th>
@@ -33,7 +34,11 @@
             {
             <tr class="gradeX odd" role="row" id="row-@item.RestId">
              
-                <td>@Html.DisplayFor(modelItem => item.RestName)</td>
+                <td>
+              @Html.DisplayFor(modelItem => item.RestName)
+            </td>
+            @*<td>@Html.DisplayFor(modelItem => item.Price)</td>*@
+
                 @if (User.IsInRole("Admin"))
                 {
                     <td>@String.Format("{0:d}", item.CreatedDate)</td>

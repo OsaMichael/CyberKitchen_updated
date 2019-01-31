@@ -7,8 +7,17 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int ratingPeriod = 0;
+    ratingPeriod = Convert.ToInt32(ViewBag.Period);
 }
+
+
 <h1></h1>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+
 <p class="btn-default pull-right">
     @using (Html.BeginForm("Index", "Voter", FormMethod.Get))
     {
@@ -40,7 +49,7 @@
                 <th> Staff Name </th>
                 <th> Staff NO. </th>
                 <th>Email</th>
-               
+                <th> Department </th>
                 <th> Date Created </th>
                 <th> Action </th>
                 }
@@ -68,6 +77,7 @@
                 <td>@Html.DisplayFor(modelItem => item.StaffName)</td>
                 <td>@Html.DisplayFor(modelItem => item.StaffNo)</td>
                 <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Department)</td>
                 @if (User.IsInRole("Admin"))
                 {
                 <td>@String.Format("{0:d}", item.CreatedDate)</td>

@@ -15,8 +15,10 @@ namespace Cyber_Kitchen.Models
         public DbSet<Score> Scores { get; set; }
         public DbSet<SummaryReport> SummaryReports { get; set; }
         public DbSet<Rating> Ratings { get; set; }
-        //public DbSet<CatererInfo> CatererInfos { get; set; }
+        public DbSet<AmountPrice> AmountPrices { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<Period> Periods { get; set; }
+        public DbSet<History> Histories { get; set; }
         //public System.Data.Entity.DbSet<ApplicationUser> IdentityUsers { get; set; }
         //public DbSet<ApplicationUser> ApplicationUser { get; set; }
 

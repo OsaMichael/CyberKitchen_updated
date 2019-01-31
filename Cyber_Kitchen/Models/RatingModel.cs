@@ -20,6 +20,7 @@ namespace Cyber_Kitchen.Models
         public int? RestId { get; set; }
         //[Required]
         public string UserId { get; set; }
+        public int? PeriodId { get; set; }
         //[Required]
         // public string StaffNo { get; set; }
         public string Sid { get; set; }
@@ -35,7 +36,13 @@ namespace Cyber_Kitchen.Models
         public int TimeLiness { get; set; }
         [Required]
         public int CustomerServices { get; set; }
+        public string AmountPriceId { get; set; }
         public decimal TotalScore { get; set; }
+        public decimal AmountPay { get; set; }
+        public bool IsBackTo { get; set; }
+        public string IsMfongCominBack{ get; set; }
+        public bool IsCatererSelected { get; set; }
+        public bool IsChecked { get; set; }
         public string Message { get; set; }
         public string ImageUrl { get; set; }
         public string CreatedBy { get; set; }
@@ -46,7 +53,7 @@ namespace Cyber_Kitchen.Models
         public virtual RestaurantModel Restaurant { get; set; }
         public virtual VoterModel Voters { get; set; }
         public virtual ApplicationUser User { get; set; }
-        //public virtual UserProfile UserPro { get; set; }
+        public virtual PeriodModel Periods { get; set; }
 
 
         public RatingModel()
@@ -54,7 +61,7 @@ namespace Cyber_Kitchen.Models
             new RestaurantModel();
             new VoterModel();
             new ApplicationUser();
-          //  new UserProfile();
+            new PeriodModel();
     }
 
         public RatingModel(Rating ratings)
@@ -63,7 +70,7 @@ namespace Cyber_Kitchen.Models
             Restaurant = new RestaurantModel();
             Voters = new VoterModel();
            User = new ApplicationUser();
-           // UserPro = new UserProfile();
+            Periods = new PeriodModel();
 
         }
 
@@ -74,14 +81,20 @@ namespace Cyber_Kitchen.Models
                 RestId = model.RestId,
                 VoterId = model.VoterId,
                 UserId = model.UserId,
-              
+                PeriodId = model.PeriodId,
+                AmountPay = model.AmountPay,
+                IsBackTo = model.IsBackTo,
                 Sid   = model.Sid,
+                IsChecked = model.IsChecked,
+                IsCatererSelected = model.IsCatererSelected,
+                IsMfongCominBack = model.IsMfongCominBack,
                 Taste = model.Taste,
                 Quality = model.Quality,
                 Quantity = model.Quantity,
                 TimeLiness = model.TimeLiness,
                 CustomerServices = model.CustomerServices,
-                TotalScore = model.TotalScore, 
+                TotalScore = model.TotalScore,
+                 AmountPriceId = model.AmountPriceId, 
                 //UserName = model.UserName,              
                 //FirstName = model.FirstName,
                 //LastName = model.LastName,
@@ -97,9 +110,13 @@ namespace Cyber_Kitchen.Models
             entity.RestId = model.RestId;
             entity.VoterId = model.VoterId;
             entity.UserId = model.UserId;
+            entity.PeriodId = model.PeriodId;
             entity.Taste = model.Taste;
+            entity.IsChecked = model.IsChecked;
             entity.Quality = model.Quality;
             entity.Quantity = model.Quantity;
+            entity.IsBackTo = model.IsBackTo;
+            entity.AmountPay = model.AmountPay;
             entity.TimeLiness = model.TimeLiness;
             entity.CustomerServices = model.CustomerServices;
             entity.TotalScore = model.TotalScore;

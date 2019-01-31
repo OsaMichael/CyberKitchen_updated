@@ -33,7 +33,7 @@ namespace Cyber_Kitchen.Controllers
         private ApplicationUserManager _userManager;
         private IVoterManager _votMgr;
         private ElasticEmailService _ElasticEmailService;
-
+        private ApplicationUser appUsr;
         //private IExcelProcessor _excel;
         // the bolow roleManager was added
         private RoleManager<IdentityRole> _roleMgr;
@@ -214,6 +214,9 @@ namespace Cyber_Kitchen.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
+         
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -234,46 +237,25 @@ namespace Cyber_Kitchen.Controllers
                 //}
                 ////////////
 
-                //var user1 = UserManager.Users.Where(w => w.Email == model.Email).FirstOrDefault();
-                //if (user1 == null) return RedirectToAction("login", "account");
+                var results = _votMgr.GetVoters(model.StaffId);
 
-                //if (user1.IsPasswordChange == true)
-                //{
-                //    //Check to see if the password is correct
-                //    var token = UserManager.GeneratePasswordResetToken(userId);
+                if (results == null)
+                {
 
+                    TempData["message"] = $"Your{""} details does not exist in the database";
+                    return View();
+                }
 
-                //    UserManager.ResetPassword(userId, token,)
+                var user1 = UserManager.Users.Where(w => w.StaffId == model.StaffId /*&& model.Password == model.Password*/).FirstOrDefault();
+                if (user1 == null) return RedirectToAction("login", "account");
 
-                //    return RedirectToAction("Login", "Account");
-                //}
-                //else
-                //{
-                //    //User has not changed password
-                //    return RedirectToAction("ResetPassword", "Account");
-                //}
+                if (user1.IsPasswordChange == true)
+                {
 
-               
-                //return RedirectToAction("ResetPassword", "Account");
-
-
-                var results = _votMgr.GetVoters(model.Email);
-
-                    if (results == null)
-                    {
-
-                        TempData["message"] = $"Your{""} details does not exist in the database";
-                        return View();
-                    }
-
-                    if (!ModelState.IsValid)
-                    {
-                        return View(model);
-                    }
-
-                    // This doesn't count login failures towards account lockout
-                    // To enable password failures to trigger account lockout, change to shouldLockout: true
-                    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                    //Check to see if the password is correct
+                    //var token = UserManager.GeneratePasswordResetToken(userId);
+                    //UserManager.ResetPassword(userId, token,)
+                    var result = await SignInManager.PasswordSignInAsync(model.StaffId, model.Password, model.RememberMe, shouldLockout: false);
 
                     switch (result)
                     {
@@ -281,9 +263,9 @@ namespace Cyber_Kitchen.Controllers
                         case SignInStatus.Success:
 
                             //the bellow codes was added to authenticate the roles
-                            var user = UserManager.FindByEmailAsync(model.Email);
+                            var user = UserManager.FindByName(model.StaffId);//.FindByEmailAsync(model.StaffId);
 
-                            var role = UserManager.GetRoles(user.Result.Id).FirstOrDefault();
+                            var role = UserManager.GetRoles(user.Id).FirstOrDefault();
 
                             if (role == "Admin")
                             {
@@ -303,16 +285,32 @@ namespace Cyber_Kitchen.Controllers
                             ModelState.AddModelError("", "Invalid login attempt.");
                             return View(model);
                     }
-
-            //}
-
-
-            //if  (model.Password.Trim() == "open")
-            //{
-            //    return RedirectToAction("ResetPassword", "Account");
-            //}
+                }
+                else
+                {
+                    //User has not changed password
+                    return RedirectToAction("ResetPassword", "Account", model);
+                }
 
 
+                //return RedirectToAction("ResetPassword", "Account");
+
+
+                //var results = _votMgr.GetVoters(model.StaffId);
+
+                //if (results == null)
+                //{
+
+                //    TempData["message"] = $"Your{""} details does not exist in the database";
+                //    return View();
+                //}
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+             
         }
 
             return View();
@@ -401,7 +399,7 @@ namespace Cyber_Kitchen.Controllers
 
 
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.StaffId, StaffId = model.StaffId };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -525,9 +523,9 @@ namespace Cyber_Kitchen.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string code, LoginViewModel LoginModel)
         {
-
+            ViewBag.staffno = LoginModel.StaffId.ToString();
             // return code == null ? View("Error") : View();
             return View();
         }
@@ -543,7 +541,7 @@ namespace Cyber_Kitchen.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByNameAsync(model.StaffId);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -552,14 +550,15 @@ namespace Cyber_Kitchen.Controllers
 
             var token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
             var result = await UserManager.ResetPasswordAsync(user.Id, token, model.Password);
-            if (result.Succeeded/* && user.IsPasswordChange == true*/)
+            if (result.Succeeded && user.IsPasswordChange == false)
             {
+
                 using (ApplicationDbContext context = new ApplicationDbContext())
                 {
-                    //var objUser = context.ApplicationUsers.FirstOrDefault(x => x.Email == user.Email);
-                    //objUser.IsPasswordChange = true;
-                    //context.Entry<ApplicationUser>(objUser).State = EntityState.Modified;
-                    //    context.SaveChanges();
+                    var objUser = context.Users.FirstOrDefault(x => x.StaffId == user.StaffId);
+                    objUser.IsPasswordChange = true;
+                    context.Entry<ApplicationUser>(objUser).State = EntityState.Modified;
+                    context.SaveChanges();
                 }
                 return RedirectToAction("Login", "Account");
             }

@@ -10,7 +10,7 @@
     </ol>
 </div>
 <h1 class="alert-info">TOTAL RESULT FOR EACH RESTAURANT</h1>
-<div">
+
     <table class="table table-striped table-bordered table-hover ">
         <thead>
             <tr>
@@ -55,6 +55,15 @@
 
         </tbody>
     </table>
+    <div class="row">
+
+    </div>
+<div class="pull-left">
+    <a href="@Url.Action("Index", "AmountPrice")" class="btn btn-info "><i class="fa fa-plus"></i>Check details of amount to pay </a>
+</div>
+    <p class="pull-right">
+        @Html.ActionLink("Export to Excel", "Export", "SummaryReport", new { @class = "btn btn-primary" })
+    </p>
     @*<div class="panel-footer">
             @Html.ActionLink("TOTAL RESULT FOR EACH CATERER", "Details", null, new { @class = "btn btn-info" })
         </div>*@

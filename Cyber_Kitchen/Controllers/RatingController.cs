@@ -74,35 +74,87 @@ namespace Cyber_Kitchen.Controllers
             ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
             // ViewBag.restaurants = new SelectList(_restMgr.GetRestaurants().Result, "RestId", "RestName");
             // here i pass the data to the view
-            ViewBag.restaurants = _restMgr.GetRestaurants().Result;
+            ViewBag.restaurants = _restMgr.GetRestaurants().Result.ToList();
+            ViewBag.periods = _ratMgr.GetPeriods().Result;
+            //ViewBag.ratins = _ratMgr.GetRatings().Result;
+            //var ratings = _ratMgr.GetPeriods().Result;
+            //int RatingPeriod = ratings[0].PeriodId;
+            //ViewBag.Period = RatingPeriod.ToString();
 
             return View();
         }
 
-        [HttpPost]
-        public ActionResult CreateRating(List<RatingModel> model)
-        {
+        [HttpPost, ActionName("CreateRating")]
+        public ActionResult CreateRating(RatingExtensionModel model)
+        {// RatingExtensionModel is a viewMoDEL that was use to pass the list of restaurants
             // voters was pass but was not used
             ViewBag.voters = new SelectList(_votMgr.GetVoters().Result, "VoterId", "StaffName");
-            ViewBag.restaurants = _restMgr.GetRestaurants().Result;
+            ViewBag.restaurants = _restMgr.GetRestaurants().Result.ToList();
 
             var ratingModel = new Operation<RatingModel>();
             // var ratingModel = new List<RatingModel>();//do this u re not using Operation class
 
             if (ModelState.IsValid)
             {
+            
                 try
                 {
-                    foreach (var item in model)
+                    bool result = false;
+                    string staffId = User.Identity.GetUserName();
+
+                    foreach (var item in model.ListRating)
                     {
+                  
                         ////to get the userId that login
-                        item.CreatedBy = User.Identity.GetUserName();
-                        var result = _ratMgr.CreateRating(item);
+                        item.CreatedBy = staffId;
+                        RatingModel ratungmodel = new RatingModel
+                        {
+                           Quantity = item.Quantity,
+                          Quality = item.Quality,
+                          Taste = item.Taste,
+                          TimeLiness = item.TimeLiness,
+                          CustomerServices = item.CustomerServices,
+                          CreatedBy = item.CreatedBy,
+                           RestId = item.RestId
+                                  
+                        };
+                         result = _ratMgr.CreateRating(ratungmodel);
                         ratingModel.Succeeded = true;
+
+
+                        
                     }
+                    if (result)
+                    {
+                        // here i save the other two questions into another table
+                        var amountPrice = new AmountPriceModel
+                        {
+                            CreatedBy = staffId,
+                            IsMfongComingBack = model.IsMfongComingBack,
+                            AmountPriceId = model.IsCatererSelected.ToString(),
+                            CreatedDate = DateTime.Now
+                        };
+                        // here i save the other two questions into another table
+                        var amount = _restMgr.CreateAmountPrice(amountPrice);
+                        {
+                            if (amount.Succeeded)
+                            {
+
+                            }
+                            else
+                            {
+                                throw new Exception("Please checked the button before submit");
+                            }
+                        }
+
+                    }
+
 
                     if (ratingModel.Succeeded == true)
                     {
+                        //var results = _restMgr.GetRestaurants().Result.Where(x => x.IsChecked == true);
+                        //return Content(String.Join(",", results.Select(x => x.RestId)));
+
                         TempData["message"] = $"    Your{""} voting was successfully added!";
                         if (User.IsInRole("Admin"))
                         {

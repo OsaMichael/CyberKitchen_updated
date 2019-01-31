@@ -1,4 +1,5 @@
-﻿using Cyber_Kitchen.Models;
+﻿using Cyber_Kitchen.Entities;
+using Cyber_Kitchen.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,13 @@ namespace Cyber_Kitchen.Interface
         //Operation<List<RankingModel>> GetRanking();
         //Operation DeleteSummaryReport(int id);
         //Operation<SummaryReportModel> GetSummaryReportById(int RestId);
+
+        Operation<PeriodModel[]> GetPeriods();
+        bool CreatePeriod(PeriodModel model);
+        Operation<PeriodModel> GetPeriodById(int id);
+        void DeactivateInstructor(int instructorId);
+        void ActivateInstructor(int instructorId);
+        Operation<History> GetHistories(int histryId);
+       // bool CreateRating(RatingModel model, int PeriodId);
     }
 }

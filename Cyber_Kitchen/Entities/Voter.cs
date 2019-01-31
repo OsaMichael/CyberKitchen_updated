@@ -14,7 +14,8 @@ namespace Cyber_Kitchen.Entities
         public string StaffName { get; set; }
             public string Email { get; set; }
             public string StaffNo { get; set; }
-            public string CreatedBy { get; set; }
+        public string Department { get; set; }
+        public string CreatedBy { get; set; }
             public DateTime CreatedDate { get; set; }
             public string ModifiedBy { get; set; }
             public DateTime ModifiedDate { get; set; }

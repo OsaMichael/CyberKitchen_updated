@@ -70,12 +70,12 @@ namespace Cyber_Kitchen.Manager
             });
         }
         // this mothod was added to validate users in the db before login
-        public Operation<Voter> GetVoters(string email)
+        public Operation<Voter> GetVoters(string staffno)
         {
             return Operation.Create(() =>
             {
                // List<Voter> model = new List<Voter>();
-                var entities = _context.Voters.Where(x => x.Email == email).FirstOrDefault();
+                var entities = _context.Voters.Where(x => x.StaffNo == staffno).FirstOrDefault();
                 if (entities == null) throw new Exception("user does not exist");
 
                 return entities;
@@ -135,7 +135,7 @@ namespace Cyber_Kitchen.Manager
                 foreach (var row in sheet)
                 {
                     // note: I check if staffNo exist in the database, if null, add the data and save it. if yes, edit the data and save it.
-                    var voter = _context.Voters.Where(v => v.StaffName == row.StaffName && v.StaffNo ==row.StaffNo && v.Email == row.Email).FirstOrDefault();
+                    var voter = _context.Voters.Where(v => v.StaffName == row.StaffName && v.StaffNo ==row.StaffNo && v.Email == row.Email && v.Department == row.Department).FirstOrDefault();
                     row.CreatedBy = model.CreatedBy;
                     row.ModifiedBy = model.ModifiedBy;
                     row.CreatedDate = DateTime.Now;
@@ -154,7 +154,8 @@ namespace Cyber_Kitchen.Manager
                             CreatedDate = DateTime.Now,
 
                             StaffName = row.StaffName,
-                            StaffNo = row.StaffNo,
+                            Department = row.Department,
+                            StaffNo = row.StaffNo,                 
                             Email = row.Email
                             //ModifiedDate  = DateTime.Now
                         };

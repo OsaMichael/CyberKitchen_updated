@@ -22,11 +22,9 @@ namespace Cyber_Kitchen
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-
             // In Startup iam creating first Admin Role and creating a default Admin User    
-            if (!roleManager.RoleExists("Admin"))
+            if (roleManager.RoleExists("Admin"))
             {
-
                 // first we create Admin rool   
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Admin";
@@ -36,12 +34,13 @@ namespace Cyber_Kitchen
 
                 var user = new ApplicationUser();
                 //user.StaffId = "23";
-                user.UserName = "admin@gmail.com";
-                user.Email = "admin@gmail.com";
-                
+                //user.UserName = "admin@gmail.com";
+                //user.Email = "admin@gmail.com";
 
-
-                string userPWD = "Password123@";
+                user.UserName = "CBY000";
+                user.Email = "CBY000";
+                //string userPWD = "Password123@";
+                string userPWD = "password";
 
                 var chkUser = UserManager.Create(user, userPWD);
 

@@ -16,7 +16,18 @@ namespace Cyber_Kitchen.Models
         //[Required]
         public string RestName { get; set; }
         public string TotalScore { get; set; }
+        [Required]
+        public int Taste { get; set; }
+        [Required]
+        public int Quality { get; set; }
+        [Required]
+        public int Quantity { get; set; }
+        [Required]
+        public int TimeLiness { get; set; }
+        [Required]
+        public int CustomerServices { get; set; }
         public string CreatedBy { get; set; }
+        public bool IsChecked { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
@@ -50,8 +61,10 @@ namespace Cyber_Kitchen.Models
             {
                 RestName = model.RestName,
                 TotalScore = model.TotalScore,
+                 
                 CreatedBy = model.CreatedBy,
                 ModifiedBy = model.ModifiedBy,
+                 IsChecked = model.IsChecked,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now
 

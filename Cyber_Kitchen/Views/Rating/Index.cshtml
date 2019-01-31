@@ -44,7 +44,7 @@
                 <th> TimeLiness </th>
                 <th>CustomerServices</th>
                 <th> TotalScore</th>
-
+          
                 @if (User.IsInRole("Admin"))
                 {
                     <th> Date Created </th>
@@ -71,7 +71,6 @@
                     <td>@Html.DisplayFor(modelItem => item.TimeLiness)</td>
                     <td>@Html.DisplayFor(modelItem => item.CustomerServices)</td>
                     <td>@Html.DisplayFor(modelItem => item.TotalScore)</td>
-                  
                         <td>@String.Format("{0:d}", item.CreatedDate)</td>
                     }
                     @if (User.IsInRole("Admin"))
@@ -90,8 +89,9 @@
                    
                     
                 </tr>
-                
             }
+
+         
 
         </tbody>
     </table>

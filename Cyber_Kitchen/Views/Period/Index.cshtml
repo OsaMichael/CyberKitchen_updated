@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Cyber_Kitchen.Models.PeriodModel>
+
+@{
+                
+
+                ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@section Menu {
+        @Scripts.Render("~/Scripts/Tables/Data/menu")
+    }*@
+
+<h1 class="alert-info">LIST OF PERIODS</h1>
+<div class="btn-group">
+
+    <a href="@Url.Action("CreatePeriod", "Period")" class="btn btn-info "><i class="fa fa-plus"></i>Add New Period </a>
+
+</div>
+<table class="table table-striped table-bordered table-hover col-form-label-sm">
+    <thead>
+        <tr>
+            <th width="50">Status</th>
+            <th> Period Name </th>
+            <th>Start Date </th>
+            <th>End Date </th>
+            <th>Discription</th>
+            <th>Date Created </th>
+            @*<th> Action </th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    <span>@Html.ActionLink(" ", item.IsActive ? "Deactivate" : "Activate", "Period", new { id = item.PeriodId }, new { @class = item.IsActive ? "label label-success" : "label label-danger", @title = item.IsActive ? "Deactivate" : "Activate" })</span>
+                </td>
+
+                <td>@Html.DisplayFor(modelItem => item.PeriodName)</td>
+                <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.Discription)</td>
+
+
+                <td>@String.Format("{0:d}", item.CreatedDate)</td>
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section Script{
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    @Scripts.Render("~/Scripts/Tables/Data")
+
+    @*<script>
+        $(".pmd-switch").find("input[type=checkbox]").on("change", function () {
+            if ($(this).prop('checked') == true) {
+
+                $(this).parent().parent().prev().prop('checked', true);
+
+            }
+            else {
+                $(this).parent().parent().prev().prop('checked', false)
+            }
+        });
+
+
+        $(document).ready(function () {
+            $('.pmd-checkbox input').after('<span class="pmd-checkbox-label">&nbsp;</span>');
+            // Ripple Effect //
+            $(".pmd-checkbox-ripple-effect").on('mousedown', function (e) {
+                var rippler = $(this);
+                $('.ink').remove();
+                // create .ink element if it doesn't exist
+                if (rippler.find(".ink").length === 0) {
+                    rippler.append('<span class="ink"></span>');
+                }
+                var ink = rippler.find(".ink");
+                // prevent quick double clicks
+                ink.removeClass("animate");
+                // set .ink diametr
+                if (!ink.height() && !ink.width()) {
+                    //	var d = Math.max(rippler.outerWidth(), rippler.outerHeight());
+                    ink.css({ height: 20, width: 20 });
+                }
+                // get click coordinates
+                var x = e.pageX - rippler.offset().left - ink.width() / 2;
+                var y = e.pageY - rippler.offset().top - ink.height() / 2;
+                // set .ink position and add class .animate
+                ink.css({
+                    top: y + 'px',
+                    left: x + 'px'
+                }).addClass("animate");
+                setTimeout(function () {
+                    ink.remove();
+                }, 1500);
+            });
+        });*@
+
+
+
+    @*</script>*@
+
+}
+
+
+
+
