@@ -9,6 +9,7 @@ namespace Cyber_Kitchen.Models
 {
     public class AmountPriceModel
     {
+        public int ID { get; set; }
         public int? RestId { get; set; }
         [Required]
         public string AmountPriceId { get; set; }

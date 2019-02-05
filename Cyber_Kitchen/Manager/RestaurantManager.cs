@@ -39,15 +39,29 @@ namespace Cyber_Kitchen.Manager
         {
             return Operation.Create(() =>
             {
-                //model.Validate();
-                var isExists = _context.AmountPrices.Where(c =>c.AmountPriceId == model.AmountPriceId && c.IsMfongComingBack == model.IsMfongComingBack).FirstOrDefault();
-                if (isExists != null) throw new Exception("Amount price already exist");
+                try
+                {
+                    //model.Validate();
+                    var isExists = _context.AmountPrices.Where(c => c.CreatedBy == model.CreatedBy).FirstOrDefault();
+                    //if (isExists != null) throw new Exception("You cant vote twice");
 
+
+                }
+
+                catch( Exception ex)
+                {
+                    throw ex;
+                }
                 var entity = model.Create(model);
+    
                 _context.AmountPrices.Add(entity);
+
                 _context.SaveChanges();
 
+
                 return model;
+
+                
             });
         }
 

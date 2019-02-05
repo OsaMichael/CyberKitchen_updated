@@ -140,11 +140,12 @@ namespace Cyber_Kitchen.Controllers
                             if (amount.Succeeded)
                             {
 
+                                TempData["message"] = $"    Your{""} voting was successfully added!";
                             }
-                            else
-                            {
-                                throw new Exception("Please checked the button before submit");
-                            }
+                            //else
+                            //{
+                            //    throw new Exception("Please checked the button before submit");
+                            //}
                         }
 
                     }

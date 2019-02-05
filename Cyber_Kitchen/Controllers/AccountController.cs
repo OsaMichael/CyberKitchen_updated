@@ -237,14 +237,14 @@ namespace Cyber_Kitchen.Controllers
                 //}
                 ////////////
 
-                var results = _votMgr.GetVoters(model.StaffId);
+                //var results = _votMgr.GetVoters(model.StaffId);
 
-                if (results == null)
-                {
+                //if (results == null)
+                //{
 
-                    TempData["message"] = $"Your{""} details does not exist in the database";
-                    return View();
-                }
+                //    TempData["message"] = $"Your{""} details does not exist in the database";
+                //    return View();
+                //}
 
                 var user1 = UserManager.Users.Where(w => w.StaffId == model.StaffId /*&& model.Password == model.Password*/).FirstOrDefault();
                 if (user1 == null) return RedirectToAction("login", "account");
@@ -482,11 +482,11 @@ namespace Cyber_Kitchen.Controllers
 
                 //var user = await UserManager.FindByNameAsync(model.Email);
 
-                var staff = _votMgr.GetVoters(model.Email);
-                    if(staff == null)
-                {
-                    TempData["Message"] = "User Not exist.";
-                }
+                //var staff = _votMgr.GetVoters(model.Email);
+                //    if(staff == null)
+                //{
+                //    TempData["Message"] = "User Not exist.";
+                //}
                 //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 //Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);

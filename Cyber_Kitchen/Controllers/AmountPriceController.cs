@@ -24,7 +24,7 @@ namespace Cyber_Kitchen.Controllers
             }
             var results = _restMgr.GetAmountPrices();
 
-            var myList = new List<AmountPriceViemodel>();
+           // var myList = new List<AmountPriceViemodel>();
 
 
             var assign = new AmountPriceViemodel()
